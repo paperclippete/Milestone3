@@ -1,0 +1,49 @@
+/*site colors*/
+ 
+$caramel: #be570c;
+$pistachio: #b9ff66;
+$ppink: #ffded4;
+$choc: #673f33;
+$dchoc: #3b241f;
+$dpink: #ffc1c1;
+$overlay: #ffc1c191;
+
+body {
+    background-color: $caramel;
+    font-family: 'Noto Sans', sans-serif;
+    color: $dchoc;
+}
+
+.navbar {
+    background-color: $dpink;
+    text-decoration: none;
+}
+
+.title {
+    font-family: 'Sofia', cursive;
+    color: $caramel;
+}
+
+.overlay {
+    left: 0px;
+    position: relative;
+    top: 10%;
+    background: $overlay;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    z-index: 1;
+}
+
+
+.video {
+    right: 0;
+    top: 10%;
+    width: 100%;
+    z-index: -1;
+    position: relative;
+}
+
+.footer {
+    
+}

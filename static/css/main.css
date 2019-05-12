@@ -1,0 +1,32 @@
+/*site colors*/
+body {
+  background-color: #be570c;
+  font-family: 'Noto Sans', sans-serif;
+  color: #3b241f; }
+
+.navbar {
+  background-color: #ffc1c1;
+  text-decoration: none; }
+
+.title {
+  font-family: 'Sofia', cursive;
+  color: #be570c; }
+
+.overlay {
+  left: 0px;
+  position: relative;
+  top: 10%;
+  background: #ffc1c191;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  z-index: 1; }
+
+.video {
+  right: 0;
+  top: 10%;
+  width: 100%;
+  z-index: -1;
+  position: relative; }
+
+/*# sourceMappingURL=main.css.map */
