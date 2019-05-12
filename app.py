@@ -4,9 +4,9 @@ from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 
 app = Flask(__name__)
-mongo = PyMongo(app)
 
-MONGODB_URI = os.getenv("MONGO_URI")
+
+MONGO_URI = os.getenv("MONGO_URI")
 DBS_NAME = os.getenv("DBS_NAME")
 
 
