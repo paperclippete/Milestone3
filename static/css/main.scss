@@ -1,6 +1,6 @@
-/*site colors*/
+/* site colors defined in SCSS*/
  
-$caramel: #be570c;
+$caramel: #883d07;
 $pistachio: #b9ff66;
 $ppink: #ffded4;
 $choc: #673f33;
@@ -8,42 +8,147 @@ $dchoc: #3b241f;
 $dpink: #ffc1c1;
 $overlay: #ffc1c191;
 
+/* site effects defined as mixins in SCSS */
+
+@mixin site-links {
+    background:
+       linear-gradient(
+       to right,
+       $caramel 0%,
+       $caramel 100%
+    );
+    background-position: 0 100%;
+    background-repeat: repeat-x;
+    background-size: 0.5px 0.5px;
+    text-decoration: none;
+    transition: background-size .025s;
+}
+
+@mixin site-links-hover {
+    background-size: 0.5px 50px;
+}
+
+/* site wide styles */
+
 body {
-    background-color: $caramel;
+    background-color: $dpink;
     font-family: 'Noto Sans', sans-serif;
     color: $dchoc;
 }
 
+.container-fluid {
+    padding: 0px;
+}
+
 .navbar {
     background-color: $dpink;
-    text-decoration: none;
+    color: $dchoc;
+    padding: 0px;
+    box-shadow: 0px 1px 5px 0px rgba(127,96,96,1);
+}
+
+.navbar-brand {
+    margin: 0px;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 15px;
+    padding-right: 15px;
+    color: $dchoc;
+    font-family: 'Sofia', cursive;
+    font-size: 2rem;
+    @include site-links;
+    &:hover {
+        color: $dpink;
+        @include site-links-hover;
+    }
+}
+
+.nav-link {
+    margin: 0px;
+    padding: 15px;
+    color: $dchoc;
+    @include site-links;
+    &:hover {
+        color: $dpink;
+        @include site-links-hover;    
+    }
+}
+
+
+/* index styles */
+
+.desktop {
+    @media (max-width: 991.98px) {
+        display: none;
+    }
+    @media (min-width: 992px) {
+        visibility: visible;
+        height: 99%;
+        overflow: hidden; 
+    }
+}
+
+.mobile {
+    @media (max-width: 991.98px) {
+        visibility: visible;
+    }
+    @media (min-width: 992px) {
+        display: none;
+    }
+}
+
+.index-layout {
+    position: relative;
+    height: 95vh;
+    overflow: hidden;
 }
 
 .title {
+    position: absolute;
     font-family: 'Sofia', cursive;
     color: $caramel;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+
+#site-title {
+        @media (max-width: 991.98px) {
+        font-size: 3rem;
+    }
+        @media (min-width: 992px) {
+        font-size: 6.5rem;
+    }
 }
 
 .overlay {
+    position: absolute;
     left: 0px;
-    position: relative;
-    top: 10%;
     background: $overlay;
     width: 100%;
     height: 100%;
-    padding: 20px;
     z-index: 1;
+    
 }
 
 
-.video {
+#myVideo {
+    position: absolute;
     right: 0;
-    top: 10%;
     width: 100%;
     z-index: -1;
     position: relative;
 }
 
-.footer {
-    
+#mobile-background {
+    height: 100vh;
+    width: auto;
+}
+
+footer {
+    text-align: center;
 }

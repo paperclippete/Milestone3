@@ -1,32 +1,114 @@
-/*site colors*/
+/* site colors defined in SCSS*/
+/* site effects defined as mixins in SCSS */
+/* site wide styles */
 body {
-  background-color: #be570c;
+  background-color: #ffc1c1;
   font-family: 'Noto Sans', sans-serif;
   color: #3b241f; }
 
+.container-fluid {
+  padding: 0px; }
+
 .navbar {
   background-color: #ffc1c1;
-  text-decoration: none; }
+  color: #3b241f;
+  padding: 0px;
+  box-shadow: 0px 1px 5px 0px #7f6060; }
+
+.navbar-brand {
+  margin: 0px;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 15px;
+  padding-right: 15px;
+  color: #3b241f;
+  font-family: 'Sofia', cursive;
+  font-size: 2rem;
+  background: linear-gradient(to right, #883d07 0%, #883d07 100%);
+  background-position: 0 100%;
+  background-repeat: repeat-x;
+  background-size: 0.5px 0.5px;
+  text-decoration: none;
+  transition: background-size .025s; }
+  .navbar-brand:hover {
+    color: #ffc1c1;
+    background-size: 0.5px 50px; }
+
+.nav-link {
+  margin: 0px;
+  padding: 15px;
+  color: #3b241f;
+  background: linear-gradient(to right, #883d07 0%, #883d07 100%);
+  background-position: 0 100%;
+  background-repeat: repeat-x;
+  background-size: 0.5px 0.5px;
+  text-decoration: none;
+  transition: background-size .025s; }
+  .nav-link:hover {
+    color: #ffc1c1;
+    background-size: 0.5px 50px; }
+
+/* index styles */
+@media (max-width: 991.98px) {
+  .desktop {
+    display: none; } }
+@media (min-width: 992px) {
+  .desktop {
+    visibility: visible;
+    height: 99%;
+    overflow: hidden; } }
+
+@media (max-width: 991.98px) {
+  .mobile {
+    visibility: visible; } }
+@media (min-width: 992px) {
+  .mobile {
+    display: none; } }
+
+.index-layout {
+  position: relative;
+  height: 95vh;
+  overflow: hidden; }
 
 .title {
+  position: absolute;
   font-family: 'Sofia', cursive;
-  color: #be570c; }
+  color: #883d07;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  z-index: 2; }
+
+@media (max-width: 991.98px) {
+  #site-title {
+    font-size: 3rem; } }
+@media (min-width: 992px) {
+  #site-title {
+    font-size: 6.5rem; } }
 
 .overlay {
+  position: absolute;
   left: 0px;
-  position: relative;
-  top: 10%;
   background: #ffc1c191;
   width: 100%;
   height: 100%;
-  padding: 20px;
   z-index: 1; }
 
-.video {
+#myVideo {
+  position: absolute;
   right: 0;
-  top: 10%;
   width: 100%;
   z-index: -1;
   position: relative; }
+
+#mobile-background {
+  height: 100vh;
+  width: auto; }
+
+footer {
+  text-align: center; }
 
 /*# sourceMappingURL=main.css.map */

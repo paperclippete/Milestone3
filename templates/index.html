@@ -1,13 +1,16 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="row overlay">
-    <div class="col-12 title">
-        <h1> Dessert Finder</h1>
+<div class="index-layout">
+    <div class="overlay"></div>
+    <div class="title">
+        <h1 id="site-title">Dessert Finder</h1>
     </div>
-    <div class="col-12 video">
+    <div class="video desktop">
         <video autoplay muted loop id="myVideo"><source src="{{ url_for('static', filename='img/FoodPack1_18_Videvo.mov') }}" type="video/mp4"></video>
     </div>
+    <div class="video mobile">
+        <img src="{{ url_for('static', filename='img/art-artificial-background-1061581.jpg') }}" id="mobile-background"></img>
+    </div>
 </div>
-
 
 {% endblock %}
