@@ -20,6 +20,7 @@ $overlay: #ffc1c191;
     background-position: 0 100%;
     background-repeat: repeat-x;
     background-size: 0.5px 0.5px;
+    
     text-decoration: none;
     transition: background-size .025s;
 }
@@ -28,16 +29,24 @@ $overlay: #ffc1c191;
     background-size: 0.5px 50px;
 }
 
-/* site wide styles */
+@mixin cake-button {
+    
+}
 
 body {
-    background-color: $dpink;
+    background: {
+        color: $dpink;
+        image: linear-gradient($overlay, $overlay), url(../img/art-artificial-background-1061581.jpg);
+        size: cover;
+        repeat: no-repeat;
+    }
     font-family: 'Noto Sans', sans-serif;
     color: $dchoc;
 }
 
 .container-fluid {
     padding: 0px;
+    
 }
 
 .navbar {
@@ -57,10 +66,11 @@ body {
     font-family: 'Sofia', cursive;
     font-size: 2rem;
     @include site-links;
-    &:hover {
-        color: $dpink;
-        @include site-links-hover;
-    }
+}
+
+.navbar-brand:hover {
+    color: $dpink;
+    @include site-links-hover;    
 }
 
 .nav-link {
@@ -68,12 +78,21 @@ body {
     padding: 15px;
     color: $dchoc;
     @include site-links;
-    &:hover {
-        color: $dpink;
-        @include site-links-hover;    
-    }
 }
 
+.nav-link:hover {
+    color: $dpink;
+    @include site-links-hover;    
+}
+
+footer {
+    background-color: $dpink;
+    text-align: center;
+}
+
+.footer-info {
+    margin: 0;
+}
 
 /* index styles */
 
@@ -83,24 +102,35 @@ body {
     }
     @media (min-width: 992px) {
         visibility: visible;
-        height: 99%;
+        height: 100%;
         overflow: hidden; 
     }
 }
 
-.mobile {
-    @media (max-width: 991.98px) {
-        visibility: visible;
-    }
-    @media (min-width: 992px) {
-        display: none;
-    }
-}
 
 .index-layout {
     position: relative;
     height: 95vh;
     overflow: hidden;
+}
+
+.overlay {
+    left: 0px;
+    position: absolute;
+    top: 10%;
+    background: $overlay;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    z-index: 1;
+    @media (max-width: 991.98px) {
+        display: none;
+    }
+    @media (min-width: 992px) {
+        visibility: visible;
+        height: 100%;
+        overflow: hidden; 
+    }
 }
 
 .title {
@@ -125,23 +155,11 @@ body {
     }
 }
 
-.overlay {
-    position: absolute;
-    left: 0px;
-    background: $overlay;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    
-}
-
-
 #myVideo {
     position: absolute;
-    right: 0;
-    width: 100%;
+    width: 110%;
     z-index: -1;
-    position: relative;
+    
 }
 
 #mobile-background {
@@ -149,6 +167,38 @@ body {
     width: auto;
 }
 
-footer {
-    text-align: center;
+
+
+/* search results.html */
+
+.search-results-layout {
+    position: relative;
+    height: 95vh;
+    overflow-x: scroll;
+}
+
+.recipe-cards {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin: 0px; 
+    top: 10%;
+    position: absolute;
+    z-index: 2;
+}
+
+/* add recipe.html */
+
+.add-recipe-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.add-recipe {
+    margin: 100px 0px;
+    padding: 20px;
+    border-bottom-width: 20px;
+    background-color: $ppink;
+    width: 80%;
 }

@@ -1,8 +1,10 @@
 /* site colors defined in SCSS*/
 /* site effects defined as mixins in SCSS */
-/* site wide styles */
 body {
   background-color: #ffc1c1;
+  background-image: linear-gradient(#ffc1c191, #ffc1c191), url(../img/art-artificial-background-1061581.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
   font-family: 'Noto Sans', sans-serif;
   color: #3b241f; }
 
@@ -30,9 +32,10 @@ body {
   background-size: 0.5px 0.5px;
   text-decoration: none;
   transition: background-size .025s; }
-  .navbar-brand:hover {
-    color: #ffc1c1;
-    background-size: 0.5px 50px; }
+
+.navbar-brand:hover {
+  color: #ffc1c1;
+  background-size: 0.5px 50px; }
 
 .nav-link {
   margin: 0px;
@@ -44,9 +47,17 @@ body {
   background-size: 0.5px 0.5px;
   text-decoration: none;
   transition: background-size .025s; }
-  .nav-link:hover {
-    color: #ffc1c1;
-    background-size: 0.5px 50px; }
+
+.nav-link:hover {
+  color: #ffc1c1;
+  background-size: 0.5px 50px; }
+
+footer {
+  background-color: #ffc1c1;
+  text-align: center; }
+
+.footer-info {
+  margin: 0; }
 
 /* index styles */
 @media (max-width: 991.98px) {
@@ -55,20 +66,31 @@ body {
 @media (min-width: 992px) {
   .desktop {
     visibility: visible;
-    height: 99%;
+    height: 100%;
     overflow: hidden; } }
-
-@media (max-width: 991.98px) {
-  .mobile {
-    visibility: visible; } }
-@media (min-width: 992px) {
-  .mobile {
-    display: none; } }
 
 .index-layout {
   position: relative;
   height: 95vh;
   overflow: hidden; }
+
+.overlay {
+  left: 0px;
+  position: absolute;
+  top: 10%;
+  background: #ffc1c191;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  z-index: 1; }
+  @media (max-width: 991.98px) {
+    .overlay {
+      display: none; } }
+  @media (min-width: 992px) {
+    .overlay {
+      visibility: visible;
+      height: 100%;
+      overflow: hidden; } }
 
 .title {
   position: absolute;
@@ -89,26 +111,41 @@ body {
   #site-title {
     font-size: 6.5rem; } }
 
-.overlay {
-  position: absolute;
-  left: 0px;
-  background: #ffc1c191;
-  width: 100%;
-  height: 100%;
-  z-index: 1; }
-
 #myVideo {
   position: absolute;
-  right: 0;
-  width: 100%;
-  z-index: -1;
-  position: relative; }
+  width: 110%;
+  z-index: -1; }
 
 #mobile-background {
   height: 100vh;
   width: auto; }
 
-footer {
-  text-align: center; }
+/* search results.html */
+.search-results-layout {
+  position: relative;
+  height: 95vh;
+  overflow-x: scroll; }
+
+.recipe-cards {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin: 0px;
+  top: 10%;
+  position: absolute;
+  z-index: 2; }
+
+/* add recipe.html */
+.add-recipe-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.add-recipe {
+  margin: 100px 0px;
+  padding: 20px;
+  border-bottom-width: 20px;
+  background-color: #ffded4;
+  width: 80%; }
 
 /*# sourceMappingURL=main.css.map */

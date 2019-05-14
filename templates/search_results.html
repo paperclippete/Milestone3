@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="search-results-layout">
+    <div class="overlay"></div>
+    <div class="video">
+        <img src="{{ url_for('static', filename='img/art-artificial-background-1061581.jpg') }}" id="mobile-background"></img>
+    </div>
+    {% for recipe in recipes %}
+    <div class="card" style="width: 18rem;">
+        <img src="..." class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">{{recipe.title}}</h5>
+            <p class="card-text" style="overflow:hidden;">{{recipe.recipe_description}}</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+
+{% endblock %}
