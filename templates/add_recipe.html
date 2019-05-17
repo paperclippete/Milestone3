@@ -1,19 +1,19 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="add-recipe-layout">
+<div class="layout">
     <div class="add-recipe">
-        <form>
+        <form action="{{ url_for('insert_recipe') }}" method="POST">
             <div class="form-group">
-                <label for="formGroupExampleInput">Example label</label>
-                <input type="text" class="form-control" id="title" placeholder="Example input">
+                <label for="recipe_title">Recipe Title</label>
+                <input type="text" class="form-control" id="recipe_title" placeholder="Recipe Title">
             </div>
             <div class="form-group">
-                <label for="formGroupExampleInput2">Another label</label>
-                <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input">
+                <label for="author">Author</label>
+                <input type="text" class="form-control" id="author" value="{{ recipes.author }}">
             </div>
             <div class="form-group">
-                <label for="exampleFormControlTextarea1">Example textarea</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <label for="recipe_description">Write a short description...</label>
+                <textarea class="form-control" id="recipe_description" rows="4"></textarea>
             </div>
             <div class="form-inline">
                 <label class="sr-only" for="inlineFormInputName2">Name</label>

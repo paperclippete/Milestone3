@@ -9,7 +9,7 @@ app.config["MONGO_URI"] = os.getenv("MONGO_URI")
 app.config["DBS_NAME"] = os.getenv("DBS_NAME")
 
 mongo = PyMongo(app)
-recipes=mongo.db.Recipes
+recipes=mongo.db.recipes
 
 @app.route('/')
 def home():
@@ -17,7 +17,12 @@ def home():
     
 @app.route('/search_results')
 def search_results():
-    return render_template("search_results.html", recipes=mongo.db.Recipes.find())
+    return render_template("search_results.html", recipes=mongo.db.recipes.find())
+    
+@app.route('/view_recipe/<recipe_id>')
+def view_recipe(recipe_id):
+    the_recipe = recipes.find_one({"_id": ObjectId(recipe_id)})
+    return render_template("view_recipe.html", recipe=the_recipe)
     
 @app.route('/add_recipe')
 def add_recipe():
