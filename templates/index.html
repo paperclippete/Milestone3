@@ -4,8 +4,8 @@
     <div class="overlay"></div>
     <div class="title">
         <h1 id="site-title">Dessert Finder</h1>
-        <form>
-            <input class="form-control mr-sm-2" type="search" placeholder="Search">
+        <form action="{{ url_for('find_recipes') }}" method="POST">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" id="search_text" name="search_text">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
     </div>

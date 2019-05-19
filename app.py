@@ -15,6 +15,18 @@ recipes=mongo.db.recipes
 def home():
     return render_template("index.html")
     
+@app.route('/find_recipes', methods=['GET', 'POST'])
+def find_recipes(): 
+    if request.method == 'POST':
+        search_text = request.form.get("search_text")
+        mongo.db.recipes.create_index([("$**", 'text')])
+        cursor = mongo.db.recipes.find({ "$text": { "$search": search_text }})
+        recipes = [recipe for recipe in cursor]
+        return render_template("search_results.html", recipes=recipes)
+
+    return render_template("search_results.html", recipes=mongo.db.recipes.find())
+    
+    
 @app.route('/search_results')
 def search_results():
     return render_template("search_results.html", recipes=mongo.db.recipes.find())
