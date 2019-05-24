@@ -1,11 +1,12 @@
 /* site colors defined in SCSS*/
+/* site fonts defined in SCSS*/
 /* site effects defined as mixins in SCSS */
 body {
   background-color: #ffc1c1;
   background-image: linear-gradient(#ffc1c191, #ffc1c191), url(../img/art-artificial-background-1061581.jpg);
   background-size: cover;
-  background-repeat: no-repeat;
-  font-family: 'Noto Sans', sans-serif;
+  background-repeat: repeat;
+  font-family: "Noto Serif", serif;
   color: #3b241f; }
 
 .container-fluid {
@@ -24,7 +25,7 @@ body {
   padding-left: 15px;
   padding-right: 15px;
   color: #3b241f;
-  font-family: 'Sofia', cursive;
+  font-family: "Sofia", cursive;
   font-size: 2rem;
   background: linear-gradient(to right, #883d07 0%, #883d07 100%);
   background-position: 0 100%;
@@ -32,25 +33,28 @@ body {
   background-size: 0.5px 0.5px;
   text-decoration: none;
   transition: background-size .025s; }
+  .navbar-brand:hover {
+    color: #ffc1c1;
+    background-size: 0.5px 50px; }
 
-.navbar-brand:hover {
+.navbar-toggler:hover {
   color: #ffc1c1;
-  background-size: 0.5px 50px; }
+  background-color: #883d07; }
 
 .nav-link {
   margin: 0px;
   padding: 15px;
   color: #3b241f;
+  text-align: center;
   background: linear-gradient(to right, #883d07 0%, #883d07 100%);
   background-position: 0 100%;
   background-repeat: repeat-x;
   background-size: 0.5px 0.5px;
   text-decoration: none;
   transition: background-size .025s; }
-
-.nav-link:hover {
-  color: #ffc1c1;
-  background-size: 0.5px 50px; }
+  .nav-link:hover {
+    color: #ffc1c1;
+    background-size: 0.5px 50px; }
 
 footer {
   background-color: #ffc1c1;
@@ -58,6 +62,15 @@ footer {
 
 .footer-info {
   margin: 0; }
+
+.btn {
+  background-color: #ffc1c1;
+  color: #3b241f;
+  border-color: #b98a8a; }
+  .btn:hover, .btn:not(:disabled):not(.disabled):active {
+    background-color: #883d07;
+    color: #ffc1c1;
+    border-color: #3b241f; }
 
 /* index styles */
 @media (max-width: 991.98px) {
@@ -71,13 +84,15 @@ footer {
 
 .index-layout {
   position: relative;
-  height: 95vh;
+  height: 95.8vh;
   overflow: hidden; }
+  @media (min-width: 1023.98px) {
+    .index-layout {
+      height: 96.9vh; } }
 
 .overlay {
   left: 0px;
   position: absolute;
-  top: 10%;
   background: #ffc1c191;
   width: 100%;
   height: 100%;
@@ -94,7 +109,7 @@ footer {
 
 .title {
   position: absolute;
-  font-family: 'Sofia', cursive;
+  font-family: "Sofia", cursive;
   color: #883d07;
   display: flex;
   flex-direction: column;
@@ -104,39 +119,79 @@ footer {
   height: 100%;
   z-index: 2; }
 
-@media (max-width: 991.98px) {
-  #site-title {
-    font-size: 3rem; } }
-@media (min-width: 992px) {
-  #site-title {
-    font-size: 6.5rem; } }
+#site-title {
+  text-shadow: 2px 2px 4px #eac0a2; }
+  @media (max-width: 991.98px) {
+    #site-title {
+      font-size: 3rem; } }
+  @media (min-width: 992px) {
+    #site-title {
+      font-size: 6.5rem; } }
+
+#title-text {
+  text-align: center;
+  width: 80%;
+  font-size: 1.2rem;
+  text-shadow: 2px 2px 4px #eac0a2; }
 
 #myVideo {
   position: absolute;
-  width: 110%;
-  z-index: -1; }
-
-#mobile-background {
+  width: 100vh;
   height: 100vh;
-  width: auto; }
+  z-index: -1;
+  object-fit: cover;
+  object-position: left; }
+
+#index-search {
+  font-family: "Noto Serif", serif; }
 
 /* search results.html */
-.search-results-layout {
-  position: relative;
-  height: 95vh;
-  overflow-x: scroll; }
-
 .recipe-cards {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   margin: 0px;
-  top: 10%;
+  margin-top: 70px;
+  width: 100%; }
+
+.card {
+  height: 30rem;
+  width: auto;
+  margin-bottom: 15px;
+  background-color: #fff6f3; }
+
+.card-row {
+  margin: 0px; }
+
+.card-title {
+  font-family: "Sofia", cursive; }
+
+.card-text {
+  height: 8rem;
+  margin-bottom: 50px;
+  overflow: scroll; }
+
+.card-img-top {
+  height: 12rem; }
+
+.card-btn {
   position: absolute;
-  z-index: 2; }
+  bottom: 1.5rem;
+  background-color: #ffc1c1;
+  color: #3b241f;
+  border-color: #b98a8a; }
+  .card-btn:hover {
+    background-color: #883d07;
+    color: #ffc1c1;
+    border-color: #3b241f; }
+  .card-btn:not(:disabled):not(.disabled):active {
+    background-color: #883d07;
+    color: #ffc1c1;
+    border-color: #3b241f;
+    box-shadow: 0, 0, 0, 0.2rem rgba(185, 138, 138, 0.5); }
 
 /* add recipe.html */
-.add-recipe-layout {
+.layout {
   display: flex;
   flex-direction: column;
   align-items: center; }
@@ -145,7 +200,23 @@ footer {
   margin: 100px 0px;
   padding: 20px;
   border-bottom-width: 20px;
-  background-color: #ffded4;
+  background-color: #fff6f3;
   width: 80%; }
+
+/* view recipe.html */
+.view-recipe-layout {
+  display: flex;
+  flex-direction: row;
+  justify-content: center; }
+
+.view-recipe {
+  background-color: #fff6f3;
+  width: 80%;
+  margin-top: 70px;
+  padding-top: 15px;
+  padding-right: 30px;
+  padding-left: 30px;
+  padding-bottom: 15px;
+  margin-bottom: 70px; }
 
 /*# sourceMappingURL=main.css.map */

@@ -4,9 +4,26 @@
     <div class="overlay"></div>
     <div class="title">
         <h1 id="site-title">Dessert Finder</h1>
-        <form action="{{ url_for('find_recipes') }}" method="POST">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" id="search_text" name="search_text">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        <p id="title-text">Welcome to Dessert Finder. Search our database of delicious desserts by your favourite ingredient and find something to stun your family and friends.</p>
+        <form action="{{ url_for('find_recipes') }}" method="POST" id="index-search">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Search" aria-label="Search by ingredient" id="search_text" name="search_text">
+                <div class="input-group-append search-box">
+                    <button class="btn btn-outline-secondary site-btn" type="submit">Yummy!</button>
+                </div>
+            </div>
+                <!--<div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="vegancheck" name="vegancheck" value="vegan">
+                    <label class="form-check-label" for="vegancheck">Vegan</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="dairycheck" name="dairycheck" value="dairy_free">
+                    <label class="form-check-label" for="dairycheck">Dairy-Free</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="glutencheck" name="glutencheck" value="gluten_free">
+                    <label class="form-check-label" for="glutencheck">Gluten-Free</label>
+                </div> -->
         </form>
     </div>
     <div class="video desktop">

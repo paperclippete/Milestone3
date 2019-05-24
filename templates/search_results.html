@@ -1,27 +1,27 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="layout">
-    <div class="row recipe-cards">
-        {% for recipe in recipes %}
-        <div class="col-sm-1 col-md-4">
-            <div class="card" style="width: 18rem;">
-                {% if recipe.main_ingredient == "chocolate" %}
+<div class="search-results-layout">
+    <div class="recipe-cards">
+        <div class="row card-row">
+            {% for recipe in recipes %}
+            <div class="col-sm-12 col-md-6 col-lg-4">
+                <div class="card">
+                    {% if recipe.main_ingredient == "chocolate" %}
                     <img src="{{ url_for('static', filename='img/chocolates-close-up-cocoa-65882.jpg') }}" class="card-img-top"></img>
-                {% elif recipe.main_ingredient == "banana" %}
+                    {% elif recipe.main_ingredient == "banana" %}
                     <img src="{{ url_for('static', filename='img/berries-citrus-citrus-fruits-1132047.jpg') }}" class="card-img-top"></img>
-                {% endif %}
-                <div class="card-body">
-                    <h5 class="card-title">{{recipe.title}}</h5>
-                    <p class="card-text" style="overflow:hidden;">{{recipe.recipe_description}}</p>
-                    <a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}" class="btn btn-primary">View</a>
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title"><strong>{{recipe.title.title()}}</strong></h5>
+                        <p class="card-text">{{recipe.recipe_description}}</p>
+                        <a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}" class="btn btn-primary card-btn">View</a>
+                    </div>
                 </div>
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
-    </div>  
+    </div>
 </div>
-
-
 
 {% endblock %}
 

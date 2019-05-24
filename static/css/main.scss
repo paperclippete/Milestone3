@@ -2,11 +2,16 @@
  
 $caramel: #883d07;
 $pistachio: #b9ff66;
-$ppink: #ffded4;
+$ppink: #fff6f3;
 $choc: #673f33;
 $dchoc: #3b241f;
 $dpink: #ffc1c1;
 $overlay: #ffc1c191;
+
+/* site fonts defined in SCSS*/
+
+$site-font: 'Noto Serif', serif;
+$fancy-font: 'Sofia', cursive;
 
 /* site effects defined as mixins in SCSS */
 
@@ -30,7 +35,15 @@ $overlay: #ffc1c191;
 }
 
 @mixin cake-button {
-    
+    background-color: $dpink;
+    color: $dchoc;
+    border-color: #b98a8a;
+}
+
+@mixin cake-button-hover {
+    background-color: $caramel;
+    color: $dpink;
+    border-color: $dchoc;
 }
 
 body {
@@ -38,9 +51,9 @@ body {
         color: $dpink;
         image: linear-gradient($overlay, $overlay), url(../img/art-artificial-background-1061581.jpg);
         size: cover;
-        repeat: no-repeat;
+        repeat: repeat;
     }
-    font-family: 'Noto Sans', sans-serif;
+    font-family: $site-font;
     color: $dchoc;
 }
 
@@ -63,26 +76,33 @@ body {
     padding-left: 15px;
     padding-right: 15px;
     color: $dchoc;
-    font-family: 'Sofia', cursive;
+    font-family: $fancy-font;
     font-size: 2rem;
     @include site-links;
+    &:hover {
+        color: $dpink;
+        @include site-links-hover;
+    }
 }
 
-.navbar-brand:hover {
-    color: $dpink;
-    @include site-links-hover;    
+
+.navbar-toggler {
+    &:hover {
+        color: $dpink;
+        background-color: $caramel;
+    }
 }
 
 .nav-link {
     margin: 0px;
     padding: 15px;
     color: $dchoc;
+    text-align: center;
     @include site-links;
-}
-
-.nav-link:hover {
-    color: $dpink;
-    @include site-links-hover;    
+    &:hover {
+        color: $dpink;
+        @include site-links-hover;
+    }
 }
 
 footer {
@@ -92,6 +112,13 @@ footer {
 
 .footer-info {
     margin: 0;
+}
+
+.btn {
+    @include cake-button;
+    &:hover, &:not(:disabled):not(.disabled):active {
+        @include cake-button-hover;
+    }
 }
 
 /* index styles */
@@ -110,14 +137,16 @@ footer {
 
 .index-layout {
     position: relative;
-    height: 95vh;
+    height: 95.8vh;
     overflow: hidden;
+    @media (min-width: 1023.98px) {
+        height: 96.9vh;
+    }
 }
 
 .overlay {
     left: 0px;
     position: absolute;
-    top: 10%;
     background: $overlay;
     width: 100%;
     height: 100%;
@@ -135,7 +164,7 @@ footer {
 
 .title {
     position: absolute;
-    font-family: 'Sofia', cursive;
+    font-family: $fancy-font;
     color: $caramel;
     display: flex;
     flex-direction: column;
@@ -147,6 +176,7 @@ footer {
 }
 
 #site-title {
+        text-shadow: 2px 2px 4px #eac0a2;
         @media (max-width: 991.98px) {
         font-size: 3rem;
     }
@@ -155,16 +185,24 @@ footer {
     }
 }
 
-#myVideo {
-    position: absolute;
-    width: 110%;
-    z-index: -1;
-    
+#title-text {
+    text-align: center;
+    width: 80%;
+    font-size: 1.2rem;
+    text-shadow: 2px 2px 4px #eac0a2;
 }
 
-#mobile-background {
+#myVideo {
+    position: absolute;
+    width: 100vh;
     height: 100vh;
-    width: auto;
+    z-index: -1;
+    object-fit: cover;
+    object-position: left;
+}
+
+#index-search {
+    font-family: $site-font;
 }
 
 
@@ -172,9 +210,8 @@ footer {
 /* search results.html */
 
 .search-results-layout {
-    position: relative;
-    height: 95vh;
-    overflow-x: scroll;
+    
+    
 }
 
 .recipe-cards {
@@ -182,14 +219,51 @@ footer {
     flex-direction: column;
     flex-wrap: wrap;
     margin: 0px; 
-    top: 10%;
+    margin-top: 70px;
+    width: 100%;
+}
+
+.card {
+   height: 30rem;
+   width: auto;
+   margin-bottom: 15px;
+   background-color: $ppink;
+}
+
+.card-row {
+    margin: 0px
+}
+
+.card-title {
+    font-family: $fancy-font;
+}
+
+.card-text {
+    height: 8rem;
+    margin-bottom: 50px;
+    overflow: scroll;
+}
+
+.card-img-top {
+    height: 12rem;
+}
+
+.card-btn {
     position: absolute;
-    z-index: 2;
+    bottom: 1.5rem;
+    @include cake-button;
+    &:hover {
+        @include cake-button-hover;
+    }
+    &:not(:disabled):not(.disabled):active {
+        @include cake-button-hover;
+        box-shadow: 0, 0, 0, 0.2rem rgba(185,138,138,0.5);
+    }
 }
 
 /* add recipe.html */
 
-.add-recipe-layout {
+.layout {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -202,3 +276,26 @@ footer {
     background-color: $ppink;
     width: 80%;
 }
+
+/* view recipe.html */
+
+.view-recipe-layout {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+
+.view-recipe {
+    background-color: $ppink;
+    width: 80%;
+    margin-top: 70px;
+    padding-top: 15px;
+    padding-right: 30px;
+    padding-left: 30px;
+    padding-bottom: 15px;
+    margin-bottom: 70px;
+}
+
+
+

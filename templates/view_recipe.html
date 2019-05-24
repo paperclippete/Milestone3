@@ -3,7 +3,7 @@
 <div class="view-recipe-layout">
     <div class="view-recipe">
         <div class="recipe-title">
-            <h2>{{recipe.title}}</h2>
+            <h2>{{recipe.title.title()}}</h2>
         </div>
         <div class="recipe-body">
             <!--<div class="recipe-img">
@@ -18,19 +18,19 @@
                 <ul>
                     {% for item in recipe.ingredients %}
                         
-                        <li>{{item['ingredient']}} - {{item['amount']}}</li>
+                        <li>{{item['ingredient'].capitalize()}} - {{item['amount']}}</li>
                         
                     {% endfor %}
                 </ul>    
             </div>
             <div class="recipe-method">
                 <h4>Method</h4>
-                <p>{{recipe.method}}</p>
+                <p>{{recipe.method.capitalize()}}</p>
             </div>
         
             
         </div>
     </div>
-    
+</div>
 
 {% endblock %}
