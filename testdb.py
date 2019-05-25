@@ -1,13 +1,9 @@
 import pymongo
 import os
 
-MONGODB_URI = os.getenv("MONGO_URI")
-DBS_NAME = "myTestDB"
-COLLECTION_NAME = 'Recipes'
-
 MONGO_URI = os.getenv("MONGO_URI")
 DBS_NAME = os.getenv("DBS_NAME")
-
+COLLECTION_NAME = 'recipes'
 
 def mongo_connect(url):
     try:
@@ -21,20 +17,13 @@ conn = mongo_connect(MONGO_URI)
 
 coll = conn[DBS_NAME][COLLECTION_NAME]
 
+
 # Insert one entry
-"""
-new_doc = {'first': 'douglas', 'last': 'adams', 'dob': '11/03/1952', 'hair_colour': 'grey', 'occupation': 'writer', 'nationality': 'english'}
+
+new_doc = {'title': 'test apple pie', 'author': 'alexa', 'recipe_description': "This is a tasty apple filled treat, and it's so easy to make", 'main_ingredient': 'apple', 'ingredients': [{'ingredient':'apples', 'amount':'300g'}, {'ingredient':'sugar', 'amount': '100g'}], 'method': 'boil the apples and add the sugar, mix the two together...', 'vegan':True, 'dairy_free':False, 'gluten_free':False }
 
 coll.insert(new_doc)
-"""
 
-# Insert many entries
-"""
-new_docs = [{'first': 'terry', 'last': 'pratchett', 'gender': 'm', 'dob': '28/04/1948', 'hair_colour': 'not much', 'occupation': 'writer', 'nationality': 'english'},
-{'first': 'george', 'last': 'rr martin', 'gender': 'm', 'dob': '20/09/1948', 'hair_colour': 'white', 'occupation': 'writer', 'nationality': 'american'}]
-
-coll.insert_many(new_docs)
-"""
 
 documents = coll.find()
 

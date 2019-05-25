@@ -3,18 +3,18 @@
 <div class="search-results-layout">
     <div class="recipe-cards">
         <div class="row card-row">
-            {% for recipe in recipes %}
+            {% for matching_recipe in matching_recipes %}
             <div class="col-sm-12 col-md-6 col-lg-4">
                 <div class="card">
-                    {% if recipe.main_ingredient == "chocolate" %}
+                    {% if matching_recipe.main_ingredient == "chocolate" %}
                     <img src="{{ url_for('static', filename='img/chocolates-close-up-cocoa-65882.jpg') }}" class="card-img-top"></img>
-                    {% elif recipe.main_ingredient == "banana" %}
+                    {% elif matching_recipe.main_ingredient == "banana" %}
                     <img src="{{ url_for('static', filename='img/berries-citrus-citrus-fruits-1132047.jpg') }}" class="card-img-top"></img>
                     {% endif %}
                     <div class="card-body">
-                        <h5 class="card-title"><strong>{{recipe.title.title()}}</strong></h5>
-                        <p class="card-text">{{recipe.recipe_description}}</p>
-                        <a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}" class="btn btn-primary card-btn">View</a>
+                        <h5 class="card-title"><strong>{{matching_recipe.title.title()}}</strong></h5>
+                        <p class="card-text">{{matching_recipe.recipe_description}}</p>
+                        <a href="{{ url_for('view_recipe', recipe_id=matching_recipe._id) }}" class="btn btn-primary card-btn">View</a>
                     </div>
                 </div>
             </div>
