@@ -32,6 +32,11 @@
             </div>
         </nav>
     </header>
+    {% if user_message %}
+        <div class="user_msg">
+            <p><strong>{{ user_message }} </strong></p>
+        </div>
+    {% endif %}
     
     <main>
         <div class="container-fluid">
