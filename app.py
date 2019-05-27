@@ -1,27 +1,59 @@
 import os
-from flask import Flask, render_template, redirect, request, url_for
+from flask import Flask, render_template, redirect, request, url_for, session
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
+from flask_bcrypt import Bcrypt
+import bcrypt
 """from forms import recipe_search"""
 
 app = Flask(__name__)
 
 app.config["MONGO_URI"] = os.getenv("MONGO_URI")
 app.config["DBS_NAME"] = os.getenv("DBS_NAME")
+app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 
 mongo = PyMongo(app)
+
 recipes = mongo.db.recipes
 
 @app.route('/')
 def home():
+    if 'username' in session:
+        user_message = 'Hi' + session['firstname']
+        return user_message
     return render_template("index.html", recipes=recipes)
     
-@app.route('/user_login')
+@app.route('/user_login', methods=['GET', 'POST'])
 def user_login():
+    return render_template("user_login.html")
+    
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    users=mongo.db.users
+    login_user = users.find_one({'username' : request.form.get('username')})
+    
+    if login_user:
+        password = request.form.get("password")
+        if bcrypt.hashpw(password.encode('utf-8'), login_user('password').encode('utf-8')) == login_user('password').encode('utf-8'):
+            session['username'] = request.form.get('username')
+            return render_template("user_home.html", users=users)
+    error = "Invalid password/ username"
+    return render_template("user_login.html", error=error)
+            
+    
+@app.route('/user_register', methods=['GET', 'POST'])
+def user_register():
     if request.method == 'POST':
         users =mongo.db.users
-        login_user = users.find_one({'name' : request.form.get('username')})
-    return render_template("user_home.html")
+        existing_user = users.find_one({'name' : request.form['username']})
+        if existing_user is None:
+            hashpass = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
+            users.insert({'username' : request.form['username'], 'password' : hashpass, 'first_name' : request.form['firstname'], 'last_name' : request.form['lastname']})
+            session['username'] = request.form['username']
+            return render_template("user_home.html", users=users)  
+        error = "That username already exists"
+        return render_template("user_register.html", error=error)
+    
     
 @app.route('/find_recipes', methods=['POST'])
 def find_recipes():
@@ -29,6 +61,7 @@ def find_recipes():
         search_text = request.form.get("search_text")
         checkboxes = request.form.getlist("check")
         print(checkboxes)
+        #search text with checkboxes 
         if len(checkboxes) == 0:
             cursor = mongo.db.recipes.find({ "$text": { "$search": search_text }})
             matching_recipes = [matching_recipe for matching_recipe in cursor]

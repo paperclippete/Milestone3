@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="view-recipe-layout">
+    <div class="view-recipe">
+        <div class="recipe-title">
+            <h2>Login to Dessert Finder</h2>
+        </div>
+        <div class="recipe-body">
+            <form action="{{ url_for('login') }}" method="GET|POST">
+                {% if error %}
+                    <div class="error_msg">
+                        <p><strong>Oops: {{error}} </strong></p>
+                    </div>
+                {% endif %}
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" aria-describedby="username" placeholder="Your Username">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                </div>
+                <button type="submit" class="btn btn-primary" >Login</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
