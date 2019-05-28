@@ -6,7 +6,7 @@
             <h2>Login to Dessert Finder</h2>
         </div>
         <div class="recipe-body">
-            <form action="{{ url_for('login') }}" method="GET|POST">
+            <form action="{{ url_for('login') }}" method="POST">
                 {% if error %}
                     <div class="error_msg">
                         <p><strong>Oops: {{error}} </strong></p>

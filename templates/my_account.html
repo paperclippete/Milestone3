@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="view-recipe-layout">
+    <div class="view-recipe">
+        <div class="recipe-title">
+            <h2>Sign Up to Dessert Finder</h2>
+        </div>
+        <div class="recipe-body">
+            <form action="{{ url_for('update_user') }}" method="POST">
+                <div class="form-group">
+                    <label for="firstname">First Name</label>
+                    <input type="text" class="form-control" id="firstname" name="firstname" aria-describedby="firstname" placeholder="{{ users.first_name }}" value="{{ users.first_name }}">
+                </div>
+                <div class="form-group">
+                    <label for="input-lastname">Last Name</label>
+                    <input type="text" class="form-control" name="lastname" aria-describedby="lastname" placeholder="{{ users.last_name }}" value="{{ users.last_name }}">
+                </div>
+                <div class="form-group">
+                    <label for="input-username">Username</label>
+                    <input type="text" class="form-control" name="username" aria-describedby="username" placeholder="{{ users.username }}" value="{{ users.username }}">
+                </div>
+                <div class="form-group">
+                    <label for="input-password">Password</label>
+                    <input type="password" class="form-control" name="password" placeholder="Password" required max-length="8">
+                </div>
+                <button type="submit" class="btn btn-primary">Update</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

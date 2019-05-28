@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, redirect, request, url_for, session
+from flask import Flask, flash, render_template, redirect, request, url_for, session
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from flask_bcrypt import Bcrypt
@@ -16,12 +16,15 @@ mongo = PyMongo(app)
 
 recipes = mongo.db.recipes
 
+
 @app.route('/')
+@app.route('/index')
 def home():
     if 'username' in session:
         user_message = 'Hi ' + session['username'].capitalize()
-        
-    return render_template("index.html", recipes=recipes, user_message=user_message)
+        return render_template("index.html", recipes=recipes, user_message=user_message)
+    return render_template("index.html", recipes=recipes)
+    
     
 @app.route('/user_login', methods=['GET', 'POST'])
 def user_login():
@@ -32,7 +35,7 @@ def login():
     users=mongo.db.users
     login_user = users.find_one({'username' : request.form.get('username')})
     if login_user:
-        if bcrypt.hashpw(request.form.get("password").encode('utf-8'), login_user("password").encode('utf-8')) == login_user("password").encode('utf-8'):
+        if bcrypt.hashpw(request.form["password"].encode('utf-8'), login_user["password"]) == login_user["password"]:
             session['username'] = request.form.get('username')
             return render_template("user_home.html", users=users)
     error = "Invalid password/ username"
@@ -48,16 +51,27 @@ def register():
     existing_user = users.find_one({'username': request.form.get('username')})
     if existing_user is None:
         securepass = bcrypt.hashpw(request.form["password"].encode('utf-8'), bcrypt.gensalt())
-        new_doc = {'username' : request.form.get('username'), 'password' : securepass, 'first_name' : request.form.get('firstname'), 'last_name' : request.form.get('lastname')}
+        new_doc = {
+            'username' : request.form.get('username'), 
+            'password' : securepass, 
+            'first_name' : request.form.get('firstname'), 
+            'last_name' : request.form.get('lastname')
+        }
         users.insert_one(new_doc)
         session['username'] = request.form.get('username')
-        return redirect("user_home.html")  
+        return redirect(url_for('user_home'))  
     error = "That username already exists"
     return render_template("user_register.html", error=error)
     
-@app.route('/user_home', methods=['GET', 'POST'])
+@app.route('/user_home')
 def user_home():
-    return render_template("user_home.html")    
+    user_message = 'Hi ' + session['username'].capitalize()
+    return render_template("user_home.html", user_message=user_message)  
+    
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('home'))
     
 @app.route('/find_recipes', methods=['POST'])
 def find_recipes():
@@ -88,36 +102,30 @@ def find_recipes():
         print(matching_recipes)
         
         return render_template("search_results.html", matching_recipes=matching_recipes)
-        
-        
-        """
-        #checkbox_string = ' '.join(checkboxes)
-        print(checkboxes)
-        cursor = mongo.db.recipes.find({ "$and": [{ "$text": { "$search": search_text }}, { checkboxes: True}, ] }) 
-        matching_recipes = [matching_recipe for matching_recipe in cursor]
-        return render_template("search_results.html", matching_recipes=matching_recipes)
-        """
-        """
-        dairy_free = "dairycheck" in request.form.get
-        vegan = "vegancheck" in request.form.get
-            
-        
-        print(dairy_free)
-        print(vegan)
-        
-        
-        
-        #else:
-        
-        """
-        
-       
-    
-"""    
+
+@app.route('my_account<user_id>')       
+def edit_account(user_id):
+    the_user = mongo.db.users.find_one({"_id": ObjectId(user_id)})
+    return render_template("my_account.html", user=the_user)
+
+@app.route('/update_user/<user_id>', methods=['POST'])
+def update_user(user_id):
+    users = mongo.db.users
+    securepass = bcrypt.hashpw(request.form["password"].encode('utf-8'), bcrypt.gensalt())
+    users.update({'_id': ObjectId(user_id)},
+    {
+        'first_name':request.form.get('firstname'),
+        'last_name':request.form.get('lastname'),
+        'username': request.form.get('username'),
+        'password': securepass,
+    })
+    message = "You've updated your details"
+    return render_template("user_home.html", message=message)    
+
 @app.route('/search_results')
 def search_results():
     return render_template("search_results.html", recipes=mongo.db.recipes.find())
-"""    
+   
 @app.route('/view_recipe/<recipe_id>')
 def view_recipe(recipe_id):
     the_recipe = recipes.find_one({"_id": ObjectId(recipe_id)})
