@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+<h5> Logged in!</h5>
+
+<div class="user-home-layout">
+    <div class="user-title">
+        <h2>Welcome back </h2>
+    </div>
+    <div class="user-cards">
+        <div class="row card-row">
+            <div class="col-sm-12 col-md-6 col-lg-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"><strong>My Account</strong></h5>
+                        <a href="{{ url_for('my_account', user_id=user._id) }}" class="btn btn-primary card-btn">View</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"><strong>My Recipes</strong></h5>
+                        <a href="{{ url_for('search_results') }}" class="btn btn-primary card-btn">View</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"><strong>Add a Recipe</strong></h5>
+                        <a href="{{ url_for('add_recipe') }}" class="btn btn-primary card-btn">Add</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"><strong>Log Out</strong></h5>
+                        <a href="{{ url_for('logout') }}" class="btn btn-primary card-btn">Log Out</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
+
+{% endblock %}

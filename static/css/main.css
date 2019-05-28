@@ -1,6 +1,7 @@
 /* site colors defined in SCSS*/
 /* site fonts defined in SCSS*/
 /* site effects defined as mixins in SCSS */
+/* site standard styles */
 body {
   background-color: #ffc1c1;
   background-image: linear-gradient(#ffc1c191, #ffc1c191), url(../img/art-artificial-background-1061581.jpg);
@@ -10,7 +11,9 @@ body {
   color: #3b241f; }
 
 .container-fluid {
-  padding: 0px; }
+  padding: 0px;
+  height: 97.5vh;
+  overflow: auto; }
 
 .navbar {
   background-color: #ffc1c1;
@@ -56,6 +59,16 @@ body {
     color: #ffc1c1;
     background-size: 0.5px 50px; }
 
+.user_msg p {
+  margin: 0px;
+  padding: 15px; }
+
+.hidden {
+  display: none; }
+
+.visible {
+  visibility: visible; }
+
 footer {
   background-color: #ffc1c1;
   text-align: center; }
@@ -88,7 +101,7 @@ footer {
   overflow: hidden; }
   @media (min-width: 1023.98px) {
     .index-layout {
-      height: 96.9vh; } }
+      height: 97.5vh; } }
 
 .overlay {
   left: 0px;
@@ -105,6 +118,7 @@ footer {
     .overlay {
       visibility: visible;
       height: 100%;
+      width: 100%;
       overflow: hidden; } }
 
 .title {
@@ -136,8 +150,6 @@ footer {
 
 #myVideo {
   position: absolute;
-  width: 100vh;
-  height: 100vh;
   z-index: -1;
   object-fit: cover;
   object-position: left; }
@@ -146,6 +158,10 @@ footer {
   font-family: "Noto Serif", serif; }
 
 /* search results.html */
+.search-results-layout {
+  position: relative;
+  height: 95.8vh; }
+
 .recipe-cards {
   display: flex;
   flex-direction: column;
@@ -169,7 +185,7 @@ footer {
 .card-text {
   height: 8rem;
   margin-bottom: 50px;
-  overflow: scroll; }
+  overflow: hidden; }
 
 .card-img-top {
   height: 12rem; }
@@ -207,16 +223,21 @@ footer {
 .view-recipe-layout {
   display: flex;
   flex-direction: row;
-  justify-content: center; }
+  justify-content: center;
+  height: 100%; }
 
 .view-recipe {
   background-color: #fff6f3;
-  width: 80%;
+  width: 95%;
   margin-top: 70px;
   padding-top: 15px;
   padding-right: 30px;
   padding-left: 30px;
   padding-bottom: 15px;
-  margin-bottom: 70px; }
+  margin-bottom: 25px; }
+
+.recipe-img img {
+  width: 100%;
+  margin-bottom: 15px; }
 
 /*# sourceMappingURL=main.css.map */

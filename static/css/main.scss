@@ -46,6 +46,9 @@ $fancy-font: 'Sofia', cursive;
     border-color: $dchoc;
 }
 
+/* site standard styles */
+
+
 body {
     background: {
         color: $dpink;
@@ -59,7 +62,8 @@ body {
 
 .container-fluid {
     padding: 0px;
-    
+    height: 97.5vh;
+    overflow: auto;
 }
 
 .navbar {
@@ -105,6 +109,23 @@ body {
     }
 }
 
+.user_msg {
+    p {
+        margin: 0px;
+        padding: 15px;
+    }
+    @media (min-width: 992px) {
+    }
+}
+
+.hidden {
+    display: none;
+}
+
+.visible {
+    visibility: visible;
+}
+
 footer {
     background-color: $dpink;
     text-align: center;
@@ -140,7 +161,7 @@ footer {
     height: 95.8vh;
     overflow: hidden;
     @media (min-width: 1023.98px) {
-        height: 96.9vh;
+        height: 97.5vh;
     }
 }
 
@@ -158,6 +179,7 @@ footer {
     @media (min-width: 992px) {
         visibility: visible;
         height: 100%;
+        width:100%;
         overflow: hidden; 
     }
 }
@@ -194,8 +216,6 @@ footer {
 
 #myVideo {
     position: absolute;
-    width: 100vh;
-    height: 100vh;
     z-index: -1;
     object-fit: cover;
     object-position: left;
@@ -210,7 +230,8 @@ footer {
 /* search results.html */
 
 .search-results-layout {
-    
+    position: relative;
+    height: 95.8vh;
     
 }
 
@@ -241,7 +262,7 @@ footer {
 .card-text {
     height: 8rem;
     margin-bottom: 50px;
-    overflow: scroll;
+    overflow: hidden;
 }
 
 .card-img-top {
@@ -283,19 +304,24 @@ footer {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    height: 100%;
 }
 
 
 .view-recipe {
     background-color: $ppink;
-    width: 80%;
+    width: 95%;
     margin-top: 70px;
     padding-top: 15px;
     padding-right: 30px;
     padding-left: 30px;
     padding-bottom: 15px;
-    margin-bottom: 70px;
+    margin-bottom: 25px;
 }
 
-
-
+.recipe-img {
+    img {
+    width: 100%;
+    margin-bottom: 15px;
+    }
+}
