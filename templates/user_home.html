@@ -11,8 +11,8 @@
             <div class="col-sm-12 col-md-6 col-lg-3">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title"><strong>My Account</strong></h5>
-                        <a href="{{ url_for('my_account', user_id=users._id) }}" class="btn btn-primary card-btn">View</a>
+                        <h5 class="card-title"><strong>My Account</strong></h5> <!-- , user_id=users._id -->
+                        <a href="{{ url_for('edit_account', user_id=users._id) }}" class="btn btn-primary card-btn">View</a>
                     </div>
                 </div>
             </div>
