@@ -4,7 +4,7 @@
     <div class="recipe-cards">
         <div class="row card-row">
             {% for matching_recipe in matching_recipes %}
-            <div class="col-sm-12 col-md-6 col-lg-4">
+            <div class="col-sm-12 col-md-6 col-lg-3">
                 <div class="card">
                     {% if matching_recipe.main_ingredient == "chocolate" %}
                     <img src="{{ url_for('static', filename='img/chocolates-close-up-cocoa-65882.jpg') }}" class="card-img-top"></img>

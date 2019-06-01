@@ -7,7 +7,7 @@
             <h2>Sign Up to Dessert Finder</h2>
         </div>
         <div class="recipe-body">
-            <form action="{{ url_for('update_user') }}" method="POST">
+            <form action="{{ url_for('update_user', user_id=users_.id) }}" method="POST">
                 <div class="form-group">
                     <label for="firstname">First Name</label>
                     <input type="text" class="form-control" id="firstname" name="firstname" aria-describedby="firstname" placeholder="{{ users.first_name }}" value="{{ users.first_name }}">

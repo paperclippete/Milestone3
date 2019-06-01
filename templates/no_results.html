@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="layout">
+    <h3>Sorry, no results found</h3>
+    <!--
+    <div class="row recipe-cards">
+        {% for recipe in recipes %}
+        <div class="col-sm-1 col-md-4">
+            <div class="card" style="width: 18rem;">
+                {% if recipe.main_ingredient == "chocolate" %}
+                    <img src="{{ url_for('static', filename='img/chocolates-close-up-cocoa-65882.jpg') }}" class="card-img-top"></img>
+                {% elif recipe.main_ingredient == "banana" %}
+                    <img src="{{ url_for('static', filename='img/berries-citrus-citrus-fruits-1132047.jpg') }}" class="card-img-top"></img>
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{recipe.title.capitalize()}}</h5>
+                    <p class="card-text" style="overflow:hidden;">{{recipe.recipe_description}}</p>
+                    <a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}" class="btn btn-primary">View</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        -->
+    </div>  
+</div>
+
+
+
+{% endblock %}
+
+

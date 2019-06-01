@@ -4,8 +4,8 @@
     <div class="add-recipe">
         <form action="{{ url_for('insert_recipe') }}" method="POST">
             <div class="form-group">
-                <label for="recipe_title">Recipe Title</label>
-                <input type="text" class="form-control" id="recipe_title" placeholder="Recipe Title">
+                <label for="title">Recipe Title</label>
+                <input type="text" class="form-control" id="title" name="title" placeholder="Recipe Title">
             </div>
             <div class="form-group">
                 <label for="author">Author</label>
@@ -16,7 +16,7 @@
                 <textarea class="form-control" id="recipe_description" rows="4"></textarea>
             </div>
             <div class="form-inline">
-                <label class="sr-only" for="inlineFormInputName2">Name</label>
+                <label class="sr-only" for="inlineFormInputName2">Ingredient</label>
                 <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Jane Doe">
                 <select class="custom-select">
                     <option selected>Open this select menu</option>

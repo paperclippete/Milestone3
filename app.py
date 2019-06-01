@@ -65,8 +65,11 @@ def register():
     
 @app.route('/user_home')
 def user_home():
-    user_message = 'Hi ' + session['username'].capitalize()
-    return render_template("user_home.html", user_message=user_message)  
+    if 'username' in session:
+        user_message = 'Hi ' + session['username'].capitalize()
+    users = mongo.db.users
+    user = session['username']
+    return render_template("user_home.html", user=user, users=users, user_message=user_message)  
     
 @app.route('/logout')
 def logout():
@@ -103,10 +106,11 @@ def find_recipes():
         
         return render_template("search_results.html", matching_recipes=matching_recipes)
 
-@app.route('my_account<user_id>')       
+@app.route('/my_account/<user_id>')       
 def edit_account(user_id):
-    the_user = mongo.db.users.find_one({"_id": ObjectId(user_id)})
-    return render_template("my_account.html", user=the_user)
+    users = mongo.db.users
+    the_user = users.find_one({"_id": ObjectId(user_id)})
+    return render_template("my_account.html", users=users, user=the_user)
 
 @app.route('/update_user/<user_id>', methods=['POST'])
 def update_user(user_id):
