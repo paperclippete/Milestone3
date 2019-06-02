@@ -5,14 +5,21 @@
 <div class="user-home-layout">
     <div class="user-title">
         <h2>Welcome back </h2>
+    {% if message %}
+        <span class="navbar-text">
+            <div class="user_msg">
+                <p><i class="fas fa-user"></i> {{ message }}</p>
+            </div>
+        </span>
+    {% endif %}
     </div>
     <div class="user-cards">
         <div class="row card-row">
             <div class="col-sm-12 col-md-6 col-lg-3">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title"><strong>My Account</strong></h5> <!-- , user_id=users._id -->
-                        <a href="{{ url_for('edit_account', user_id=users._id) }}" class="btn btn-primary card-btn">View</a>
+                        <h5 class="card-title"><strong>My Account</strong></h5>
+                        <a href="{{ url_for('edit_account', loggeduser=users._id) }}" class="btn btn-primary card-btn">View</a>
                     </div>
                 </div>
             </div>

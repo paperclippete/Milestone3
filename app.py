@@ -1,9 +1,10 @@
 import os
 from flask import Flask, flash, render_template, redirect, request, url_for, session
 from flask_pymongo import PyMongo
-from flask_login import LoginManager, UserMixin, login_user, logout_user
+from flask_login import LoginManager, UserMixin, login_user, logout_user, current_user, login_required
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
+from forms import user_login_form, user_register_form, user_update_form
 
 app = Flask(__name__)
 
@@ -13,7 +14,7 @@ app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 
 mongo = PyMongo(app)
 login_manager = LoginManager(app)
-login_manager.login_view = 'login'
+login_manager.login_view = 'user_login'
 
 class User:
     def __init__(self, username):
@@ -36,11 +37,12 @@ class User:
         return check_password_hash(password_hash, password)
 
     @login_manager.user_loader
-    def load_user(self, username):
+    def load_user(username):
         site_user = mongo.db.users.find_one({"username": username})
         if not site_user:
             return None
-        return User(site_user["username"])
+        return User(site_user)
+    
 
 
 recipes = mongo.db.recipes
@@ -51,46 +53,50 @@ recipes = mongo.db.recipes
 def home():
     return render_template("index.html", recipes=recipes)
     
-    
 @app.route('/user_login', methods=['GET', 'POST'])
 def user_login():
-    return render_template("user_login.html")
+    form = user_login_form()
+    return render_template("user_login.html", form=form)
     
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    form = user_login_form()
     users=mongo.db.users
-    the_user = users.find_one({'username': request.form.get('username')})
-    password = request.form.get('password')
-    if the_user and User.check_password(the_user["password"], password):
+    if request.method == 'POST':
+        the_user = users.find_one({"username": form.username.data})
+        if the_user and User.check_password(the_user["password"], form.password.data):
             user_obj = User(the_user["username"])
             login_user(user_obj)
             return render_template("user_home.html", users=users)
     error = "Invalid password/ username"
-    return render_template("user_login.html", error=error)
+    return render_template("user_login.html", error=error, form=form)
 
 @app.route('/user_register', methods=['GET', 'POST'])
 def user_register():
-    return render_template("user_register.html")
+    form = user_register_form()
+    return render_template("user_register.html", form=form)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     users = mongo.db.users
-    existing_user = users.find_one({'username': request.form.get('username')})
+    form = user_register_form()
+    existing_user = users.find_one({'username': form.username.data})
     if existing_user is None:
-        securepass = generate_password_hash(request.form["password"], method="sha256")
+        securepass = generate_password_hash(form.password.data, method="sha256")
         new_doc = {
-            'username' : request.form.get('username'), 
+            'username' : form.username.data, 
             'password' : securepass, 
-            'first_name' : request.form.get('firstname'), 
-            'last_name' : request.form.get('lastname')
+            'first_name' : form.firstname.data, 
+            'last_name' : form.lastname.data
         }
         users.insert_one(new_doc)
-        session['username'] = request.form.get('username')
-        return redirect(url_for('user_home'))  
+        message = "You are now a Dessert Search user, please login!"
+        return redirect(url_for('user_login', message=message))  
     error = "That username already exists"
     return render_template("user_register.html", error=error)
     
 @app.route('/user_home')
+@login_required
 def user_home():
     users = mongo.db.users
     return render_template("user_home.html", users=users)  
@@ -130,25 +136,32 @@ def find_recipes():
         
         return render_template("search_results.html", matching_recipes=matching_recipes)
 
-@app.route('/my_account/<user_id>')       
-def edit_account(user_id):
+@app.route('/my_account/<loggeduser>')
+@login_required
+def edit_account(loggeduser):
     users = mongo.db.users
-    the_user = users.find_one({"_id": ObjectId(user_id)})
-    return render_template("my_account.html", users=users, user=the_user)
+    loggeduser = current_user.username["_id"]
+    the_user = users.find_one({ "_id": ObjectId(loggeduser) })
+    form = user_update_form()
+    print(the_user)
+    return render_template("my_account.html",  user=the_user, users=users, form=form)
 
-@app.route('/update_user/<user_id>', methods=['POST'])
-def update_user(user_id):
+@app.route('/update_user/<loggeduser>', methods=['POST'])
+@login_required
+def update_user(loggeduser):
     users = mongo.db.users
-    securepass = generate_password_hash(request.form["password"], method="sha256")
-    users.update({'_id': ObjectId(user_id)},
+    form = user_update_form()
+    loggeduser = current_user.username["_id"]
+    securepass = generate_password_hash(form.password.data, method="sha256")
+    users.update({'_id': ObjectId(loggeduser)},
     {
-        'first_name':request.form.get('firstname'),
-        'last_name':request.form.get('lastname'),
-        'username': request.form.get('username'),
+        'first_name': form.firstname.data,
+        'last_name': form.lastname.data,
+        'username': form.username.data,
         'password': securepass,
     })
     message = "You've updated your details"
-    return render_template("user_home.html", message=message)    
+    return render_template("user_home.html", message=message, form=form, loggeduser=loggeduser, users=users)    
 
 @app.route('/search_results')
 def search_results():
@@ -157,6 +170,7 @@ def search_results():
 @app.route('/view_recipe/<recipe_id>')
 def view_recipe(recipe_id):
     the_recipe = recipes.find_one({"_id": ObjectId(recipe_id)})
+    print(the_recipe)
     return render_template("view_recipe.html", recipe=the_recipe)
     
 @app.route('/add_recipe')

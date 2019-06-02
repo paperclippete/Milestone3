@@ -14,20 +14,17 @@
                     </div>
                 {% endif %}
                 <div class="form-group">
-                    <label for="firstname">First Name</label>
-                    <input type="text" class="form-control" id="firstname" name="firstname" aria-describedby="firstname" placeholder="Your First Name">
+                    {{ form.csrf_token }}
+                    {{ form.username(size=32, placeholder="Choose a username", class="form-control") }}
                 </div>
                 <div class="form-group">
-                    <label for="input-lastname">Last Name</label>
-                    <input type="text" class="form-control" name="lastname" aria-describedby="lastname" placeholder="Your Last Name">
+                    {{ form.firstname(size=32, placeholder="Your First Name", class="form-control") }}
                 </div>
                 <div class="form-group">
-                    <label for="input-username">Username</label>
-                    <input type="text" class="form-control" name="username" aria-describedby="username" placeholder="Your Username" required >
+                    {{ form.lastname(size=32, placeholder="Your Last Name", class="form-control") }}
                 </div>
                 <div class="form-group">
-                    <label for="input-password">Password</label>
-                    <input type="password" class="form-control" name="password" placeholder="Password" required max-length="8">
+                    {{ form.password(size=32, placeholder="Password", class="form-control") }}
                 </div>
                 <button type="submit" class="btn btn-primary">Sign Up</button>
             </form>

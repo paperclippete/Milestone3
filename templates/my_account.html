@@ -4,28 +4,29 @@
 <div class="view-recipe-layout">
     <div class="view-recipe">
         <div class="recipe-title">
-            <h2>Sign Up to Dessert Finder</h2>
+            <h2>Edit your Details</h2>
         </div>
         <div class="recipe-body">
-            <!-- action="{{ url_for('update_user', user_id=users_.id) }}" method="POST"-->
-            <form>
-                <div class="form-group">
-                    <label for="firstname">First Name</label>
-                    <input type="text" class="form-control" id="firstname" name="firstname" aria-describedby="firstname" placeholder="{{ users.first_name }}" value="{{ users.first_name }}">
+            
+            <form action="{{ url_for('update_user', loggeduser=users._id) }}" method="POST">
+                <div class="form-group form-inline">
+                    <label>{{user.username}}</label>
+                    {{ form.csrf_token }}
+                    {{ form.username(size=32, placeholder="Choose a new username", class="form-control" ) }}
+                </div>
+                <div class="form-group form-inline">
+                    <label>{{user.first_name}}</label>
+                    {{ form.firstname(size=32, placeholder="Change your first name", class="form-control" ) }}
+                </div>
+                <div class="form-group form-inline">
+                    <label>{{user.last_name}}</label>
+                    {{ form.lastname(size=32, placeholder="Change your last name", class="form-control" ) }}
                 </div>
                 <div class="form-group">
-                    <label for="input-lastname">Last Name</label>
-                    <input type="text" class="form-control" name="lastname" aria-describedby="lastname" placeholder="{{ users.last_name }}" value="{{ users.last_name }}">
-                </div>
-                <div class="form-group">
-                    <label for="input-username">Username</label>
-                    <input type="text" class="form-control" name="username" aria-describedby="username" placeholder="{{ users.username }}" value="{{ users.username }}">
-                </div>
-                <div class="form-group">
-                    <label for="input-password">Password</label>
-                    <input type="password" class="form-control" name="password" placeholder="Password" required max-length="8">
+                    {{ form.password(size=32, placeholder="Change your password", class="form-control" ) }}
                 </div>
                 <button type="submit" class="btn btn-primary">Update</button>
+                <button type="button" class="btn btn-primary">Cancel</button>
             </form>
         </div>
     </div>

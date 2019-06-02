@@ -14,3 +14,5 @@ dnspython==1.16.0
 itsdangerous==1.1.0
 pycparser==2.19
 pymongo==3.8.0
+python-dateutil==2.8.0
+six==1.12.0
