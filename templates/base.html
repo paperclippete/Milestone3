@@ -20,29 +20,26 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarToggler">
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{{ url_for('home') }}">Home</a>
-                    </li>
                     <li class="nav-item" id="login-link">
                         <a class="nav-link" href="{{ url_for('user_login') }}">Login</a>
                     </li>
-                    <li class="nav-item" id="logout-link">
+                    <li class="nav-item hidden" id="logout-link">
                         <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Add a Recipe</a>
+                    <li class="nav-item" id="signup-link">
+                        <a class="nav-link" href="{{ url_for('user_register') }}">Sign Up</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Add a Recipe</a>
+                    <li class="nav-item hidden" id="add-recipe-link">
+                        <a class="nav-link" href="{{ url_for('add_recipe') }}">Add a Recipe</a>
+                    </li>
+                    <li class="nav-item hidden" id="user-home-link">
+                        <a class="nav-link" href="{{ url_for('user_home') }}">My Home</a>
+                    </li>
+                    <li class="navbar-text nav-link" id="user-welcome">
+                        
                     </li>
                 </ul>
-                {% if user_message %}
-                <span class="navbar-text">
-                    <div class="user_msg">
-                        <a href="{{ url_for('user_home') }}" class="nav-link"><i class="fas fa-user"></i> {{ user_message }}</a>
-                    </div>
-                </span>
-                {% endif %}
+                
             </div>
         </nav>
     </header>
@@ -61,7 +58,7 @@
     </footer>
 
 </body>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>

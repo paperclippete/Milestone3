@@ -1,10 +1,16 @@
 $(document).ready(function(){
-    if ($(".user_msg").length > 0) {
-        $("#login-link").addClass("hidden");
-        $("#logout-link").addClass("visible");
-    }
-    else {
-        $("#login-link").addClass("visible");
-        $("#logout-link").addClass("hidden");
-    }
-});
+    //Get username in session and change navbar links
+    $.ajax({
+            type: "GET",
+            url: "/login",
+            success: function(data) {
+                console.log(data);
+                $("#login-link").addClass("hidden");
+                $("#signup-link").addClass("hidden");
+                $("#logout-link").removeClass("hidden");
+                $("#add-recipe-link").removeClass("hidden");
+                $("#user-home-link").removeClass("hidden");
+                $("#user-welcome").html(`Welcome `+ (data));
+            }
+})});
+    

@@ -1,10 +1,12 @@
 import os
-from flask import Flask, flash, render_template, redirect, request, url_for, session
+import json
+from flask import Flask, flash, render_template, redirect, request, url_for, session, jsonify
 from flask_pymongo import PyMongo
 from flask_login import LoginManager, UserMixin, login_user, logout_user, current_user, login_required
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
 from forms import user_login_form, user_register_form, user_update_form
+
 
 app = Flask(__name__)
 
@@ -44,7 +46,6 @@ class User:
         return User(site_user)
     
 
-
 recipes = mongo.db.recipes
 
 
@@ -62,6 +63,8 @@ def user_login():
 def login():
     form = user_login_form()
     users=mongo.db.users
+    if request.method == 'GET':
+        return json.dumps(current_user.username['first_name'].capitalize())
     if request.method == 'POST':
         the_user = users.find_one({"username": form.username.data})
         if the_user and User.check_password(the_user["password"], form.password.data):
@@ -84,10 +87,10 @@ def register():
     if existing_user is None:
         securepass = generate_password_hash(form.password.data, method="sha256")
         new_doc = {
-            'username' : form.username.data, 
+            'username' : form.username.data.lower(), 
             'password' : securepass, 
-            'first_name' : form.firstname.data, 
-            'last_name' : form.lastname.data
+            'first_name' : form.firstname.data.lower(), 
+            'last_name' : form.lastname.data.lower()
         }
         users.insert_one(new_doc)
         message = "You are now a Dessert Search user, please login!"
@@ -155,9 +158,9 @@ def update_user(loggeduser):
     securepass = generate_password_hash(form.password.data, method="sha256")
     users.update({'_id': ObjectId(loggeduser)},
     {
-        'first_name': form.firstname.data,
-        'last_name': form.lastname.data,
-        'username': form.username.data,
+        'first_name': form.firstname.data.lower(),
+        'last_name': form.lastname.data.lower(),
+        'username': form.username.data.lower(),
         'password': securepass,
     })
     message = "You've updated your details"
@@ -176,6 +179,7 @@ def view_recipe(recipe_id):
 @app.route('/add_recipe')
 def add_recipe():
     return render_template("add_recipe.html")
+    
 
 
 if __name__ == '__main__':

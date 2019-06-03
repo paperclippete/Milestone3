@@ -21,7 +21,7 @@
                 {% endif %}
                 <div class="form-group">
                     {{ form.csrf_token }}
-                    {{ form.username(size=32, placeholder="Your Username", class="form-control") }}
+                    {{ form.username(size=32, placeholder="Your Username", class="form-control").lower() }}
                 </div>
                 <div class="form-group">
                     {{ form.password(size=32, placeholder="Password", class="form-control") }}
