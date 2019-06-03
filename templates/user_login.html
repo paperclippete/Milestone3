@@ -3,7 +3,7 @@
 <div class="view-recipe-layout">
     <div class="view-recipe">
         <div class="recipe-title">
-            <h2>Login to Dessert Finder</h2>
+            <h2>Login to Dessert Search</h2>
         </div>
         <div class="recipe-body">
             <form action="{{ url_for('login') }}" method="POST">
@@ -21,7 +21,7 @@
                 {% endif %}
                 <div class="form-group">
                     {{ form.csrf_token }}
-                    {{ form.username(size=32, placeholder="Your Username", class="form-control").lower() }}
+                    {{ form.username(size=32, placeholder="Your Username", class="form-control") }}
                 </div>
                 <div class="form-group">
                     {{ form.password(size=32, placeholder="Password", class="form-control") }}

@@ -66,7 +66,7 @@ def login():
     if request.method == 'GET':
         return json.dumps(current_user.username['first_name'].capitalize())
     if request.method == 'POST':
-        the_user = users.find_one({"username": form.username.data})
+        the_user = users.find_one({"username": form.username.data.lower()})
         if the_user and User.check_password(the_user["password"], form.password.data):
             user_obj = User(the_user["username"])
             login_user(user_obj)
