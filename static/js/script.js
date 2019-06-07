@@ -20,9 +20,12 @@ $(document).ready(function(){
                 <input type="text" class="form-control mb-2 mr-sm-2" id="ingredient" name="ingredient" placeholder="Ingredient">
                 <label class="sr-only" for="amount">Ingredient</label>
                 <input type="text" class="form-control mb-2 mr-sm-2" id="amount" name="amount" placeholder="e.g. 100g">
-                <a class="btn" id="ing-btn">Add Ingredient</a>
-            </div>`
+            </div>`;
         $(this).parent().append(inginput);
+    });
+    
+    $('.cancel-btn').click(function() {
+        window.history.back();
     });
     /*
     

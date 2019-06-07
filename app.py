@@ -221,10 +221,20 @@ def insert_recipe():
                 
         }
     recipes.insert_one(new_doc)
-    message = "You have added a new recipe"
-    return render_template("user_home.html", message=message, users=users)
+    flash("You have added a new recipe.")
+    return redirect(url_for("user_home"))
         
-    
+@app.route('/my_recipes/<loggeduser>')    
+@login_required
+def my_recipes(loggeduser):
+    users = mongo.db.users
+    loggeduser = current_user.username["username"]
+    the_user = users.find_one({ "username": loggeduser })
+    print(the_user)
+    cursor = mongo.db.recipes.find({ "author": the_user['username'] })
+    matching_recipes = [matching_recipe for matching_recipe in cursor]
+    return render_template("search_results.html", matching_recipes=matching_recipes)
+
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),

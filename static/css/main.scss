@@ -110,11 +110,27 @@ body {
 }
 
 .user_msg {
+    background-color: $ppink;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+    margin: 30px 15px;
     p {
         margin: 0px;
         padding: 15px;
     }
     @media (min-width: 992px) {
+    }
+}
+
+.message-box {
+    height: 65px;
+}
+
+#user-welcome {
+    width: 100%;
+    @media (min-width: 992px) {
+        width: auto;
     }
 }
 
@@ -324,4 +340,9 @@ footer {
     width: 100%;
     margin-bottom: 15px;
     }
+}
+
+/* user home.html */
+.user-home-layout {
+    margin-top: 50px;
 }

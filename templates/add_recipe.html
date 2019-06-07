@@ -2,6 +2,8 @@
 {% block content %}
 <div class="layout">
     <div class="add-recipe">
+        <h3>Add a Recipe</h3>
+        <hr>
         <form action="{{ url_for('insert_recipe') }}" method="POST">
             <div class="form-group">
                 <label for="title">Recipe Title</label>
@@ -34,7 +36,7 @@
                 <input type="text" class="form-control mb-2 mr-sm-2" id="ingredient" name="ingredient" placeholder="Ingredient">
                 <label class="sr-only" for="amount">Ingredient</label>
                 <input type="text" class="form-control mb-2 mr-sm-2" id="amount" name="amount" placeholder="e.g. 100g">
-                <a class="btn" id="ing-btn">Add Ingredient</a>
+                <button class="btn" type="add" id="ing-btn" value="add">Add</button>
             </div>
             <div class="form-group">
                 <label for="img_url">Image URL</label>
@@ -58,7 +60,7 @@
                 <label class="custom-control-label" for="glutenfree">Gluten-free?</label>
             </div>
             <button type="submit" class="btn btn-primary">Submit Recipe</button>
-            <button class="btn btn-primary" type="reset" value="Reset">Cancel</button>
+            <button class="btn btn-primary cancel-btn" type="reset" value="cancel">Cancel</button>
         </form>
     </div>
 

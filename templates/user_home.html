@@ -1,11 +1,20 @@
 {% extends 'base.html' %}
 {% block content %}
-<h5> Logged in!</h5>
 
 <div class="user-home-layout">
     <div class="user-title">
-        <h2> My Dessert Search Home</h2>
-    
+        <div class="message-box">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                <div class="user_msg">
+                    <p>{{ message }}</p>
+                </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        </div> 
     </div>
     <div class="user-cards">
         <div class="row card-row">
@@ -21,7 +30,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title"><strong>My Recipes</strong></h5>
-                        <a href="{{ url_for('search_results') }}" class="btn btn-primary card-btn">View</a>
+                        <a href="{{ url_for('my_recipes', loggeduser=users._id) }}" class="btn btn-primary card-btn">View</a>
                     </div>
                 </div>
             </div>

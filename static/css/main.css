@@ -59,9 +59,24 @@ body {
     color: #ffc1c1;
     background-size: 0.5px 50px; }
 
-.user_msg p {
-  margin: 0px;
-  padding: 15px; }
+.user_msg {
+  background-color: #fff6f3;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: .25rem;
+  margin: 30px 15px; }
+  .user_msg p {
+    margin: 0px;
+    padding: 15px; }
+
+.message-box {
+  height: 65px; }
+
+#user-welcome {
+  width: 100%; }
+  @media (min-width: 992px) {
+    #user-welcome {
+      width: auto; } }
 
 .hidden {
   display: none; }
@@ -239,5 +254,9 @@ footer {
 .recipe-img img {
   width: 100%;
   margin-bottom: 15px; }
+
+/* user home.html */
+.user-home-layout {
+  margin-top: 50px; }
 
 /*# sourceMappingURL=main.css.map */
