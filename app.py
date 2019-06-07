@@ -117,25 +117,39 @@ def find_recipes():
         print(checkboxes)
         #search text with checkboxes 
         if len(checkboxes) == 0:
-            cursor = mongo.db.recipes.find({ "$text": { "$search": search_text }})
-            matching_recipes = [matching_recipe for matching_recipe in cursor]
-            print("Hello 0")
+            if search_text == "":
+                cursor = mongo.db.recipes.find()
+                matching_recipes = [matching_recipe for matching_recipe in cursor]
+            else: 
+                cursor = mongo.db.recipes.find({ "$text": { "$search": search_text }})
+                matching_recipes = [matching_recipe for matching_recipe in cursor]
+                print("Hello 0")
         elif len(checkboxes) == 1:
-            cursor = mongo.db.recipes.find({ "$and": [{ "$text": { "$search": search_text }}, { checkboxes[0]: True}, ] }) 
-            matching_recipes = [matching_recipe for matching_recipe in cursor]
-            print("Hello 1")
-            
+            if search_text == "":
+                cursor = mongo.db.recipes.find({ checkboxes[0]: True})
+                matching_recipes = [matching_recipe for matching_recipe in cursor]
+            else:
+                cursor = mongo.db.recipes.find({ "$and": [{ "$text": { "$search": search_text }}, { checkboxes[0]: True}, ] }) 
+                matching_recipes = [matching_recipe for matching_recipe in cursor]
+                print("Hello 1")
         elif len(checkboxes) == 2:
-            cursor = mongo.db.recipes.find({ "$and": [{ "$text": { "$search": search_text }}, { checkboxes[0]: True}, { checkboxes[1]: True} ] }) 
-            matching_recipes = [matching_recipe for matching_recipe in cursor]
-            print("Hello 2")
-            
+            if search_text == "":
+                cursor = mongo.db.recipes.find({ "$and": [ {checkboxes[0]: True}, { checkboxes[1]: True} ] })
+                matching_recipes = [matching_recipe for matching_recipe in cursor]
+            else:
+                cursor = mongo.db.recipes.find({ "$and": [{ "$text": { "$search": search_text }}, { checkboxes[0]: True}, { checkboxes[1]: True} ] }) 
+                matching_recipes = [matching_recipe for matching_recipe in cursor]
+                print("Hello 2")
         elif len(checkboxes) == 3:
-            cursor = mongo.db.recipes.find({ "$and": [{ "$text": { "$search": search_text }}, { checkboxes[0]: True}, { checkboxes[1]: True}, { checkboxes[2]: True} ] }) 
-            matching_recipes = [matching_recipe for matching_recipe in cursor]
-            print("Hello 3")
-              
+            if search_text == "":
+                cursor = mongo.db.recipes.find({ "$and": [ {checkboxes[0]: True}, { checkboxes[1]: True}, { checkboxes[2]: True} ] })
+                matching_recipes = [matching_recipe for matching_recipe in cursor]
+            else:
+                cursor = mongo.db.recipes.find({ "$and": [{ "$text": { "$search": search_text }}, { checkboxes[0]: True}, { checkboxes[1]: True}, { checkboxes[2]: True} ] }) 
+                matching_recipes = [matching_recipe for matching_recipe in cursor]
+                print("Hello 3")
         print(matching_recipes)
+        
         
         return render_template("search_results.html", matching_recipes=matching_recipes)
 
@@ -176,11 +190,41 @@ def view_recipe(recipe_id):
     print(the_recipe)
     return render_template("view_recipe.html", recipe=the_recipe)
     
-@app.route('/add_recipe')
+@app.route('/add_recipe', methods=['GET','POST'])
+@login_required
 def add_recipe():
-    return render_template("add_recipe.html")
-    
+    users = mongo.db.users
+    loggeduser = current_user.username["username"]
+    the_user = users.find_one({ "username": loggeduser})
+    return render_template("add_recipe.html", the_user=the_user, recipes=recipes)
 
+@app.route('/insert_recipe', methods=['POST'])    
+@login_required
+def insert_recipe():
+    users = mongo.db.users
+    ingredient_list = request.form.getlist("ingredient")
+    amount_list = request.form.getlist("amount")
+    ingam_dict =dict(zip(ingredient_list, amount_list))
+    vegan = request.form.get("vegan")
+    dairyfree = request.form.get("dairyfree")
+    glutenfree = request.form.get("glutenfree")
+    new_doc = {
+            'title' : request.form.get('title').lower(), 
+            'author' : request.form.get('author').lower(),
+            'main_ingredient' : request.form.get('main_ingredient'),
+            'recipe_description' : request.form.get('recipe_description'),
+            'ingredients' : ingam_dict,
+            'method': request.form.get('method'),
+            'vegan' : bool(vegan),
+            'dairy_free' : bool(dairyfree),
+            'gluten_free' : bool(glutenfree)
+                
+        }
+    recipes.insert_one(new_doc)
+    message = "You have added a new recipe"
+    return render_template("user_home.html", message=message, users=users)
+        
+    
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
