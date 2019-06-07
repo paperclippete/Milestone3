@@ -16,10 +16,8 @@
             <div class="recipe-ingredients">
                 <h4>Ingredients</h4>
                 <ul>
-                    {% for item in recipe.ingredients %}
-                        
-                        <li>{{item['ingredient'].capitalize()}} - {{item['amount']}}</li>
-                        
+                    {% for key, val in recipe.ingredients.items() %}
+                        <li>{{ key.capitalize() }} - {{ val }}</li>
                     {% endfor %}
                 </ul>    
             </div>

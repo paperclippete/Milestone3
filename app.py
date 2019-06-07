@@ -111,6 +111,8 @@ def logout():
     
 @app.route('/find_recipes', methods=['POST'])
 def find_recipes():
+    users = mongo.db.users
+    
     if request.method == 'POST':
         search_text = request.form.get("search_text")
         checkboxes = request.form.getlist("check")
@@ -149,7 +151,10 @@ def find_recipes():
                 matching_recipes = [matching_recipe for matching_recipe in cursor]
                 print("Hello 3")
         print(matching_recipes)
-        
+        if current_user.is_active:
+            loggeduser = current_user.username["username"]
+            the_user = users.find_one({ "username": loggeduser })
+            return render_template("search_results.html", matching_recipes=matching_recipes, the_user=the_user)
         
         return render_template("search_results.html", matching_recipes=matching_recipes)
 
@@ -182,6 +187,7 @@ def update_user(loggeduser):
 
 @app.route('/search_results')
 def search_results():
+    users = mongo.db.users
     return render_template("search_results.html", recipes=mongo.db.recipes.find())
    
 @app.route('/view_recipe/<recipe_id>')
@@ -233,7 +239,7 @@ def my_recipes(loggeduser):
     print(the_user)
     cursor = mongo.db.recipes.find({ "author": the_user['username'] })
     matching_recipes = [matching_recipe for matching_recipe in cursor]
-    return render_template("search_results.html", matching_recipes=matching_recipes)
+    return render_template("search_results.html", matching_recipes=matching_recipes, the_user=the_user)
 
 
 if __name__ == '__main__':
