@@ -64,7 +64,8 @@ def login():
     form = user_login_form()
     users=mongo.db.users
     if request.method == 'GET':
-        return json.dumps(current_user.username['first_name'].capitalize())
+        if current_user:
+            return json.dumps(current_user.username['first_name'].capitalize())
     if request.method == 'POST':
         the_user = users.find_one({"username": form.username.data.lower()})
         if the_user and User.check_password(the_user["password"], form.password.data):
@@ -217,6 +218,7 @@ def insert_recipe():
     new_doc = {
             'title' : request.form.get('title').lower(), 
             'author' : request.form.get('author').lower(),
+            'image' : request.form.get('img_url'),
             'main_ingredient' : request.form.get('main_ingredient'),
             'recipe_description' : request.form.get('recipe_description'),
             'ingredients' : ingam_dict,
@@ -229,6 +231,48 @@ def insert_recipe():
     recipes.insert_one(new_doc)
     flash("You have added a new recipe.")
     return redirect(url_for("user_home"))
+    
+@app.route('/edit_recipe/<recipe_id>', methods=['POST'])
+@login_required
+def edit_recipe(recipe_id):
+    the_recipe = recipes.find_one({"_id": ObjectId(recipe_id)})
+    users = mongo.db.users
+    loggeduser = current_user.username["username"]
+    the_user = users.find_one({ "username": loggeduser})
+    return render_template("edit_recipe.html", the_user=the_user, recipes=recipes)
+
+@app.route('/update_recipe/<recipe_id>', methods=["POST"])
+@login_required
+def update_recipe(recipe_id):
+    ingredient_list = request.form.getlist("ingredient")
+    amount_list = request.form.getlist("amount")
+    ingam_dict =dict(zip(ingredient_list, amount_list))
+    vegan = request.form.get("vegan")
+    dairyfree = request.form.get("dairyfree")
+    glutenfree = request.form.get("glutenfree")
+    recipes.update({'_id': ObjectId(recipe_id)},
+        {
+            'title' : request.form.get('title').lower(), 
+            'author' : request.form.get('author').lower(),
+            'image' : request.form.get('img_url'),
+            'main_ingredient' : request.form.get('main_ingredient'),
+            'recipe_description' : request.form.get('recipe_description'),
+            'ingredients' : ingam_dict,
+            'method': request.form.get('method'),
+            'vegan' : bool(vegan),
+            'dairy_free' : bool(dairyfree),
+            'gluten_free' : bool(glutenfree)
+        })
+    flash("You have updated this recipe.")
+    return redirect(url_for("user_home"))
+
+@app.route('/delete_recipe/<recipe_id>', methods=["POST"])
+@login_required
+def delete_recipe(recipe_id):
+    recipes.remove({'_id': ObjectId(recipe_id)})
+    flash("You have deleted this recipe.")
+    return redirect(url_for("user_home"))
+
         
 @app.route('/my_recipes/<loggeduser>')    
 @login_required

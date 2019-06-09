@@ -7,12 +7,9 @@
         </div>
         <div class="recipe-body">
             <div class="recipe-img">
-                {% if recipe.main_ingredient == "chocolate" %}
-                <img src="{{ url_for('static', filename='img/chocolates-close-up-cocoa-65882.jpg') }}"></img>
-                {% elif recipe.main_ingredient == "banana" %}
-                <img src="{{ url_for('static', filename='img/berries-citrus-citrus-fruits-1132047.jpg') }}"></img>
-                {% endif %}
+                <img src="{{ recipe.image }}"></img>
             </div>
+            <button class="btn like-btn"><i class="far fa-thumbs-up">Like this recipe</i></button>
             <div class="recipe-ingredients">
                 <h4>Ingredients</h4>
                 <ul>
@@ -25,8 +22,7 @@
                 <h4>Method</h4>
                 <p>{{recipe.method.capitalize()}}</p>
             </div>
-        
-            
+            <button class="btn btn-primary cancel-btn" type="reset" value="cancel">Back</button>
         </div>
     </div>
 </div>

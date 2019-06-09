@@ -62,8 +62,8 @@ body {
 
 .container-fluid {
     padding: 0px;
-    height: 97.5vh;
-    overflow: auto;
+    //height: 97vh;
+    
 }
 
 .navbar {
@@ -148,7 +148,17 @@ footer {
 }
 
 .footer-info {
+    font-size: 0.8rem;
     margin: 0;
+}
+
+.icon-credits {
+    font-size: 0.5rem;
+    margin-bottom: 0;
+    a {
+        text-decoration: none;
+        color: $dchoc;
+    }
 }
 
 .btn {
@@ -156,6 +166,20 @@ footer {
     &:hover, &:not(:disabled):not(.disabled):active {
         @include cake-button-hover;
     }
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: $ppink; 
+}
+::-webkit-scrollbar-thumb {
+  background: $caramel; 
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: $dpink; 
 }
 
 /* index styles */
@@ -247,7 +271,7 @@ footer {
 
 .search-results-layout {
     position: relative;
-    height: 95.8vh;
+    min-height: 95.8vh;
     
 }
 
@@ -265,6 +289,9 @@ footer {
    width: auto;
    margin-bottom: 15px;
    background-color: $ppink;
+   img {
+       object-fit: cover;
+   }
 }
 
 .card-row {
@@ -278,7 +305,7 @@ footer {
 .card-text {
     height: 8rem;
     margin-bottom: 50px;
-    overflow: hidden;
+    overflow-y: scroll;
 }
 
 .card-img-top {
@@ -288,13 +315,22 @@ footer {
 .card-btn {
     position: absolute;
     bottom: 1.5rem;
-    @include cake-button;
-    &:hover {
-        @include cake-button-hover;
-    }
-    &:not(:disabled):not(.disabled):active {
-        @include cake-button-hover;
-        box-shadow: 0, 0, 0, 0.2rem rgba(185,138,138,0.5);
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    width: 100%;
+    margin-left: 0;
+    padding: 0px 20px;
+    a {
+        @include cake-button;
+        &:hover {
+            @include cake-button-hover;
+        }
+        &:not(:disabled):not(.disabled):active {
+            @include cake-button-hover;
+            box-shadow: 0, 0, 0, 0.2rem rgba(185,138,138,0.5);
+        }
     }
 }
 
@@ -320,7 +356,7 @@ footer {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    height: 100%;
+    height: 97.5vh;
 }
 
 
@@ -344,5 +380,6 @@ footer {
 
 /* user home.html */
 .user-home-layout {
-    margin-top: 50px;
+    margin-top: 60px;
+    height: 97.5vh;
 }

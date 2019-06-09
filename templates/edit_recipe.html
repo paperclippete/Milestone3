@@ -4,10 +4,10 @@
     <div class="add-recipe">
         <h3>Add a Recipe</h3>
         <hr>
-        <form action="{{ url_for('insert_recipe') }}" method="POST">
+        <form action="{{ url_for('update_recipe') }}" method="POST">
             <div class="form-group">
                 <label for="title">Recipe Title</label>
-                <input type="text" class="form-control" id="title" name="title">
+                <input type="text" class="form-control" id="title" name="title" placeholder="{{ recipe.title }}">
             </div>
             <div class="form-group">
                 <label for="author">Author</label>
@@ -30,16 +30,14 @@
                 <label for="recipe_description">Write a short description...</label>
                 <textarea class="form-control" id="recipe_description" name="recipe_description" rows="4"></textarea>
             </div>
-            <p>Please enter each ingredient and quantity (don't forget the measurement) and press 'Add' to add to the database.</p><br>
-            <div class="form-group ing-group">    
-                <div class="form-inline">
-                    <label class="sr-only" for="ingredient">Ingredient</label>
-                    <input type="text" class="form-control mb-2 mr-sm-2" id="ingredient" name="ingredient" placeholder="Ingredient">
-                    <label class="sr-only" for="amount">Ingredient</label>
-                    <input type="text" class="form-control mb-2 mr-sm-2" id="amount" name="amount" placeholder="e.g. 100g">
-                    <button class="btn" type="add" id="ing-btn" value="add">Add</button>
-                </div>
-            </div>    
+            <div class="form-inline">
+                <p>Please enter each ingredient and quantity (don't forget the measurement) and press 'Add' to add to the database.</p><br>
+                <label class="sr-only" for="ingredient">Ingredient</label>
+                <input type="text" class="form-control mb-2 mr-sm-2" id="ingredient" name="ingredient" placeholder="Ingredient">
+                <label class="sr-only" for="amount">Ingredient</label>
+                <input type="text" class="form-control mb-2 mr-sm-2" id="amount" name="amount" placeholder="e.g. 100g">
+                <a class="btn" type="add" id="ing-btn" value="add">Add</a>
+            </div>
             <div class="form-group">
                 <label for="img_url">Image URL</label>
                 <input type="text" class="form-control" id="img_url" name="img_url">

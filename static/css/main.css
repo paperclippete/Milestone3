@@ -11,9 +11,7 @@ body {
   color: #3b241f; }
 
 .container-fluid {
-  padding: 0px;
-  height: 97.5vh;
-  overflow: auto; }
+  padding: 0px; }
 
 .navbar {
   background-color: #ffc1c1;
@@ -89,7 +87,15 @@ footer {
   text-align: center; }
 
 .footer-info {
+  font-size: 0.8rem;
   margin: 0; }
+
+.icon-credits {
+  font-size: 0.5rem;
+  margin-bottom: 0; }
+  .icon-credits a {
+    text-decoration: none;
+    color: #3b241f; }
 
 .btn {
   background-color: #ffc1c1;
@@ -99,6 +105,19 @@ footer {
     background-color: #883d07;
     color: #ffc1c1;
     border-color: #3b241f; }
+
+::-webkit-scrollbar {
+  width: 6px; }
+
+::-webkit-scrollbar-track {
+  background: #fff6f3; }
+
+::-webkit-scrollbar-thumb {
+  background: #883d07; }
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #ffc1c1; }
 
 /* index styles */
 @media (max-width: 991.98px) {
@@ -175,7 +194,7 @@ footer {
 /* search results.html */
 .search-results-layout {
   position: relative;
-  height: 95.8vh; }
+  min-height: 95.8vh; }
 
 .recipe-cards {
   display: flex;
@@ -190,6 +209,8 @@ footer {
   width: auto;
   margin-bottom: 15px;
   background-color: #fff6f3; }
+  .card img {
+    object-fit: cover; }
 
 .card-row {
   margin: 0px; }
@@ -200,7 +221,7 @@ footer {
 .card-text {
   height: 8rem;
   margin-bottom: 50px;
-  overflow: hidden; }
+  overflow-y: scroll; }
 
 .card-img-top {
   height: 12rem; }
@@ -208,18 +229,26 @@ footer {
 .card-btn {
   position: absolute;
   bottom: 1.5rem;
-  background-color: #ffc1c1;
-  color: #3b241f;
-  border-color: #b98a8a; }
-  .card-btn:hover {
-    background-color: #883d07;
-    color: #ffc1c1;
-    border-color: #3b241f; }
-  .card-btn:not(:disabled):not(.disabled):active {
-    background-color: #883d07;
-    color: #ffc1c1;
-    border-color: #3b241f;
-    box-shadow: 0, 0, 0, 0.2rem rgba(185, 138, 138, 0.5); }
+  left: 0;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  width: 100%;
+  margin-left: 0;
+  padding: 0px 20px; }
+  .card-btn a {
+    background-color: #ffc1c1;
+    color: #3b241f;
+    border-color: #b98a8a; }
+    .card-btn a:hover {
+      background-color: #883d07;
+      color: #ffc1c1;
+      border-color: #3b241f; }
+    .card-btn a:not(:disabled):not(.disabled):active {
+      background-color: #883d07;
+      color: #ffc1c1;
+      border-color: #3b241f;
+      box-shadow: 0, 0, 0, 0.2rem rgba(185, 138, 138, 0.5); }
 
 /* add recipe.html */
 .layout {
@@ -239,7 +268,7 @@ footer {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  height: 100%; }
+  height: 97.5vh; }
 
 .view-recipe {
   background-color: #fff6f3;
@@ -257,6 +286,7 @@ footer {
 
 /* user home.html */
 .user-home-layout {
-  margin-top: 50px; }
+  margin-top: 60px;
+  height: 97.5vh; }
 
 /*# sourceMappingURL=main.css.map */

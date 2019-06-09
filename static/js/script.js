@@ -4,7 +4,7 @@ $(document).ready(function(){
         type: "GET",
         url: "/login",
         success: function(data) {
-            console.log(data);
+            
             $("#login-link").addClass("hidden");
             $("#signup-link").addClass("hidden");
             $("#logout-link").removeClass("hidden");
@@ -14,14 +14,15 @@ $(document).ready(function(){
         }
     });
     
-    $('#ing-btn').click(function() {
-        var inginput = `<div class="form-inline">
+    $('#ing-btn').click(function(event) {
+        event.preventDefault();
+        let inginput = `<div class="form-inline">
                 <label class="sr-only" for="ingredient">Ingredient</label>
                 <input type="text" class="form-control mb-2 mr-sm-2" id="ingredient" name="ingredient" placeholder="Ingredient">
                 <label class="sr-only" for="amount">Ingredient</label>
                 <input type="text" class="form-control mb-2 mr-sm-2" id="amount" name="amount" placeholder="e.g. 100g">
             </div>`;
-        $(this).parent().append(inginput);
+        $(".ing-group").append(inginput);
     });
     
     $('.cancel-btn').click(function() {

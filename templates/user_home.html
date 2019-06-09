@@ -22,7 +22,9 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title"><strong>My Account</strong></h5>
-                        <a href="{{ url_for('edit_account', loggeduser=users._id) }}" class="btn btn-primary card-btn">View</a>
+                        <div class="card-btn">
+                            <a href="{{ url_for('edit_account', loggeduser=users._id) }}" class="btn btn-primary">View</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -30,7 +32,9 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title"><strong>My Recipes</strong></h5>
-                        <a href="{{ url_for('my_recipes', loggeduser=users._id) }}" class="btn btn-primary card-btn">View</a>
+                        <div class="card-btn">
+                            <a href="{{ url_for('my_recipes', loggeduser=users._id) }}" class="btn btn-primary">View</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -38,7 +42,9 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title"><strong>Add a Recipe</strong></h5>
-                        <a href="{{ url_for('add_recipe') }}" class="btn btn-primary card-btn">Add</a>
+                        <div class="card-btn">
+                            <a href="{{ url_for('add_recipe') }}" class="btn btn-primary">Add</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -46,7 +52,9 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title"><strong>Log Out</strong></h5>
-                        <a href="{{ url_for('logout') }}" class="btn btn-primary card-btn">Log Out</a>
+                        <div class="card-btn">    
+                            <a href="{{ url_for('logout') }}" class="btn btn-primary">Log Out</a>
+                        </div>
                     </div>
                 </div>
             </div>
