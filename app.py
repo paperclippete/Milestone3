@@ -166,7 +166,6 @@ def edit_account(loggeduser):
     loggeduser = current_user.username["_id"]
     the_user = users.find_one({ "_id": ObjectId(loggeduser) })
     form = user_update_form()
-    print(the_user)
     return render_template("my_account.html",  user=the_user, users=users, form=form)
 
 @app.route('/update_user/<loggeduser>', methods=['POST'])
@@ -191,11 +190,14 @@ def search_results():
     users = mongo.db.users
     return render_template("search_results.html", recipes=mongo.db.recipes.find())
    
-@app.route('/view_recipe/<recipe_id>')
+@app.route('/view_recipe/<recipe_id>', methods=["GET", "POST"])
 def view_recipe(recipe_id):
     the_recipe = recipes.find_one({"_id": ObjectId(recipe_id)})
-    print(the_recipe)
-    return render_template("view_recipe.html", recipe=the_recipe)
+    users = mongo.db.users
+    loggeduser = current_user.username["username"]
+    the_user = users.find_one({ "username": loggeduser })
+    return render_template("view_recipe.html", recipe=the_recipe, loggeduser=loggeduser, users=users)
+    
     
 @app.route('/add_recipe', methods=['GET','POST'])
 @login_required
@@ -284,6 +286,19 @@ def my_recipes(loggeduser):
     cursor = mongo.db.recipes.find({ "author": the_user['username'] })
     matching_recipes = [matching_recipe for matching_recipe in cursor]
     return render_template("search_results.html", matching_recipes=matching_recipes, the_user=the_user)
+
+
+@app.route('/like_recipe/<recipe_id>/<loggeduser>', methods=["GET", "POST"])
+def like_recipe(recipe_id, loggeduser):
+    users = mongo.db.users
+    loggeduser = current_user.username["_id"]
+    the_user = users.find_one({ "_id": loggeduser })
+    the_recipe = recipes.find_one({"_id": ObjectId(recipe_id)})
+    recipes.update({'_id': ObjectId(recipe_id), 
+                    "likes": { "$ne": ObjectId(loggeduser) } },
+                   { "$inc": { "like_count": 1 }, 
+                     "$push": { "likes": ObjectId(loggeduser) } })
+    return render_template("view_recipe.html", recipe=the_recipe, loggeduser=loggeduser, users=users)
 
 
 if __name__ == '__main__':

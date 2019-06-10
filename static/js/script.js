@@ -14,6 +14,18 @@ $(document).ready(function(){
         }
     });
     
+    /*$('#like-form').on('submit', function(event) {
+        event.preventDefault();
+        console.log
+        $.ajax({
+            url: $(this),
+            data: "like",
+            type: 'POST',
+              
+        });
+        
+    }); */
+    
     $('#ing-btn').click(function(event) {
         event.preventDefault();
         let inginput = `<div class="form-inline">

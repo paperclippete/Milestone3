@@ -7,9 +7,16 @@
         </div>
         <div class="recipe-body">
             <div class="recipe-img">
-                <img src="{{ recipe.image }}"></img>
+                {% if recipe.image %}
+                    <img src="{{ recipe.image }}" class="card-img-top"></img>
+                {% else %}
+                    <img src="{{ url_for('static', filename='img/art-artificial-background-1061581.jpg') }}" class="card-img-top"></img>
+                {% endif %}
             </div>
-            <button class="btn like-btn"><i class="far fa-thumbs-up">Like this recipe</i></button>
+            <div class="recipe-likes">
+                <p>This recipe has {{ recipe.like_count }} {% if recipe.like_count == 1 %} like. {% else %} likes. {% endif %}</p>
+                <a href="{{ url_for('like_recipe', recipe_id=recipe._id, loggeduser=users._id) }}" class="btn like-btn"><i class="far fa-thumbs-up">Like Recipe</i></a>
+            </div>  
             <div class="recipe-ingredients">
                 <h4>Ingredients</h4>
                 <ul>
