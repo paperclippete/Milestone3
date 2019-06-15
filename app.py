@@ -1,7 +1,7 @@
 import os
 import json
 from flask import Flask, flash, render_template, redirect, request, url_for, session, jsonify
-from flask_pymongo import PyMongo
+from flask_pymongo import PyMongo, DESCENDING
 from flask_login import LoginManager, UserMixin, login_user, logout_user, current_user, login_required
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -110,7 +110,7 @@ def logout():
     logout_user()
     return redirect(url_for('home'))
     
-@app.route('/find_recipes', methods=['POST'])
+@app.route('/find_recipes', methods=['GET', 'POST'])
 def find_recipes():
     users = mongo.db.users
     
@@ -121,10 +121,10 @@ def find_recipes():
         #search text with checkboxes 
         if len(checkboxes) == 0:
             if search_text == "":
-                cursor = mongo.db.recipes.find()
+                cursor = mongo.db.recipes.find().sort([ ("like_count", -1)])
                 matching_recipes = [matching_recipe for matching_recipe in cursor]
             else: 
-                cursor = mongo.db.recipes.find({ "$text": { "$search": search_text }})
+                cursor = mongo.db.recipes.find({ "$text": { "$search": search_text }}).sort([ ("like_count", -1)])
                 matching_recipes = [matching_recipe for matching_recipe in cursor]
                 print("Hello 0")
         elif len(checkboxes) == 1:
@@ -132,23 +132,23 @@ def find_recipes():
                 cursor = mongo.db.recipes.find({ checkboxes[0]: True})
                 matching_recipes = [matching_recipe for matching_recipe in cursor]
             else:
-                cursor = mongo.db.recipes.find({ "$and": [{ "$text": { "$search": search_text }}, { checkboxes[0]: True}, ] }) 
+                cursor = mongo.db.recipes.find({ "$and": [{ "$text": { "$search": search_text }}, { checkboxes[0]: True}, ] }).sort([ ("like_count", -1)]) 
                 matching_recipes = [matching_recipe for matching_recipe in cursor]
                 print("Hello 1")
         elif len(checkboxes) == 2:
             if search_text == "":
-                cursor = mongo.db.recipes.find({ "$and": [ {checkboxes[0]: True}, { checkboxes[1]: True} ] })
+                cursor = mongo.db.recipes.find({ "$and": [ {checkboxes[0]: True}, { checkboxes[1]: True} ] }).sort([ ("like_count", -1)])
                 matching_recipes = [matching_recipe for matching_recipe in cursor]
             else:
-                cursor = mongo.db.recipes.find({ "$and": [{ "$text": { "$search": search_text }}, { checkboxes[0]: True}, { checkboxes[1]: True} ] }) 
+                cursor = mongo.db.recipes.find({ "$and": [{ "$text": { "$search": search_text }}, { checkboxes[0]: True}, { checkboxes[1]: True} ] }).sort([ ("like_count", -1)]) 
                 matching_recipes = [matching_recipe for matching_recipe in cursor]
                 print("Hello 2")
         elif len(checkboxes) == 3:
             if search_text == "":
-                cursor = mongo.db.recipes.find({ "$and": [ {checkboxes[0]: True}, { checkboxes[1]: True}, { checkboxes[2]: True} ] })
+                cursor = mongo.db.recipes.find({ "$and": [ {checkboxes[0]: True}, { checkboxes[1]: True}, { checkboxes[2]: True} ] }).sort([ ("like_count", -1)])
                 matching_recipes = [matching_recipe for matching_recipe in cursor]
             else:
-                cursor = mongo.db.recipes.find({ "$and": [{ "$text": { "$search": search_text }}, { checkboxes[0]: True}, { checkboxes[1]: True}, { checkboxes[2]: True} ] }) 
+                cursor = mongo.db.recipes.find({ "$and": [{ "$text": { "$search": search_text }}, { checkboxes[0]: True}, { checkboxes[1]: True}, { checkboxes[2]: True} ] }).sort([ ("like_count", -1)]) 
                 matching_recipes = [matching_recipe for matching_recipe in cursor]
                 print("Hello 3")
         print(matching_recipes)
@@ -227,21 +227,23 @@ def insert_recipe():
             'method': request.form.get('method'),
             'vegan' : bool(vegan),
             'dairy_free' : bool(dairyfree),
-            'gluten_free' : bool(glutenfree)
+            'gluten_free' : bool(glutenfree),
+            'prep_time' : request.form.get('prep_time'),
+            'serves' : request.form.get('serves')
                 
         }
     recipes.insert_one(new_doc)
     flash("You have added a new recipe.")
     return redirect(url_for("user_home"))
     
-@app.route('/edit_recipe/<recipe_id>', methods=['POST'])
+@app.route('/edit_recipe/<recipe_id>', methods=['GET','POST'])
 @login_required
 def edit_recipe(recipe_id):
     the_recipe = recipes.find_one({"_id": ObjectId(recipe_id)})
     users = mongo.db.users
     loggeduser = current_user.username["username"]
     the_user = users.find_one({ "username": loggeduser})
-    return render_template("edit_recipe.html", the_user=the_user, recipes=recipes)
+    return render_template("edit_recipe.html", the_user=the_user, recipe=the_recipe, recipes=recipes)
 
 @app.route('/update_recipe/<recipe_id>', methods=["POST"])
 @login_required
@@ -263,7 +265,9 @@ def update_recipe(recipe_id):
             'method': request.form.get('method'),
             'vegan' : bool(vegan),
             'dairy_free' : bool(dairyfree),
-            'gluten_free' : bool(glutenfree)
+            'gluten_free' : bool(glutenfree),
+            'prep_time' : request.form.get('prep_time'),
+            'serves' : request.form.get('serves')
         })
     flash("You have updated this recipe.")
     return redirect(url_for("user_home"))
@@ -283,7 +287,7 @@ def my_recipes(loggeduser):
     loggeduser = current_user.username["username"]
     the_user = users.find_one({ "username": loggeduser })
     print(the_user)
-    cursor = mongo.db.recipes.find({ "author": the_user['username'] })
+    cursor = mongo.db.recipes.find({ "author": the_user['username'] }).sort([ ("like_count", -1)])
     matching_recipes = [matching_recipe for matching_recipe in cursor]
     return render_template("search_results.html", matching_recipes=matching_recipes, the_user=the_user)
 

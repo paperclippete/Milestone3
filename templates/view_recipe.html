@@ -4,19 +4,42 @@
     <div class="view-recipe">
         <div class="recipe-title">
             <h2>{{recipe.title.title()}}</h2>
+            <hr>
         </div>
         <div class="recipe-body">
-            <div class="recipe-img">
-                {% if recipe.image %}
-                    <img src="{{ recipe.image }}" class="card-img-top"></img>
-                {% else %}
-                    <img src="{{ url_for('static', filename='img/art-artificial-background-1061581.jpg') }}" class="card-img-top"></img>
-                {% endif %}
+            <div class="row">
+                <div class="col-sm-12 col-md-6 recipe-img">
+                    {% if recipe.image %}
+                        <img src="{{ recipe.image }}" class="card-img-top"></img>
+                    {% else %}
+                        <img src="{{ url_for('static', filename='img/art-artificial-background-1061581.jpg') }}" class="card-img-top"></img>
+                    {% endif %}
+                </div>
+                <div class="col-sm-12 col-md-6 tag-details">
+                    <div class="recipe-likes">
+                    {% if recipe.like_count %}
+                        <p>This recipe has {{ recipe.like_count }} {% if recipe.like_count == 1 %} like. {% else %} likes. {% endif %}</p>
+                    {% endif %}
+                    {% if recipe.like_count == null %}
+                        <p>This recipe has no likes... yet!</p>
+                     {% endif %}
+                    <a href="{{ url_for('like_recipe', recipe_id=recipe._id, loggeduser=users._id) }}" class="btn like-btn"><i class="far fa-thumbs-up">Like Recipe</i></a>
+                    </div>
+                    <br>
+                    <p> Time: {{recipe.prep_time}}<br>
+                        Serves: {{recipe.serves}} <br><br>
+                        {% if recipe.vegan %}
+                            <span class="tags"><i class="fas fa-leaf"></i><em>- Vegan</em> </span>
+                        {% endif %}
+                        {% if recipe.dairy_free %}
+                            <span class="tags"><i class="fas fa-cheese"></i><em>- Dairy-free</em> </span>
+                        {% endif %}
+                        {% if recipe.gluten_free %}
+                            <span class="tags"><i class="fab fa-pagelines"></i><em>- Gluten-free </em> </span>
+                        {% endif %}
+                    </p>  
+                </div>
             </div>
-            <div class="recipe-likes">
-                <p>This recipe has {{ recipe.like_count }} {% if recipe.like_count == 1 %} like. {% else %} likes. {% endif %}</p>
-                <a href="{{ url_for('like_recipe', recipe_id=recipe._id, loggeduser=users._id) }}" class="btn like-btn"><i class="far fa-thumbs-up">Like Recipe</i></a>
-            </div>  
             <div class="recipe-ingredients">
                 <h4>Ingredients</h4>
                 <ul>

@@ -2,9 +2,9 @@
 {% block content %}
 <div class="layout">
     <div class="add-recipe">
-        <h3>Add a Recipe</h3>
+        <h3>Edit your Recipe</h3>
         <hr>
-        <form action="{{ url_for('update_recipe') }}" method="POST">
+        <form action="{{ url_for('update_recipe', recipe_id=recipe._id) }}" method="POST">
             <div class="form-group">
                 <label for="title">Recipe Title</label>
                 <input type="text" class="form-control" id="title" name="title" placeholder="{{ recipe.title }}">
@@ -14,7 +14,7 @@
                 <input type="text" class="form-control" id="author" name="author" placeholder="{{ the_user.username.capitalize() }}" value="{{ the_user.username }}">
             </div>
             <select class="custom-select" id="main_ingredient" name="main_ingredient">
-                <option selected>Main Ingredient - Choose One</option>
+                <option selected>{{ recipe.main_ingredient }}</option>
                 <option value="chocolate">Chocolate</option>
                 <option value="strawberry">Strawberry</option>
                 <option value="banana">Banana</option>
@@ -28,37 +28,62 @@
             </select>
             <div class="form-group">
                 <label for="recipe_description">Write a short description...</label>
-                <textarea class="form-control" id="recipe_description" name="recipe_description" rows="4"></textarea>
+                <textarea class="form-control" id="recipe_description" name="recipe_description" rows="4">{{ recipe.recipe_description }}</textarea>
             </div>
-            <div class="form-inline">
-                <p>Please enter each ingredient and quantity (don't forget the measurement) and press 'Add' to add to the database.</p><br>
-                <label class="sr-only" for="ingredient">Ingredient</label>
-                <input type="text" class="form-control mb-2 mr-sm-2" id="ingredient" name="ingredient" placeholder="Ingredient">
-                <label class="sr-only" for="amount">Ingredient</label>
-                <input type="text" class="form-control mb-2 mr-sm-2" id="amount" name="amount" placeholder="e.g. 100g">
-                <a class="btn" type="add" id="ing-btn" value="add">Add</a>
+            <div class="form-group ing-group">    
+                <div class="form-inline">
+                    <p>Please enter each ingredient and quantity (don't forget the measurement) and press 'Add' to add to the database.</p><br>
+                    {% for key, val in recipe.ingredients.items() %}
+                    <label class="sr-only" for="ingredient">Ingredient</label>
+                    <input type="text" class="form-control mb-2 mr-sm-2" id="ingredient" name="ingredient" placeholder="{{ key.capitalize() }}">
+                    <label class="sr-only" for="amount">Amount</label>
+                    <input type="text" class="form-control mb-2 mr-sm-2" id="amount" name="amount" placeholder="{{ val }}">
+                    {% endfor %}
+                </div>
             </div>
+            <button class="btn" type="add" id="ing-btn" value="add">Add</button>
+            
             <div class="form-group">
                 <label for="img_url">Image URL</label>
-                <input type="text" class="form-control" id="img_url" name="img_url">
+                <input type="text" class="form-control" id="img_url" name="img_url" placeholder="{{ recipe.image }}">
             </div>
             <div class="form-group">
                 <label for="method">Method</label>
-                <textarea class="form-control" id="method" name="method" rows="10"></textarea>
+                <textarea class="form-control" id="method" name="method" rows="10">{{ recipe.method }}</textarea>
             </div>
-            
+            {% if recipe.vegan %}
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="vegan" name="vegan" checked>
+                <label class="custom-control-label" for="vegan" checked>Vegan?</label>
+            </div>
+            {% else %}
             <div class="custom-control custom-checkbox">
                 <input type="checkbox" class="custom-control-input" id="vegan" name="vegan">
                 <label class="custom-control-label" for="vegan">Vegan?</label>
             </div>
+            {% endif %}
+            {% if recipe.dairy_free %}
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="dairyfree" name="dairyfree" checked>
+                <label class="custom-control-label" for="dairyfree" >Dairy-free?</label>
+            </div>
+            {% else %}
             <div class="custom-control custom-checkbox">
                 <input type="checkbox" class="custom-control-input" id="dairyfree" name="dairyfree">
-                <label class="custom-control-label" for="dairyfree">Dairy-free?</label>
+                <label class="custom-control-label" for="dairyfree" checked>Dairy-free?</label>
             </div>
+            {% endif %}
+            {% if recipe.gluten_free %}
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="glutenfree" name="glutenfree" checked>
+                <label class="custom-control-label" for="glutenfree">Gluten-free?</label>
+            </div>
+            {% else %}
             <div class="custom-control custom-checkbox">
                 <input type="checkbox" class="custom-control-input" id="glutenfree" name="glutenfree">
                 <label class="custom-control-label" for="glutenfree">Gluten-free?</label>
             </div>
+            {% endif %}
             <button type="submit" class="btn btn-primary">Submit Recipe</button>
             <button class="btn btn-primary cancel-btn" type="reset" value="cancel">Cancel</button>
         </form>
