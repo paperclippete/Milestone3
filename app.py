@@ -197,7 +197,7 @@ def view_recipe(recipe_id):
     if current_user.is_active:
         loggeduser = current_user.username["username"]
         the_user = users.find_one({ "username": loggeduser })
-        return render_template("view_recipe.html", recipe=the_recipe, loggeduser=loggeduser, users=users)
+        return render_template("view_recipe.html", recipe=the_recipe, user=the_user, users=users)
     return render_template("view_recipe.html", recipe=the_recipe, users=users)
     
     
@@ -282,20 +282,29 @@ def delete_recipe(recipe_id):
     return redirect(url_for("user_home"))
 
         
-@app.route('/my_recipes/<loggeduser>')    
+@app.route('/my_recipes/<user_id>')    
 @login_required
-def my_recipes(loggeduser):
+def my_recipes(user_id):
     users = mongo.db.users
-    loggeduser = current_user.username["username"]
-    the_user = users.find_one({ "username": loggeduser })
-    print(the_user)
-    cursor = mongo.db.recipes.find({ "author": the_user['username'] }).sort([ ("like_count", -1)])
+    loggeduser = current_user.username["_id"]
+    the_user = users.find_one({ "_id": loggeduser })
+    cursor = mongo.db.recipes.find({ "author": the_user['_id'] }).sort([ ("like_count", -1)])
+    matching_recipes = [matching_recipe for matching_recipe in cursor]
+    return render_template("search_results.html", matching_recipes=matching_recipes, the_user=the_user)
+    
+@app.route('/liked_recipes/<user_id>')    
+@login_required
+def liked_recipes(user_id):
+    users = mongo.db.users
+    loggeduser = current_user.username["_id"]
+    the_user = users.find_one({ "_id": loggeduser })
+    cursor = mongo.db.recipes.find({ "likes": the_user['_id'] }).sort([ ("like_count", -1)])
     matching_recipes = [matching_recipe for matching_recipe in cursor]
     return render_template("search_results.html", matching_recipes=matching_recipes, the_user=the_user)
 
 
-@app.route('/like_recipe/<recipe_id>/<loggeduser>', methods=["GET", "POST"])
-def like_recipe(recipe_id, loggeduser):
+@app.route('/like_recipe/<recipe_id>/<user_id>', methods=["GET", "POST"])
+def like_recipe(recipe_id, user_id):
     users = mongo.db.users
     loggeduser = current_user.username["_id"]
     the_user = users.find_one({ "_id": loggeduser })
@@ -304,7 +313,7 @@ def like_recipe(recipe_id, loggeduser):
                     "likes": { "$ne": ObjectId(loggeduser) } },
                    { "$inc": { "like_count": 1 }, 
                      "$push": { "likes": ObjectId(loggeduser) } })
-    return render_template("view_recipe.html", recipe=the_recipe, loggeduser=loggeduser, users=users)
+    return render_template("view_recipe.html", recipe=the_recipe, user=the_user, users=users)
 
 
 if __name__ == '__main__':

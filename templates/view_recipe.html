@@ -8,14 +8,14 @@
         </div>
         <div class="recipe-body">
             <div class="row">
-                <div class="col-sm-12 col-md-6 recipe-img">
+                <div class="col-sm-12 col-md-5 recipe-img">
                     {% if recipe.image %}
                         <img src="{{ recipe.image }}" class="card-img-top"></img>
                     {% else %}
                         <img src="{{ url_for('static', filename='img/art-artificial-background-1061581.jpg') }}" class="card-img-top"></img>
                     {% endif %}
                 </div>
-                <div class="col-sm-12 col-md-6 tag-details">
+                <div class="col-sm-12 col-md-3 tag-details">
                     <div class="recipe-likes">
                     {% if recipe.like_count %}
                         <p>This recipe has {{ recipe.like_count }} {% if recipe.like_count == 1 %} like. {% else %} likes. {% endif %}</p>
@@ -23,7 +23,7 @@
                     {% if recipe.like_count == null %}
                         <p>This recipe has no likes... yet!</p>
                      {% endif %}
-                    <a href="{{ url_for('like_recipe', recipe_id=recipe._id, loggeduser=users._id) }}" class="btn like-btn"><i class="far fa-thumbs-up">Like Recipe</i></a>
+                    <a href="{{ url_for('like_recipe', recipe_id=recipe._id, user_id=user._id) }}" class="btn btn-primary like-btn cake-btn"><i class="far fa-thumbs-up">Like Recipe</i></a>
                     </div>
                     <br>
                     <p> Time: {{recipe.prep_time}}<br>
@@ -39,20 +39,21 @@
                         {% endif %}
                     </p>  
                 </div>
-            </div>
-            <div class="recipe-ingredients">
+                <div class="col-sm-12 col-md-4">
+                    <div class="recipe-ingredients">
                 <h4>Ingredients</h4>
                 <ul>
                     {% for key, val in recipe.ingredients.items() %}
                         <li>{{ key.capitalize() }} - {{ val }}</li>
                     {% endfor %}
                 </ul>    
+                </div>
             </div>
             <div class="recipe-method">
                 <h4>Method</h4>
                 <p>{{recipe.method.capitalize()}}</p>
             </div>
-            <button class="btn btn-primary cancel-btn" type="reset" value="cancel">Back</button>
+            <a class="btn btn-primary cake-btn cancel-btn" type="reset" value="cancel">Back</a>
         </div>
     </div>
 </div>

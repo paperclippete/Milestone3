@@ -33,7 +33,17 @@
                     <div class="card-body">
                         <h5 class="card-title"><strong>My Recipes</strong></h5>
                         <div class="card-btn">
-                            <a href="{{ url_for('my_recipes', loggeduser=user._id) }}" class="btn btn-primary cake-btn">View</a>
+                            <a href="{{ url_for('my_recipes', user_id=user._id) }}" class="btn btn-primary cake-btn">View</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-3">
+                <div class="card r-card">
+                    <div class="card-body">
+                        <h5 class="card-title"><strong>Favourite Recipes</strong></h5>
+                        <div class="card-btn">    
+                            <a href="{{ url_for('liked_recipes', user_id=user._id) }}" class="btn btn-primary cake-btn">View</a>
                         </div>
                     </div>
                 </div>
@@ -48,16 +58,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-12 col-md-6 col-lg-3">
-                <div class="card r-card">
-                    <div class="card-body">
-                        <h5 class="card-title"><strong>Log Out</strong></h5>
-                        <div class="card-btn">    
-                            <a href="{{ url_for('logout') }}" class="btn btn-primary cake-btn">Log Out</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
         </div>
     </div>
 </div> 
