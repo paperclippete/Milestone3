@@ -5,6 +5,17 @@
         <div class="recipe-title">
             <h2>Login to Dessert Search</h2>
         </div>
+        
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                <div class="user_msg">
+                    <p>{{ message }}</p>
+                </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
         <div class="recipe-body">
             <form action="{{ url_for('login') }}" method="POST">
                 {% if message %}
@@ -26,7 +37,7 @@
                 <div class="form-group">
                     {{ form.password(size=32, placeholder="Password", class="form-control") }}
                 </div>
-                <button type="submit" class="btn btn-primary" >Login</button>
+                <button type="submit" class="btn btn-primary cake-btn" >Login</button>
             </form>
         </div>
     </div>

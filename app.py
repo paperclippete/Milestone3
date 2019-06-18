@@ -17,6 +17,7 @@ app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 mongo = PyMongo(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'user_login'
+recipes = mongo.db.recipes
 
 class User:
     def __init__(self, username):
@@ -45,10 +46,6 @@ class User:
             return None
         return User(site_user)
     
-
-recipes = mongo.db.recipes
-
-
 @app.route('/')
 @app.route('/index')
 def home():
@@ -71,7 +68,7 @@ def login():
         if the_user and User.check_password(the_user["password"], form.password.data):
             user_obj = User(the_user["username"])
             login_user(user_obj)
-            return render_template("user_home.html", users=users)
+            return render_template("user_home.html", users=users, user=the_user)
     error = "Invalid password/ username"
     return render_template("user_login.html", error=error, form=form)
 
@@ -94,16 +91,18 @@ def register():
             'last_name' : form.lastname.data.lower()
         }
         users.insert_one(new_doc)
-        message = "You are now a Dessert Search user, please login!"
-        return redirect(url_for('user_login', message=message))  
+        flash("You are now a Dessert Search user, please login!")
+        return redirect(url_for('user_login'))  
     error = "That username already exists"
-    return render_template("user_register.html", error=error)
+    return render_template("user_register.html", error=error, form=form)
     
 @app.route('/user_home')
 @login_required
 def user_home():
     users = mongo.db.users
-    return render_template("user_home.html", users=users)  
+    loggeduser = current_user.username["_id"]
+    the_user = users.find_one({ "_id": loggeduser })
+    return render_template("user_home.html", user=the_user, users=users)  
     
 @app.route('/logout')
 def logout():
@@ -126,7 +125,7 @@ def find_recipes():
             else: 
                 cursor = mongo.db.recipes.find({ "$text": { "$search": search_text }}).sort([ ("like_count", -1)])
                 matching_recipes = [matching_recipe for matching_recipe in cursor]
-                print("Hello 0")
+                
         elif len(checkboxes) == 1:
             if search_text == "":
                 cursor = mongo.db.recipes.find({ checkboxes[0]: True})
@@ -134,7 +133,7 @@ def find_recipes():
             else:
                 cursor = mongo.db.recipes.find({ "$and": [{ "$text": { "$search": search_text }}, { checkboxes[0]: True}, ] }).sort([ ("like_count", -1)]) 
                 matching_recipes = [matching_recipe for matching_recipe in cursor]
-                print("Hello 1")
+                
         elif len(checkboxes) == 2:
             if search_text == "":
                 cursor = mongo.db.recipes.find({ "$and": [ {checkboxes[0]: True}, { checkboxes[1]: True} ] }).sort([ ("like_count", -1)])
@@ -142,7 +141,7 @@ def find_recipes():
             else:
                 cursor = mongo.db.recipes.find({ "$and": [{ "$text": { "$search": search_text }}, { checkboxes[0]: True}, { checkboxes[1]: True} ] }).sort([ ("like_count", -1)]) 
                 matching_recipes = [matching_recipe for matching_recipe in cursor]
-                print("Hello 2")
+                
         elif len(checkboxes) == 3:
             if search_text == "":
                 cursor = mongo.db.recipes.find({ "$and": [ {checkboxes[0]: True}, { checkboxes[1]: True}, { checkboxes[2]: True} ] }).sort([ ("like_count", -1)])
@@ -150,8 +149,7 @@ def find_recipes():
             else:
                 cursor = mongo.db.recipes.find({ "$and": [{ "$text": { "$search": search_text }}, { checkboxes[0]: True}, { checkboxes[1]: True}, { checkboxes[2]: True} ] }).sort([ ("like_count", -1)]) 
                 matching_recipes = [matching_recipe for matching_recipe in cursor]
-                print("Hello 3")
-        print(matching_recipes)
+        #this will enable the user to edit their recipes from the main search page
         if current_user.is_active:
             loggeduser = current_user.username["username"]
             the_user = users.find_one({ "username": loggeduser })
@@ -159,31 +157,32 @@ def find_recipes():
         
         return render_template("search_results.html", matching_recipes=matching_recipes)
 
-@app.route('/my_account/<loggeduser>')
+@app.route('/my_account/<user_id>')
 @login_required
-def edit_account(loggeduser):
+def edit_account(user_id):
     users = mongo.db.users
-    loggeduser = current_user.username["_id"]
-    the_user = users.find_one({ "_id": ObjectId(loggeduser) })
+    #loggeduser = current_user.username["_id"]
+    the_user = users.find_one({ "_id" : ObjectId(user_id) })
+    print(the_user)
     form = user_update_form()
     return render_template("my_account.html",  user=the_user, users=users, form=form)
 
-@app.route('/update_user/<loggeduser>', methods=['POST'])
+@app.route('/update_user/<user_id>', methods=['POST'])
 @login_required
-def update_user(loggeduser):
+def update_user(user_id):
     users = mongo.db.users
+    the_user = users.find_one({ "_id" : ObjectId(user_id) })
     form = user_update_form()
-    loggeduser = current_user.username["_id"]
     securepass = generate_password_hash(form.password.data, method="sha256")
-    users.update({'_id': ObjectId(loggeduser)},
+    users.update({'_id': ObjectId(user_id)},
     {
         'first_name': form.firstname.data.lower(),
         'last_name': form.lastname.data.lower(),
         'username': form.username.data.lower(),
         'password': securepass,
     })
-    message = "You've updated your details"
-    return render_template("user_home.html", message=message, form=form, loggeduser=loggeduser, users=users)    
+    flash("You've updated your details, please login.")
+    return render_template("user_login.html", form=form, user=the_user, users=users)    
 
 @app.route('/search_results')
 def search_results():
@@ -193,10 +192,13 @@ def search_results():
 @app.route('/view_recipe/<recipe_id>', methods=["GET", "POST"])
 def view_recipe(recipe_id):
     the_recipe = recipes.find_one({"_id": ObjectId(recipe_id)})
+    print(the_recipe)
     users = mongo.db.users
-    loggeduser = current_user.username["username"]
-    the_user = users.find_one({ "username": loggeduser })
-    return render_template("view_recipe.html", recipe=the_recipe, loggeduser=loggeduser, users=users)
+    if current_user.is_active:
+        loggeduser = current_user.username["username"]
+        the_user = users.find_one({ "username": loggeduser })
+        return render_template("view_recipe.html", recipe=the_recipe, loggeduser=loggeduser, users=users)
+    return render_template("view_recipe.html", recipe=the_recipe, users=users)
     
     
 @app.route('/add_recipe', methods=['GET','POST'])
