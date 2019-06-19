@@ -4,6 +4,7 @@
     <div class="view-recipe">
         <div class="recipe-title">
             <h2>{{recipe.title.title()}}</h2>
+            <p class ="recipe-author">by {{recipe.author.capitalize()}}</p>
             <hr>
         </div>
         <div class="recipe-body">
@@ -29,13 +30,13 @@
                     <p> Time: {{recipe.prep_time}}<br>
                         Serves: {{recipe.serves}} <br><br>
                         {% if recipe.vegan %}
-                            <span class="tags"><i class="fas fa-leaf"></i><em>- Vegan</em> </span>
+                            <span class="tags"><i class="fas fa-leaf"></i><em> - Vegan</em> </span>
                         {% endif %}
                         {% if recipe.dairy_free %}
-                            <span class="tags"><i class="fas fa-cheese"></i><em>- Dairy-free</em> </span>
+                            <span class="tags"><i class="fas fa-cheese"></i><em> - Dairy-free</em> </span>
                         {% endif %}
                         {% if recipe.gluten_free %}
-                            <span class="tags"><i class="fab fa-pagelines"></i><em>- Gluten-free </em> </span>
+                            <span class="tags"><i class="fab fa-pagelines"></i><em> - Gluten-free </em> </span>
                         {% endif %}
                     </p>  
                 </div>
@@ -51,7 +52,9 @@
             </div>
             <div class="recipe-method">
                 <h4>Method</h4>
-                <p>{{recipe.method.capitalize()}}</p>
+                {% if method_format %}
+                <p>{{ method_format }}</p>
+                {% endif %}
             </div>
             <a class="btn btn-primary cake-btn cancel-btn" type="reset" value="cancel">Back</a>
         </div>

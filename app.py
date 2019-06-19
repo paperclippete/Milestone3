@@ -10,6 +10,7 @@ from forms import user_login_form, user_register_form, user_update_form
 
 app = Flask(__name__)
 
+# Hidden and secure environment variables
 app.config["MONGO_URI"] = os.getenv("MONGO_URI")
 app.config["DBS_NAME"] = os.getenv("DBS_NAME")
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
@@ -213,13 +214,19 @@ def search_results():
 @app.route('/view_recipe/<recipe_id>', methods=["GET", "POST"])
 def view_recipe(recipe_id):
     the_recipe = recipes.find_one({"_id": ObjectId(recipe_id)})
-    print(the_recipe)
+    method_string = the_recipe['method']
+    method_format = ""
+    sentences = list(method_string.split(".")) # Create list based on each sentence.
+    for i in range(len(sentences)): # Loop through list which is each sentence.
+        sentences[i] = sentences[i].strip() # Remove any leading or trailing spaces.
+        sentences[i] = sentences[i][:1].upper() + sentences[i][1:] # Concatenate string with first letter upper.
+        method_format += sentences[i] + ". " 
     users = mongo.db.users
     if current_user.is_active:
         loggeduser = current_user.username["username"]
         the_user = users.find_one({"username": loggeduser})
-        return render_template("view_recipe.html", recipe=the_recipe, user=the_user, users=users)
-    return render_template("view_recipe.html", recipe=the_recipe, users=users)
+        return render_template("view_recipe.html", recipe=the_recipe, user=the_user, users=users, method_format=method_format)
+    return render_template("view_recipe.html", recipe=the_recipe, users=users, method_format=method_format)
     
 
 # Add a new recipe to the db    
