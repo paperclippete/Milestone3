@@ -1,31 +1,22 @@
 $(document).ready(function(){
     //Get username in session and change navbar links
-    $.ajax({
-        type: "GET",
-        url: "/login",
-        success: function(data) {
+    fetch("/login")
+    .then((resp) => resp.json())
+    .then(function(data){
+            console.log(data);
             
             $("#login-link").addClass("hidden");
             $("#signup-link").addClass("hidden");
             $("#logout-link").removeClass("hidden");
-            $("#add-recipe-link").removeClass("hidden");
-            $("#user-home-link").removeClass("hidden");
-            $("#user-welcome").html(`Welcome `+ (data));
+            $("#search-link").removeClass("hidden");
+            $("#user-welcome").html(`Welcome `+ (data) + ` - Home`);
         }
+    )
+    .catch(function() {
+   
     });
     
-    /*$('#like-form').on('submit', function(event) {
-        event.preventDefault();
-        console.log
-        $.ajax({
-            url: $(this),
-            data: "like",
-            type: 'POST',
-              
-        });
-        
-    }); */
-    
+    //Add ingredient form will add extra inputs
     $('#ing-btn').click(function(event) {
         event.preventDefault();
         let inginput = `<div class="form-inline">
@@ -37,26 +28,72 @@ $(document).ready(function(){
         $(".ing-group").append(inginput);
     });
     
+    //Any button labelled cancel will take the user back
     $('.cancel-btn').click(function() {
-        window.history.back();
+        history.back(-1);
+        
     });
-    /*
     
-    $.ajax({
-        type: "POST",
-        data: "submit=1&username="+username+"&email="+email+"&password="+password+"&passconf="+passconf,
-        url: "http://rt.ja.com/includes/register.php",
-        success: function(data)
-        {   
-            //alert(data);
-            $('#userError').html(data);
-            $("#userError").html(userChar);
-            $("#userError").html(userTaken);
+    //User can click on checkbox text to select checkbox
+    $('.form-check').click(function() {
+        $(this).prop('checked');
+    });
+    
+    //filter results on results page
+    //$("input:checkbox").toggle(function() {
+      //  $(this).prop("checked");
+    //}, function() {
+    //    $(this).prop("checked", false);
+    //});
+    
+    $("#checkgluten").on("click", function() {
+        if ($(this).prop("checked")) {
+            $(".r-card-text:not(:contains('Gluten-free'))").parents(".r-card-col:visible").addClass("hidden");
+        }
+        else {
+            $(".r-card-text:not(:contains('Gluten-free'))").parents(".r-card-col").removeClass("hidden")
+        }
+    });
+    $("#checkvegan").on("click", function() {
+        if ($(this).prop("checked")) {
+            $(".r-card-text:not(:contains('Vegan'))").parents(".r-card-col:visible").addClass("hidden")
+        }
+        else {
+            $(".r-card-text:not(:contains('Vegan'))").parents(".r-card-col").removeClass("hidden")
+        }
+            
+    });
+    $("#checkdairy").on("click", function() {
+        if ($(this).prop("checked")) {
+            $(".r-card-text:not(:contains('Dairy-free'))").parents(".r-card-col:visible").addClass("hidden")
+        }
+        else {
+            $(".r-card-text:not(:contains('Dairy-free'))").parents(".r-card-col").removeClass("hidden")
+        }
+    });
+    $("#checkquick").on("click", function() {
+        if ($(this).prop("checked")) {
+            $(".r-card-text:not(:contains('under 30 mins'))").parents(".r-card-col:visible").addClass("hidden");
+        }
+        else {
+            $(".r-card-text:not(:contains('under 30 mins'))").parents(".r-card-col").removeClass("hidden");
         }
     });
     
-    */
+    $("#reset-btn").on('click', function() {
+       $(".r-card-col").removeClass("hidden");
+       $(".filter-check:checked").prop("checked", false);
+
+    });
     
-    
+    //change results display on filter
+    $("input:checkbox").change(function() {
+        var cards = $('.r-card:visible').length;
+        $('.result-count').html(cards);
+    });
+    $("#reset-btn").click(function() {
+        var cards = $('.r-card:visible').length;
+        $('.result-count').html(cards);
+    });
 });
     

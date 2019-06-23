@@ -1,44 +1,95 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="search-results-layout">
+    <div class="message-box">
+        <div class="user_msg">
+            <p>Please find <span class="result-count">{{matching_recipes|length}}</span> matching results </p>
+        </div>
+    </div>
+    <div class="accordion user_msg" id="filter-accordion">
+        <div class="card filter-card">
+            <div class="card-header" id="filter-header">
+                <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#filter-collapse" aria-expanded="true" aria-controls="collapseOne">
+                      Filter Results
+                    </button>
+                </h2>
+            </div>
+        
+            <div id="filter-collapse" class="collapse" aria-labelledby="filter-header" data-parent="#filter-accordion">
+                <div class="card-body">
+                    <div class="form-group">
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label" for="checkvegan">Vegan
+                                <input class="form-check-input filter-check" type="checkbox" id="checkvegan" name="check" value="vegan">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label" for="checkdairy">Dairy-Free
+                                <input class="form-check-input filter-check" type="checkbox" id="checkdairy" name="check" value="dairy_free">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label" for="checkgluten">Gluten-Free
+                                <input class="form-check-input filter-check" type="checkbox" id="checkgluten" name="check" value="gluten_free">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label" for="checkquick">Quick Recipes
+                                <input class="form-check-input filter-check" type="checkbox" id="checkquick" name="check" value="quick">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                    </div>
+                <a class="btn btn-primary cake-btn" id="reset-btn">Reset Filters</a>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="recipe-cards">
         <div class="row card-row">
             {% for matching_recipe in matching_recipes %}
-            <div class="col-sm-12 col-md-6 col-lg-3">
-                <div class="card">
+            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 r-card-col">
+                <div class="card r-card">
                 {% if matching_recipe.image %}
                     <img src="{{ matching_recipe.image }}" class="card-img-top"></img>
                 {% else %}
                     <img src="{{ url_for('static', filename='img/art-artificial-background-1061581.jpg') }}" class="card-img-top"></img>
                 {% endif %}
                     <div class="card-body">
-                        <h5 class="card-title"><strong>{{matching_recipe.title.title()}}</strong></h5>
-                        <hr>
-                        <div class="card-text">
-                            <p>
+                        <h5 class="card-title r-card-title"><strong>{{matching_recipe.title.title()}}</strong></h5>
+                        <div class="card-text r-card-text">
+                            <p class="likes-info">
                             {% if matching_recipe.like_count %} Likes: {{matching_recipe.like_count}}  {% endif %}
                             {% if matching_recipe.like_count == null %} Likes: 0  {% endif %}
-                            <hr>
+                            </p>
+                            <p class="time-info">
                             Time: {{matching_recipe.prep_time}}<br>
-                            Serves: {{matching_recipe.serves}} <br><br>
+                            Serves: {{matching_recipe.serves}}
+                            </p>
                         {% if matching_recipe.vegan %}
-                            <span class="tags"><i class="fas fa-leaf"></i><em>- Vegan</em> </span>
+                            <p class="tags"><i class="fas fa-leaf"></i><em> - Vegan</em> </p>
                         {% endif %}
                         {% if matching_recipe.dairy_free %}
-                            <span class="tags"><i class="fas fa-cheese"></i><em>- Dairy-free</em> </span>
+                            <p class="tags"><i class="fas fa-cheese"></i><em> - Dairy-free</em> </p>
                         {% endif %}
                         {% if matching_recipe.gluten_free %}
-                            <span class="tags"><i class="fab fa-pagelines"></i><em>- Gluten-free </em> </span>
+                            <p class="tags"><i class="fab fa-pagelines"></i><em> - Gluten-free </em> </p>
                         {% endif %}
-                            </p>
                         </div>
                         <div class="card-btn">
-                            <a href="{{ url_for('view_recipe', recipe_id=matching_recipe._id) }}" class="btn btn-primary" id="view-btn">View</a>
-                            {% if the_user %}    
-                                {% if matching_recipe.author == the_user.username %}
-                                <a href="{{ url_for('edit_recipe', recipe_id=matching_recipe._id) }}" class="btn btn-primary">Edit</a>
-                                <a href="{{ url_for('delete_recipe', recipe_id=matching_recipe._id) }}" class="btn btn-primary">Delete</a>
+                            <a href="{{ url_for('view_recipe', recipe_id=matching_recipe._id) }}" class="btn btn-primary cake-btn" id="view-btn">View</a>
+                            {% if user %}    
+                                {% if matching_recipe.author == user.username %}
+                                <a href="{{ url_for('edit_recipe', recipe_id=matching_recipe._id) }}" class="btn btn-primary cake-btn">Edit</a>
+                                <a href="{{ url_for('delete_recipe', recipe_id=matching_recipe._id) }}" class="btn btn-primary cake-btn">Delete</a>
                                 {% endif %}
+                                
                             {% endif %}
                         </div>
                     </div>
