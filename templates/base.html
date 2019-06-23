@@ -28,34 +28,30 @@
                     <li class="nav-item hidden" id="logout-link">
                         <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
                     </li>
+                    <li class="nav-item hidden" id="search-link">
+                        <a class="nav-link" href="{{ url_for('home') }}">Search</a>
+                    </li>
                     <li class="nav-item" id="signup-link">
                         <a class="nav-link" href="{{ url_for('user_register') }}">Sign Up</a>
                     </li>
-                    <li class="nav-item hidden" id="user-home-link">
-                        <a class="nav-link" href="{{ url_for('user_home') }}">My Home</a>
-                    </li>
+                    
                     
                 </ul>
-                <span class="navbar-text nav-link" id="user-welcome">
+                <a href="{{ url_for('user_home') }}" class="navbar-text nav-link" id="user-welcome">
                         
-                </span>
+                </a>
             </div>
         </nav>
     </header>
     
     <main>
-        <div class="container-fluid">
-            {% block content %}
+        {% block content %}
     
-            {% endblock %}
-        </div>
+        {% endblock %}
     </main>
     <footer>
-        <div class="footer-copyright">
-            <p class="footer-info">Dessert Search ©2019 Alexa Gibson</p>
-            <div>
-                <p class="icon-credits">Icons made by <a href="https://www.freepik.com/" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" 			    title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></p></div>
-        </div>
+        <p class="footer-info">Dessert Search ©2019 Alexa Gibson</p>
+        <p class="icon-credits">Icons made by <a href="https://www.freepik.com/" title="Freepik" targer="_blank">Freepik</a> from <a href="https://www.flaticon.com/" 			    title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></p></div>
     </footer>
 
 </body>

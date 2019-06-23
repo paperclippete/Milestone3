@@ -13,8 +13,20 @@
                 <label for="author">Author</label>
                 <input type="text" class="form-control" id="author" name="author" placeholder="{{ the_user.username.capitalize() }}" value="{{ the_user.username }}">
             </div>
-            <select class="custom-select" id="main_ingredient" name="main_ingredient">
-                <option selected>Main Ingredient - Choose One</option>
+            <div class="form-group">
+                <label for="serves">Serves</label>
+                <input type="text" class="form-control" id="serves" name="serves" placeholder="e.g. 6-8">
+            </div>
+            <select class="form-group custom-select" id="prep_time" name="prep_time">
+                <option selected disabled>Preparation Time - Choose One</option>
+                <option value="under 30 mins">Under 30mins</option>
+                <option value="30 mins to 1hr">30mins - 1 hour</option>
+                <option value="1hr to 1hr 30mins">1 hour - 1hr 30mins</option>
+                <option value="1hr 30mins to 2hrs">1hr 30mins - 2 hours</option>
+                <option value="over 2 hours">Over 2 hours</option>
+            </select>
+            <select class="form-group custom-select" id="main_ingredient" name="main_ingredient">
+                <option selected disabled>Main Ingredient - Choose One</option>
                 <option value="chocolate">Chocolate</option>
                 <option value="strawberry">Strawberry</option>
                 <option value="banana">Banana</option>
@@ -35,11 +47,11 @@
                 <div class="form-inline">
                     <label class="sr-only" for="ingredient">Ingredient</label>
                     <input type="text" class="form-control mb-2 mr-sm-2" id="ingredient" name="ingredient" placeholder="Ingredient">
-                    <label class="sr-only" for="amount">Ingredient</label>
+                    <label class="sr-only" for="amount">Amount</label>
                     <input type="text" class="form-control mb-2 mr-sm-2" id="amount" name="amount" placeholder="e.g. 100g">
-                    <button class="btn" type="add" id="ing-btn" value="add">Add</button>
                 </div>
-            </div>    
+            </div>  
+            <button class="btn cake-btn" type="add" id="ing-btn" value="add">Add</button>
             <div class="form-group">
                 <label for="img_url">Image URL</label>
                 <input type="text" class="form-control" id="img_url" name="img_url">
@@ -61,8 +73,8 @@
                 <input type="checkbox" class="custom-control-input" id="glutenfree" name="glutenfree">
                 <label class="custom-control-label" for="glutenfree">Gluten-free?</label>
             </div>
-            <button type="submit" class="btn btn-primary">Submit Recipe</button>
-            <button class="btn btn-primary cancel-btn" type="reset" value="cancel">Cancel</button>
+            <button type="submit" class="btn btn-primary cake-btn">Submit Recipe</button>
+            <button class="btn btn-primary cancel-btn cake-btn" type="reset" value="cancel">Cancel</button>
         </form>
     </div>
 

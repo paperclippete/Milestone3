@@ -4,7 +4,7 @@
     <div class="overlay"></div>
     <div class="title">
         <h1 id="site-title">Dessert Search</h1>
-        <p id="title-text">Welcome to Dessert Search. Search our database of delicious desserts by your favourite ingredient and find something to stun your family and friends.</p>
+        <p id="title-text">Search our database of delicious desserts by your favourite ingredient and find something to stun your family and friends.</p>
         <form action="{{ url_for('find_recipes') }}" method="POST" id="index-search">
             <div class="input-group mb-3">
                 <input type="text" class="form-control" placeholder="Search" aria-label="Search by ingredient" id="search_text" name="search_text">
@@ -22,7 +22,7 @@
             <div class="form-check form-check-inline">
                 <label class="form-check-label" for="checkdairy">Dairy-Free
                     <input class="form-check-input" type="checkbox" id="checkdairy" name="check" value="dairy_free">
-                        <span class="checkmark"></span>
+                    <span class="checkmark"></span>
                 </label>
             </div>
             <div class="form-check form-check-inline">

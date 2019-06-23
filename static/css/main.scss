@@ -16,23 +16,24 @@ $fancy-font: 'Sofia', cursive;
 /* site effects defined as mixins in SCSS */
 
 @mixin site-links {
-    background:
-       linear-gradient(
-       to right,
-       $caramel 0%,
-       $caramel 100%
-    );
-    background-position: 0 100%;
-    background-repeat: repeat-x;
-    background-size: 0.5px 0.5px;
-    
-    text-decoration: none;
-    transition: background-size .025s;
+    /* Ian Lunn hover fade */
+    vertical-align: middle;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    overflow: hidden;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: color, background-color;
+    transition-property: color, background-color;
 }
 
 @mixin site-links-hover {
-    background-size: 0.5px 50px;
+    background-color: $caramel;
+    color: $dpink;
 }
+
+
 
 @mixin cake-button {
     background-color: $dpink;
@@ -60,11 +61,6 @@ body {
     color: $dchoc;
 }
 
-.container-fluid {
-    padding: 0px;
-    //height: 97vh;
-    
-}
 
 .navbar {
     background-color: $dpink;
@@ -82,10 +78,8 @@ body {
     color: $dchoc;
     font-family: $fancy-font;
     font-size: 2rem;
-    @include site-links;
     &:hover {
-        color: $dpink;
-        @include site-links-hover;
+        color: $caramel;
     }
 }
 
@@ -102,6 +96,7 @@ body {
     padding: 15px;
     color: $dchoc;
     text-align: center;
+    display: block;
     @include site-links;
     &:hover {
         color: $dpink;
@@ -118,6 +113,7 @@ body {
     p {
         margin: 0px;
         padding: 15px;
+        border: solid 1px $pistachio;
     }
     @media (min-width: 992px) {
     }
@@ -145,15 +141,18 @@ body {
 footer {
     background-color: $dpink;
     text-align: center;
+    position: relative;
+    width: 100%;
+    bottom: 0px;
 }
 
 .footer-info {
-    font-size: 0.8rem;
+    font-size: 1rem;
     margin: 0;
 }
 
 .icon-credits {
-    font-size: 0.5rem;
+    font-size: 0.8rem;
     margin-bottom: 0;
     a {
         text-decoration: none;
@@ -165,6 +164,12 @@ footer {
     @include cake-button;
     &:hover, &:not(:disabled):not(.disabled):active {
         @include cake-button-hover;
+    }
+    &:disabled, &.disabled {
+        background-color: $caramel;
+        color: $dpink;
+        text-decoration: none;
+        border: none;
     }
 }
 /* scrollbar styles */
@@ -190,14 +195,15 @@ footer {
 .form-check-label {
     display: block;
     position: relative;
-    padding-left: 35px;
+    padding-left: 30px;
     margin-bottom: 12px;
     cursor: pointer;
-    font-size: 22px;
+    font-size: 1.2rem;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    color: $dchoc;
     input {
         position: absolute;
         opacity: 0;
@@ -205,7 +211,7 @@ footer {
         height: 0;
         width: 0;
         :checked ~ .checkmark {
-            background-color: #2196F3;
+            background-color: $caramel;
         }
     }
     &:hover {
@@ -233,9 +239,9 @@ footer {
   background-color: #ccc;
 }
 
-/* When the checkbox is checked, add a blue background */
+/* When the checkbox is checked, add a background */
 .form-check-label input:checked ~ .checkmark {
-  background-color: #2196F3;
+  background-color: $caramel;
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
@@ -256,7 +262,7 @@ footer {
   top: 5px;
   width: 5px;
   height: 10px;
-  border: solid white;
+  border: solid $dpink;
   border-width: 0 3px 3px 0;
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
@@ -279,10 +285,10 @@ footer {
 
 .index-layout {
     position: relative;
-    height: 95.8vh;
+    height: 94.5vh;
     overflow: hidden;
     @media (min-width: 1023.98px) {
-        height: 97.5vh;
+        height: 95.6vh;
     }
 }
 
@@ -331,7 +337,7 @@ footer {
 #title-text {
     text-align: center;
     width: 80%;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     text-shadow: 2px 2px 4px #eac0a2;
 }
 
@@ -353,26 +359,51 @@ footer {
 .search-results-layout {
     position: relative;
     min-height: 95.8vh;
+    margin-top: 80px;
     
 }
 
+.user-cards,
 .recipe-cards {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     margin: 0px; 
-    margin-top: 70px;
+    margin-top: 30px;
     width: 100%;
 }
 
 .r-card {
-   height: 32rem;
+   height: 37rem;
    width: auto;
    margin-bottom: 15px;
    background-color: $ppink;
    img {
        object-fit: cover;
    }
+}
+
+.r-card-title,
+.likes-info {
+    border-bottom: solid 1px $dpink;
+    padding-bottom: 15px;
+}
+
+.accordion {
+    margin-top: 20px;
+}
+
+.btn-link {
+    text-decoration: none;
+    color: $dchoc;
+    &:hover {
+        color: $caramel;
+        text-decoration: none;
+    }
+}
+
+.card-header {
+    background-color: $ppink;
 }
 
 .card-row {
@@ -388,8 +419,10 @@ footer {
     margin-bottom: 50px;
 }
 
+
+
 .card-img-top {
-    height: 12rem;
+    height: 14rem;
 }
 
 .card-btn {
@@ -417,6 +450,8 @@ footer {
 .tags {
     padding-right: 10px;
     font-size: 0.8rem;
+    margin-bottom: 0.4rem;
+    
 }
 
 /* add recipe.html */
@@ -441,6 +476,7 @@ footer {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    min-height: 94.7vh;
     
 }
 
@@ -461,6 +497,8 @@ footer {
     img {
     width: 100%;
     margin-bottom: 15px;
+    height: auto;
+    object-fit: cover;
     }
 }
 
@@ -472,9 +510,64 @@ footer {
 /* user home.html */
 .user-home-layout {
     margin-top: 60px;
-    height: 97.5vh;
+    @media (min-width: 992px) {
+        height: 90.5vh;
+    }
 }
+
+.user-cards {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: space-evenly;
+    margin: 0px;
+    margin-top: 30px;
+    width: 100%;
+    @media (min-width: 992px) {
+        height: 93%;
+    }
+}
+
+.u-card {
+   height: 26rem;
+   width: auto;
+   margin-bottom: 15px;
+   background-color: $ppink;
+   img {
+       object-fit: contain;
+       border-bottom: solid 1px $dpink;
+       padding-bottom: 10px;
+   }
+}
+
+.u-card-title {
+    font-family: $fancy-font;
+    text-align: center;
+    font-size: 2.25rem;
+}
+
+.u-card-btn {
+    justify-content: center;
+} 
+
+
 /* register and login */
+
+.view-user-login {
+    height: 75vh;
+    width: 87%;
+    margin-top: 90px;
+    @media (min-width: 426px) {
+        height: 46vh;
+        margin-top: 180px;
+    }
+    @media (min-width: 992px) {
+        height: 33vh;
+        width: 50%;
+        margin-top: 250px;
+    }
+}
+
 .login-layout {
     display: flex;
     flex-direction: row;
