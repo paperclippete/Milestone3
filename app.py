@@ -1,7 +1,7 @@
 import os
 import json
 from flask import Flask, flash, render_template, redirect, request, url_for, session, jsonify
-from flask_pymongo import PyMongo, DESCENDING
+from flask_pymongo import PyMongo, pymongo
 from flask_login import LoginManager, UserMixin, login_user, logout_user, current_user, login_required
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -69,9 +69,8 @@ def user_login():
 def login():
     form = user_login_form()
     users = mongo.db.users
-    if request.method == 'GET':
-        if current_user:
-            return json.dumps(current_user.username['first_name'].capitalize())
+    if request.method == 'GET' and current_user.is_authenticated:
+        return json.dumps(current_user.username['first_name'].capitalize())
     if request.method == 'POST':
         the_user = users.find_one({"username": form.username.data.lower()})
         if the_user and User.check_password(the_user["password"], form.password.data):
@@ -104,7 +103,7 @@ def register():
             'last_name': form.lastname.data.lower()
         }
         users.insert_one(new_doc)
-        flash("You are now a Dessert Search user, please login!")
+        flash("Hi " + form.firstname.data.capitalize() +", please login!")
         return redirect(url_for('user_login'))
     error = "That username already exists"
     return render_template("user_register.html", error=error, form=form)
@@ -170,7 +169,7 @@ def find_recipes():
         if current_user.is_active:
             loggeduser = current_user.username["_id"]
             the_user = users.find_one({"_id": loggeduser})
-            return render_template("search_results.html", matching_recipes=matching_recipes, the_user=the_user)
+            return render_template("search_results.html", matching_recipes=matching_recipes, user=the_user)
 
         return render_template("search_results.html", matching_recipes=matching_recipes)
 
@@ -203,17 +202,11 @@ def update_user(user_id):
     flash("You've updated your details, please login.")
     return render_template("user_login.html", form=form, user=the_user, users=users)    
 
-"""
-@app.route('/search_results')
-def search_results():
-    users = mongo.db.users
-    return render_template("search_results.html", recipes=mongo.db.recipes.find())
-"""
-
 # View a recipe from the db
 @app.route('/view_recipe/<recipe_id>', methods=["GET", "POST"])
 def view_recipe(recipe_id):
     the_recipe = recipes.find_one({"_id": ObjectId(recipe_id)})
+    # Ensure method prints in html with capital letters
     method_string = the_recipe['method']
     method_format = ""
     sentences = list(method_string.split(".")) # Create list based on each sentence.
@@ -222,11 +215,14 @@ def view_recipe(recipe_id):
         sentences[i] = sentences[i][:1].upper() + sentences[i][1:] # Concatenate string with first letter upper.
         method_format += sentences[i] + ". " 
     users = mongo.db.users
-    if current_user.is_active:
+    if current_user.is_authenticated:
         loggeduser = current_user.username["username"]
         the_user = users.find_one({"username": loggeduser})
+        if the_user['_id'] in the_recipe["likes"]:
+            user_liked = True
+            return render_template("view_recipe.html", recipe=the_recipe, user=the_user, users=users, method_format=method_format, user_liked=user_liked)
         return render_template("view_recipe.html", recipe=the_recipe, user=the_user, users=users, method_format=method_format)
-    return render_template("view_recipe.html", recipe=the_recipe, users=users, method_format=method_format)
+    return render_template("view_recipe.html", recipe=the_recipe, user=users, method_format=method_format)
     
 
 # Add a new recipe to the db    
@@ -262,7 +258,8 @@ def insert_recipe():
             'dairy_free': bool(dairyfree),
             'gluten_free': bool(glutenfree),
             'prep_time': request.form.get('prep_time'),
-            'serves': request.form.get('serves')
+            'serves': request.form.get('serves'),
+            'likes': []
         }
     recipes.insert_one(new_doc)
     flash("You have added a new recipe.")
@@ -310,7 +307,7 @@ def update_recipe(recipe_id):
 
 
 # User can delete their own recipes from the db
-@app.route('/delete_recipe/<recipe_id>', methods=["POST"])
+@app.route('/delete_recipe/<recipe_id>', methods=["GET", "POST"])
 @login_required
 def delete_recipe(recipe_id):
     recipes.remove({'_id': ObjectId(recipe_id)})
@@ -323,11 +320,13 @@ def delete_recipe(recipe_id):
 @login_required
 def my_recipes(user_id):
     users = mongo.db.users
-    loggeduser = current_user.username["_id"]
-    the_user = users.find_one({"_id": loggeduser})
-    cursor = mongo.db.recipes.find({"author": the_user['_id']}).sort([("like_count", -1)])
+    loggeduser = current_user.username["username"]
+    print(loggeduser)
+    the_user = users.find_one({"username": loggeduser})
+    print(the_user)
+    cursor = mongo.db.recipes.find({"author": the_user['username']}).sort([("like_count", -1)])
     matching_recipes = [matching_recipe for matching_recipe in cursor]
-    return render_template("search_results.html", matching_recipes=matching_recipes, the_user=the_user)
+    return render_template("search_results.html", matching_recipes=matching_recipes, user=the_user)
 
 
 # User can view all of the recipes they have liked  
@@ -336,10 +335,10 @@ def my_recipes(user_id):
 def liked_recipes(user_id):
     users = mongo.db.users
     loggeduser = current_user.username["_id"]
-    the_user = users.find_one({"_id": loggeduser})
+    the_user = users.find_one({"_id": ObjectId(user_id)})
     cursor = mongo.db.recipes.find({"likes": the_user['_id']}).sort([("like_count", -1)])
     matching_recipes = [matching_recipe for matching_recipe in cursor]
-    return render_template("search_results.html", matching_recipes=matching_recipes, the_user=the_user)
+    return render_template("search_results.html", matching_recipes=matching_recipes, user=the_user)
 
 
 # Like a recipe will increase a recipes like count and log the user_id to an array in the db
@@ -353,8 +352,16 @@ def like_recipe(recipe_id, user_id):
                     "likes": {"$ne": ObjectId(loggeduser)}},
                    {"$inc": {"like_count": 1}, 
                      "$push": {"likes": ObjectId(loggeduser)}})
-    return render_template("view_recipe.html", recipe=the_recipe, user=the_user, users=users)
-
+    method_string = the_recipe['method']
+    method_format = ""
+    sentences = list(method_string.split(".")) # Create list based on each sentence.
+    for i in range(len(sentences)): # Loop through list which is each sentence.
+        sentences[i] = sentences[i].strip() # Remove any leading or trailing spaces.
+        sentences[i] = sentences[i][:1].upper() + sentences[i][1:] # Concatenate string with first letter upper.
+        method_format += sentences[i] + ". "
+    user_liked = True
+    return render_template("view_recipe.html", recipe=the_recipe, user=the_user, method_format=method_format, user_liked=user_liked)
+   
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),

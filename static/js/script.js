@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    //Get username in session and change navbar links
+    // Get username in session and change navbar links
     fetch("/login")
     .then((resp) => resp.json())
     .then(function(data){
@@ -16,7 +16,8 @@ $(document).ready(function(){
    
     });
     
-    //Add ingredient form will add extra inputs
+    
+    // Add ingredient form will add extra inputs on add-recipe
     $('#ing-btn').click(function(event) {
         event.preventDefault();
         let inginput = `<div class="form-inline">
@@ -28,24 +29,23 @@ $(document).ready(function(){
         $(".ing-group").append(inginput);
     });
     
-    //Any button labelled cancel will take the user back
+    // Any button labelled cancel will take the user back
     $('.cancel-btn').click(function() {
         history.back(-1);
-        
+    });
+    if (window.location.href.indexOf("/like_recipe") > -1) {
+        $(".cancel-btn").attr("id", "cancel-cancel");
+    }
+    $('#cancel-cancel').click(function() {
+        history.back(-2);
     });
     
-    //User can click on checkbox text to select checkbox
+    // User can click on checkbox text to select checkbox
     $('.form-check').click(function() {
         $(this).prop('checked');
     });
     
-    //filter results on results page
-    //$("input:checkbox").toggle(function() {
-      //  $(this).prop("checked");
-    //}, function() {
-    //    $(this).prop("checked", false);
-    //});
-    
+    // Filter results on results page
     $("#checkgluten").on("click", function() {
         if ($(this).prop("checked")) {
             $(".r-card-text:not(:contains('Gluten-free'))").parents(".r-card-col:visible").addClass("hidden");
@@ -86,7 +86,7 @@ $(document).ready(function(){
 
     });
     
-    //change results display on filter
+    // Change results display on filter
     $("input:checkbox").change(function() {
         var cards = $('.r-card:visible').length;
         $('.result-count').html(cards);
@@ -95,5 +95,6 @@ $(document).ready(function(){
         var cards = $('.r-card:visible').length;
         $('.result-count').html(cards);
     });
+    
 });
     

@@ -23,8 +23,12 @@
                     {% endif %}
                     {% if recipe.like_count == null %}
                         <p>This recipe has no likes... yet!</p>
-                     {% endif %}
-                    <a href="{{ url_for('like_recipe', recipe_id=recipe._id, user_id=user._id) }}" class="btn btn-primary like-btn cake-btn"><i class="far fa-thumbs-up">Like Recipe</i></a>
+                    {% endif %}
+                    {% if user_liked %}
+                        <button class="btn btn-primary like-btn cake-btn" id="liked-btn" disabled><i class="far fa-thumbs-up">You like this Recipe</i></button>
+                        {% else %}
+                        <a href="{{ url_for('like_recipe', recipe_id=recipe._id, user_id=user._id) }}" class="btn btn-primary like-btn cake-btn" id="like-btn"><i class="far fa-thumbs-up">Like Recipe</i></a>
+                    {% endif %}
                     </div>
                     <br>
                     <p> Time: {{recipe.prep_time}}<br>
@@ -45,7 +49,7 @@
                 <h4>Ingredients</h4>
                 <ul>
                     {% for key, val in recipe.ingredients.items() %}
-                        <li>{{ key.capitalize() }} - {{ val }}</li>
+                        <li>{{ key.title() }} - {{ val }}</li>
                     {% endfor %}
                 </ul>    
                 </div>
@@ -56,7 +60,7 @@
                 <p>{{ method_format }}</p>
                 {% endif %}
             </div>
-            <a class="btn btn-primary cake-btn cancel-btn" type="reset" value="cancel">Back</a>
+            <a class="btn btn-primary cake-btn cancel-btn" id="#cancel-btn" value="cancel">Back</a>
         </div>
     </div>
 </div>
