@@ -39,6 +39,7 @@ $fancy-font: 'Sofia', cursive;
     background-color: $dpink;
     color: $dchoc;
     border-color: #b98a8a;
+    
 }
 
 @mixin cake-button-hover {
@@ -470,6 +471,10 @@ footer {
     width: 80%;
 }
 
+#search-again-btn {
+    margin-left: 20px;
+}
+
 /* view recipe.html */
 
 .view-recipe-layout {
@@ -562,7 +567,7 @@ footer {
         margin-top: 180px;
     }
     @media (min-width: 992px) {
-        height: 33vh;
+        height: 45vh;
         width: 50%;
         margin-top: 250px;
     }
@@ -574,3 +579,18 @@ footer {
     justify-content: center;
     height: 97.5vh;
 }
+
+/* edit account */
+.edit-account {
+    input {
+        margin-left: 30px;
+    }
+}
+
+/* add recipe */
+
+.add-btn {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+

@@ -11,7 +11,7 @@
             </div>
             <div class="form-group">
                 <label for="author">Author</label>
-                <input type="text" class="form-control" id="author" name="author" placeholder="{{ the_user.username.capitalize() }}" value="{{ the_user.username }}">
+                <input type="text" class="form-control" id="author" name="author" placeholder="{{ the_user.username.capitalize() }}" value="{{ the_user.username.capitalize() }}" disabled>
             </div>
             <div class="form-group">
                 <label for="serves">Serves</label>
@@ -51,7 +51,7 @@
                     <input type="text" class="form-control mb-2 mr-sm-2" id="amount" name="amount" placeholder="e.g. 100g">
                 </div>
             </div>  
-            <button class="btn cake-btn" type="add" id="ing-btn" value="add">Add</button>
+            <button class="btn cake-btn add-btn" type="add" id="ing-btn" value="add">Add</button>
             <div class="form-group">
                 <label for="img_url">Image URL</label>
                 <input type="text" class="form-control" id="img_url" name="img_url">
@@ -73,8 +73,8 @@
                 <input type="checkbox" class="custom-control-input" id="glutenfree" name="glutenfree">
                 <label class="custom-control-label" for="glutenfree">Gluten-free?</label>
             </div>
-            <button type="submit" class="btn btn-primary cake-btn">Submit Recipe</button>
-            <button class="btn btn-primary cancel-btn cake-btn" type="reset" value="cancel">Cancel</button>
+            <button type="submit" class="btn btn-primary cake-btn add-btn">Submit Recipe</button>
+            <button class="btn btn-primary cancel-btn cake-btn add-btn" type="reset" value="cancel">Cancel</button>
         </form>
     </div>
 

@@ -2,31 +2,32 @@
 {% block content %}
 
 <div class="view-recipe-layout">
-    <div class="view-recipe">
+    <div class="view-recipe view-user-login">
         <div class="recipe-title">
             <h2>Edit your Details</h2>
         </div>
-        <div class="recipe-body">
+        <div class="recipe-body edit-account">
             
             <form action="{{ url_for('update_user', user_id=user._id) }}" method="POST">
                 <div class="form-group form-inline">
-                    <label>{{user.username}}</label>
+                    <label>{{user.username.capitalize()}}</label>
                     {{ form.csrf_token }}
                     {{ form.username(size=32, placeholder="Choose a new username", class="form-control" ) }}
                 </div>
                 <div class="form-group form-inline">
-                    <label>{{user.first_name}}</label>
+                    <label>{{user.first_name.capitalize()}}</label>
                     {{ form.firstname(size=32, placeholder="Change your first name", class="form-control" ) }}
                 </div>
                 <div class="form-group form-inline">
-                    <label>{{user.last_name}}</label>
+                    <label>{{user.last_name.capitalize()}}</label>
                     {{ form.lastname(size=32, placeholder="Change your last name", class="form-control" ) }}
                 </div>
-                <div class="form-group">
+                <div class="form-group form-inline">
+                    <label>Password</label>
                     {{ form.password(size=32, placeholder="Change your password", class="form-control" ) }}
                 </div>
-                <button type="submit" class="btn btn-primary">Update</button>
-                <button type="reset" class="btn btn-primary cancel-btn">Cancel</button>
+                <button type="submit" class="btn btn-primary cake-btn">Update</button>
+                <button type="reset" class="btn btn-primary cancel-btn cake-btn">Cancel</button>
             </form>
         </div>
     </div>

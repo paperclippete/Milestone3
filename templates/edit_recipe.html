@@ -7,11 +7,11 @@
         <form action="{{ url_for('update_recipe', recipe_id=recipe._id) }}" method="POST">
             <div class="form-group">
                 <label for="title">Recipe Title</label>
-                <input type="text" class="form-control" id="title" name="title" placeholder="{{ recipe.title }}">
+                <input type="text" class="form-control" id="title" name="title" placeholder="{{ recipe.title.capitalize() }}">
             </div>
             <div class="form-group">
                 <label for="author">Author</label>
-                <input type="text" class="form-control" id="author" name="author" placeholder="{{ the_user.username.capitalize() }}" value="{{ the_user.username }} disabled">
+                <input type="text" class="form-control" id="author" name="author" placeholder="{{ the_user.username.capitalize() }}" value="{{ the_user.username.capitalize() }}" disabled>
             </div>
             <div class="form-group">
                 <label for="serves">Serves</label>
@@ -53,7 +53,7 @@
                 </div>
             {% endfor %}
             </div>
-            <button class="btn cake-btn" type="add" id="ing-btn" value="add">Add</button>
+            <button class="btn cake-btn add-btn" type="add" id="ing-btn" value="add">Add</button>
             
             <div class="form-group">
                 <label for="img_url">Image URL</label>
@@ -96,8 +96,8 @@
                 <label class="custom-control-label" for="glutenfree">Gluten-free?</label>
             </div>
             {% endif %}
-            <button type="submit" class="btn btn-primary cake-btn">Submit Recipe</button>
-            <button class="btn btn-primary cancel-btn cake-btn" type="reset" value="cancel">Cancel</button>
+            <button type="submit" class="btn btn-primary cake-btn add-btn">Submit Recipe</button>
+            <button class="btn btn-primary cancel-btn cake-btn add-btn" type="reset" value="cancel">Cancel</button>
         </form>
     </div>
 
