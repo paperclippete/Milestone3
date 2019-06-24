@@ -1,4 +1,4 @@
-# Dessert ![Cake](static/img/cake1.png) Finder
+# Dessert ![Cake](static/img/cake1.png=40x40) Finder
 
 Welcome to Dessert Finder. 
 
@@ -71,7 +71,7 @@ In order to create a good UX Dessert Search...
 
 Please find my initial wireframe and database schema, created using Balsamiq, [here](development/DessertSearch.pdf)
 
-![Cake 2](static/img/cake2.png)
+![Cake 2](static/img/cake2.png=40x40)
 
 ### Features
 ___
