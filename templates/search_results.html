@@ -3,7 +3,11 @@
 <div class="search-results-layout">
     <div class="message-box">
         <div class="user_msg">
-            <p>Please find <span class="result-count">{{matching_recipes|length}}</span> matching results </p>
+            <p>Please find <span class="result-count">{{matching_recipes|length}}</span> matching results <span>
+            {% if matching_recipes|length == 0 %}
+                <a href="{{ url_for('home') }}" class="btn btn-primary cake-btn" id="search-again-btn">Search Again</a>
+            {% endif %}
+            </span></p>
         </div>
     </div>
     <div class="accordion user_msg" id="filter-accordion">
@@ -46,7 +50,7 @@
                             </label>
                         </div>
                     </div>
-                <a class="btn btn-primary cake-btn" id="reset-btn">Reset Filters</a>
+                    <a class="btn btn-primary cake-btn" id="reset-btn">Reset Filters</a>
                 </div>
             </div>
         </div>

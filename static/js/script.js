@@ -3,8 +3,6 @@ $(document).ready(function(){
     fetch("/login")
     .then((resp) => resp.json())
     .then(function(data){
-            console.log(data);
-            
             $("#login-link").addClass("hidden");
             $("#signup-link").addClass("hidden");
             $("#logout-link").removeClass("hidden");
@@ -95,6 +93,9 @@ $(document).ready(function(){
         var cards = $('.r-card:visible').length;
         $('.result-count').html(cards);
     });
+    
+    // Provide quick link to search again if there are 0 results
+    
     
 });
     
