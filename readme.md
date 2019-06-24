@@ -1,4 +1,4 @@
-# Dessert [Cake](static/img/cake1.png) Finder
+# Dessert ![Cake](static/img/cake1.png) Finder
 
 Welcome to Dessert Finder. 
 
