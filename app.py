@@ -222,7 +222,7 @@ def view_recipe(recipe_id):
             user_liked = True
             return render_template("view_recipe.html", recipe=the_recipe, user=the_user, users=users, method_format=method_format, user_liked=user_liked)
         return render_template("view_recipe.html", recipe=the_recipe, user=the_user, users=users, method_format=method_format)
-    return render_template("view_recipe.html", recipe=the_recipe, user=users, method_format=method_format)
+    return render_template("view_recipe.html", recipe=the_recipe, method_format=method_format)
     
 
 # Add a new recipe to the db    
