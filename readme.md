@@ -1,4 +1,4 @@
-# Dessert <img href="static/img/cake1.png" style="height: 40px, width: 40px"> Finder
+# Dessert <img src="static/img/cake1.png" height="40" width="40"> Finder
 
 Welcome to Dessert Finder. 
 
@@ -71,7 +71,7 @@ In order to create a good UX Dessert Search...
 
 Please find my initial wireframe and database schema, created using Balsamiq, [here](development/DessertSearch.pdf)
 
-<img href="static/img/cake2.png" style="height: 40px, width: 40px">
+<img src="static/img/cake2.png" height="40" width="40">
 
 ### Features
 ___
@@ -155,6 +155,7 @@ It could be possible to integrate social media feeds (i.e. Instagram) to provide
 * [Cloud9 IDE](https://ide.c9.io/) - this was the IDE where I developed and tested my application
 * **Git** - I pushed my files using **Git**, storing them in a repository on **GitHub**
 * [Heroku](https://heroku.com/) - I deployed my finished site through Heroku
+* [Chrome Developer Tools](https://developers.google.com/web/tools/chrome-devtools/) - used to test and check my work throughout the development process
 
 ##### Libraries
 
@@ -162,8 +163,6 @@ It could be possible to integrate social media feeds (i.e. Instagram) to provide
 * [Google Fonts](https://fonts.google.com/) - used for customised fonts
 * [Font Awesome 5](https://fontawesome.com/) - used for links and icons to make the site more appealing
 
-
-* Chrome Developer Tools, Stack-Overflow, Code-Institue Slack Community, Code-Institute module notes, W3Schools, CSS Tricks, Pretty Printed YouTube videos - all used for reference when I encountered a bug or required extra support with any issues.
 
 ### Testing
 ___
@@ -205,50 +204,108 @@ There was a security issue related to the app.py view where the database string 
 ### Deployment
 ___
 
-I saved my work regularly on the IDE Cloud 9. I also committed my code to GitHub at regular intervals. I feel that I am now using git more often, making sure to give detailed commit messages as I know it provides version control.
+#### How to Install Dessert Finder
 
-In order to deploy my work I opened the terminal within Cloud 9...
+1. From your terminal enter `git clone https://github.com/paperclippete/Milestone3.git` to clone the project and download to your IDE
 
-* initialised and set up a local git repository with the command ``` git init ```
+2. Set up your Virtual Environment Variables 
+    * this can be done by creating folder named .venv to hold your variables and importing them into your app.py
+    * this can be done in your IDE bash terminal - e.g. cd .. to your root directory and type `nano.bashrc` and type in your important environment variables
+    
+    * Your environment variables should not be committed to git*
 
-* added files to my git repo with the command ``` git add (specific file location or . for all files) ```
 
-* commited files to the local repo with ``` git commit``` and wrote a message after -m that would be useful in either complex projects or when working collaboratively.
+3. You should now install the requirements by typing `$ sudo pip3 -r install requirements.txt`
 
-* in order to commit my code to a remote repository I had to create a new project on GitHub and then typed into the terminal ``` git remote add origin``` followed by ``` https://github.com/[USER NAME]/[PROJECT NAME]```
+4. You will also have to create your own database to get full functionality from the project. [MongoDB](https://www.mongodb.com/) is free and easy to use. 
 
-* I then used ``` git push -u origin master``` to push my code to my master branch as I was only using one branch. I did not feel that my project was complex enough to create another branch, however I did spend time familiarising myself with this.
+> Within my Database I had two collections, recipes and users
 
-* Each time after initial commit I would use ``` git push``` to push my code to Git Hub
+* recipes
+    * ObjectId(set by MongoDB on insertion of a new document)
+    * title
+    * author (username of a user)
+    * recipe_description
+    * main_ingredient
+    * ingredients (an object containing key, value pairs)
+    * method
+    * image (a URL)
+    * prep_time
+    * serves
+    * likes (an array containing ObjectIds of users)
+    * like_count (incremented by 1 everytime someone presses the like button)
+    * vegan (boolean)
+    * dairy_free (boolean)
+    * gluten_free (boolean)
 
-* In GitHub I then published my master branch to GitHub pages, this is my deployed version. 
+* users
+    * ObjectId(set by MongoDB on insertion of a new document)
+    * username (must be unique)
+    * first_name (used for greetings)
+    * last_name
+    * password (encrypted on insertion to the database)
 
-* In order to deploy the site to Heroku, I had to create a Procfile and requirements.txt. To create a Procfile - ```echo web: python (your filename).py > Procfile ``` To create a requirements.txt - ```sudo pip3 freeze --local > requirements.txt ``` These will tell Heroku how to run your app.
 
-* Next, I logged into Heroku ``` $ heroku login ``` and set up the remote ``` git remote add heroku(url) ```, I then deployed to Heroku using ``` git push heroku master```
 
-* I then navigated to the Heroku website where I had to set up the config vars. The IP is 0.0.0.0 and the PORT is 8080. I also included my MONGO_URI, DB_NAME and SECRET KEY. These were saved as environment variables in Cloud 9 and had to be entered manually into Heroku to avoid commiting them to GIT.
+#### How to Deploy your Site
 
-* If you're interested in cloning this repository, to set up and install everything in the requirements.txt run the following command in the terminal:
+I committed my code to GitHub at regular intervals. I am now using git more often, making sure to give detailed commit messages as I know it provides version control.
 
-```$ sudo pip3 -r install requirements.txt```
+1. In order to deploy the site to Heroku, you must create a Procfile and requirements.txt. *These will tell Heroku how to run your app.*
+    * To create a Procfile - `echo web: python (your filename).py > Procfile ` 
+    * To create a requirements.txt - `sudo pip3 freeze --local > requirements.txt ` 
 
-* Please note that I used Cloud9 for this project, so if you are using a different editor, the terminal commands may differ. Also you will have to create your own Database and Secret Keys. These values are kept secret in order to provide security to users.
+2. Next, log into Heroku and set up the remote.
+    ``` 
+    
+ 
+    heroku login  
+    
+    git remote add heroku(url) 
 
-**The difference between the deployed version and the development version is that I'm using a minified CSS file whereas I used SASS to compile my styling during development. I also set the debug to false for deployment.**
+
+    ``` 
+
+3. You then need to setup your Heroku Enivronment Variables and you can do this in two ways, either through the terminal or by navigating to [Heroku](http://heroku.com).
+
+4. On navigating to the Heroku website, log in and select your app from the dashoboard.
+
+5. Choose settings and click on 'Reveal Config Vars' and insert the environment variables that are essential for your project to run. For example, 
+
+    > IP - 0.0.0.0 
+    PORT - 8080 
+    MONGO_URI - mongodb+srv://root*your password*@myfirstcluster-ug8tc.mongodb.net/*your database*?retryWrites=true 
+    DB_NAME - *your database name*
+    SECRET KEY - *create a secret key*
+    
+    * You should never reveal any of these environment variables to ensure you maintain the security of your database *
+
+6. You should then send your committed code to Heroku using `git push heroku master` and view your deployed site on the URL provided within your Heroku dashboard.
+
+#### Differences between Development and Deployed version
+
+The difference between the deployed version and the development version is that I'm using a minified CSS file whereas I used SASS to compile my styling during development. I also set the debug to false for deployment.
 
 ### Credits
 ___
 
 #### Content
-The recipes and recipe images were inserted for testing purposes were taken from the BBC website.
+The recipes and recipe images were inserted for testing purposes were taken from the [BBC website](https://www.bbc.co.uk/food).
 
-The background image was from Pexels, the video was from Videvo. The cake images and icons were from FlatIcon.
+The background image was from [Pexels](https://www.pexels.com/search/website%20background%20food/), the video was from [Videvo](https://www.videvo.net/). The cake images and icons were from [FlatIcon](https://www.flaticon.com/).
 
 **This site has been created for educational purposes only**
 
 #### Media
-The images displayed in this site were either my own or sourced from the sites listed above. All images are for educational purposes only.
+The images and text were sourced from the sites listed above. All images have been used for educational purposes only.
+
+#### Acknowledgements
+
+I used Ian Lunn's [Hover](https://ianlunn.github.io/Hover/) for my navbar link hover effects. I have clearly marked the borrowed code in my CSS.
+
+I used [W3Schools](https://www.w3schools.com/) code as a basis for my custom checkboxes.
+
+Throughout this project I have sought support and guidance from [Stack-Overflow](https://stackoverflow.com/), Code-Institue [Slack](https://slack.com/intl/en-gb/) Community, [W3Schools](https://www.w3schools.com/), [CSS Tricks](https://css-tricks.com/), [Pretty Printed](https://prettyprinted.com/) YouTube videos.
 
 
 
