@@ -1,4 +1,4 @@
-# Dessert ![Cake](static/img/cake1.png =40x40) Finder
+# Dessert <img href="static/img/cake1.png" style="height: 40px, width: 40px"> Finder
 
 Welcome to Dessert Finder. 
 
@@ -6,7 +6,7 @@ This is a web application that allows users to store and access dessert recipes.
 There is a detailed view for each recipe, that would just show all attributes for that recipe, and the full preparation instructions. Users can edit and delete their own recipe records as well as their user details.
 There is a secure user registration and authentication to the site. This allows for a more personalised experience and ensures data is secure.
 
-View the deployed site [here](https://dessert-search-ms3ag.herokuapp.com/index)
+View the deployed site [here](https://dessert-search-ms3ag.herokuapp.com)
 
 | Contents  |
 |-----------|
@@ -45,18 +45,18 @@ For the user the site should...
 ##### User Stories
 
 * As an inexperienced cook... 
-    1. I want quick access to a variety of desserts based on ingredients I know I like
-    2. I want to be able to find recipes that are quick to make
-    3. I want to be able to save the recipes that I have enjoyed
+    1. As a user, I want quick access to a variety of desserts based on ingredients I know I like
+    2. As a user, I want to be able to find recipes that are quick to make
+    3. As a user, I want to be able to save the recipes that I have enjoyed
 * As an experienced cook...
-    1. I want quick access to a variety of desserts based on ingredients I like
-    2. I want to see information about the recipe (such as preparation time, how many it serves and allergen information) at a glance
-    3. I want to be able to share my knowledge and experience by easily adding my own recipes to the site
-    4. I want to be able to manage my recipes, editing them or deleting them as necessary
-    5. I want to be able to save my favourite recipes and access them quickly
+    1. As a user, I want quick access to a variety of desserts based on ingredients I like
+    2. As a user, I want to see information about the recipe (such as preparation time, how many it serves and allergen information) at a glance
+    3. As a user, I want to be able to share my knowledge and experience by easily adding my own recipes to the site
+    4. As a user, I want to be able to manage my recipes, editing them or deleting them as necessary
+    5. As a user, I want to be able to save my favourite recipes and access them quickly
 * As a user with food-intolerance or allergies...
-    1. I want to search a database of recipes that will be suitable to my needs
-    2. I want to clearly see suitable recipes at a glance
+    1. As a user, I want to search a database of recipes that will be suitable to my needs
+    2. As a user, I want to clearly see suitable recipes at a glance
 
 #### Scope
 
@@ -71,7 +71,7 @@ In order to create a good UX Dessert Search...
 
 Please find my initial wireframe and database schema, created using Balsamiq, [here](development/DessertSearch.pdf)
 
-![Cake 2](static/img/cake2.png =40x40)
+<img href="static/img/cake2.png" style="height: 40px, width: 40px">
 
 ### Features
 ___
@@ -92,7 +92,7 @@ For good UX design I decided to have a minimal search interface on the index pag
 
 > Filter Checkboxes
 
-Again, for good UX design in keeping with a minimal search interface on the index page I used checkboxes to filter the database results before they displayed. This was by far one of the most difficult functions of my design and took a long time to code, debug and eventually implement. I have written a very complex function using Python to ensure that everything works as intended for the user.
+Again, for good UX design in keeping with a minimal search interface on the index page I used checkboxes to filter the database results before they displayed. This was by far one of the most difficult functions of my design and took a long time to code, debug and eventually implement. I have written a function using Python to ensure that everything works as intended for the user.
 
 > Filter Accordion on Search Results
 
@@ -126,27 +126,43 @@ It could be possible to allow users to comment on recipes, creating more of a co
 
 It could be possible to integrate social media feeds (i.e. Instagram) to provide more user-generated content and community.
 
-#### Technologies Used
+### Technologies Used
+
+##### Languages
 
 * **HTML** - used for creating content and basic layout and validated with W3C
 * **CSS** - used for customised styling and layout and validated with W3C
 * **JavaScript** - used to provide interactivity and logic to the site
 * [Python](https://www.python.org/) - used to programme the site and interact between the database and the frontend
+* [SASS](https://sass-lang.com/) - used as a preprocessor in creating style files with variables, media queries and mixins
+
+##### Frameworks
+
 * [Flask](http://flask.pocoo.org/) - A Python micro framework that includes [Jinja Templating](http://jinja.pocoo.org/) and [Werzkeug](https://werkzeug.palletsprojects.com/en/0.15.x/) debugger. Werzkeug also provided password hashing which would ensure users' passwords are encrypted before being stored in the database.
+* [Bootstrap 4](https://getbootstrap.com/) - used for responsive layout, basic styling, dropdown Navbar (JavaScript for these features was used - linked to Bootstrap 4 and, through BS4, popper.js in <script> tags)
+
+##### Tools
+
 * [PyMongo](https://api.mongodb.com/python/current/) - An API which provides tools for working with MongoDB in Python
 * [MongoDB](https://www.mongodb.com/) - non-relational document style database used to store the recipes and users for Dessert Search
 * [WTForms](https://wtforms.readthedocs.io/en/stable/) - An API which provides form classes for ease of managing form data in Python
-* [Cloud9 IDE](https://ide.c9.io/) - this was the IDE where I developed and ran my application
+* [CSS Minifier](https://cssminifier.com/) - used to minify my CSS data for deployment
+* [Favicon Generator](https://www.favicon.cc/?) - I used this to generate a Favicon
+* [W3C Validator](https://validator.w3.org/) - HTML Validator 
+* [W3C CSS Validator](https://jigsaw.w3.org/css-validator/) - CSS Validator
+* [PyCodeStyle](https://pypi.org/project/pycodestyle/) - Python Validator
+* [JSLint](https://www.jslint.com/) - JS Validator
+* [Cloud9 IDE](https://ide.c9.io/) - this was the IDE where I developed and tested my application
 * **Git** - I pushed my files using **Git**, storing them in a repository on **GitHub**
 * [Heroku](https://heroku.com/) - I deployed my finished site through Heroku
+
+##### Libraries
+
 * [jQuery](https://jquery.com/) - JavaScript library used to connect with APIs and custom-code for the site which allows for DOM manipulation
-* [SASS](https://sass-lang.com/) - used as a preprocessor in creating style files with variables, media queries and mixins
-* [CSS Minifier](https://cssminifier.com/) - used to minify my CSS data for deployment
-* [Bootstrap 4](https://getbootstrap.com/) - used for responsive layout, basic styling, dropdown Navbar (JavaScript for these features was used - linked to Bootstrap 4 and, through BS4, popper.js in <script> tags)
 * [Google Fonts](https://fonts.google.com/) - used for customised fonts
 * [Font Awesome 5](https://fontawesome.com/) - used for links and icons to make the site more appealing
-* [Favicon Generator](https://www.favicon.cc/?) - I used this to generate a Favicon
-* [W3C Validator](https://validator.w3.org/) - HTML Validator, [W3C CSS Validator](https://jigsaw.w3.org/css-validator/), [Esprima](esprima.org) - JS Validator
+
+
 * Chrome Developer Tools, Stack-Overflow, Code-Institue Slack Community, Code-Institute module notes, W3Schools, CSS Tricks, Pretty Printed YouTube videos - all used for reference when I encountered a bug or required extra support with any issues.
 
 ### Testing
@@ -178,9 +194,11 @@ There was a 500 error displaying in the console when Fetch was trying to retriev
 
 There was a 400 error in the console for the favicon. I created a favicon.
 
-There have been several issues throughout development with my JS code breaking, I worked hard using console.logs and debuggers to pinpoint errors and fix them. There shouldn't be any errors displaying in the console.
+There is a known issue with the 'back' button on the view recipe pages, as they return to the main search page in this instance they require form resubmission. I have looked into this in various developer support resources but have yet to find a fix. Essentially I want to go back and refresh the page automatically for the user, just like using the browser back button. 
 
 When a user liked a recipe and then clicked the back button it took them back to view recipe with an active like recipe button again. I fixed this by searching the current url for 'like_recipe', if it was located the back button would go back by 2 pages.
+
+There have been several issues throughout development with my JS code breaking, I worked hard using console.logs and debuggers to pinpoint errors and fix them. There shouldn't be any errors displaying in the console except for the above 500 error, intermittently.
 
 There was a security issue related to the app.py view where the database string was returned in the URL. This could enable people to find and access the dtabase. I quickly fixed the URL parameter to be the user._id rather than users._id.
 
