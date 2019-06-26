@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
-
 <div class="user-home-layout">
     <div class="user-title">
+        <!-- Handles any feedback and user messages from Python -->
         {% with messages = get_flashed_messages() %}
             {% if messages %}
                 {% for message in messages %}
@@ -61,7 +61,6 @@
                     </div>
                 </div>
             </div>
-            
         </div>
     </div>
 </div> 

@@ -5,7 +5,7 @@
         <div class="recipe-title">
             <h2>Login to Dessert Search</h2>
         </div>
-        
+        <!-- Handles any feedback and user messages from Python -->
         {% with messages = get_flashed_messages() %}
             {% if messages %}
                 {% for message in messages %}
@@ -15,7 +15,6 @@
                 {% endfor %}
             {% endif %}
         {% endwith %}
-        
         <div class="recipe-body">
             <form action="{{ url_for('login') }}" method="POST">
                 {% if message %}
@@ -30,6 +29,7 @@
                         <p><strong>Oops: {{error}} </strong></p>
                     </div>
                 {% endif %}
+                <!-- Using WTForms to handle form data -->
                 <div class="form-group">
                     {{ form.csrf_token }}
                     {{ form.username(size=32, placeholder="Your Username", class="form-control") }}
