@@ -222,7 +222,7 @@ def view_recipe(recipe_id):
     sentences = list(method_string.split(".")) 
     for i in range(len(sentences)): 
         sentences[i] = sentences[i].strip()
-        sentences[i] = sentences[i].rstrip(".") 
+        sentences[i] = sentences[i].strip(".") 
         sentences[i] = sentences[i][:1].upper() + sentences[i][1:] 
         method_format += sentences[i] + ". " 
     description_string = the_recipe['recipe_description']
@@ -230,7 +230,7 @@ def view_recipe(recipe_id):
     sentences = list(description_string.split(".")) 
     for i in range(len(sentences)): 
         sentences[i] = sentences[i].strip()
-        sentences[i] = sentences[i].rstrip(".") 
+        sentences[i] = sentences[i].strip(".") 
         sentences[i] = sentences[i][:1].upper() + sentences[i][1:] 
         description_format += sentences[i] + ". "
     users = mongo.db.users
@@ -398,4 +398,4 @@ def like_recipe(recipe_id, user_id):
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
     port=int(os.environ.get('PORT')),
-    debug=True)
+    debug=False)
