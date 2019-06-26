@@ -25,9 +25,10 @@ $(document).ready(function(){
     });
     
     // Any button labelled cancel will take the user back
-    $(".cancel-btn").click(function() {
+    $('.cancel-btn').click(function() {
         history.back(-1);
     });
+    
     
     // User can click on checkbox text to select checkbox
     $(".form-check").click(function() {
