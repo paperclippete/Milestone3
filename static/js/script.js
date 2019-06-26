@@ -6,7 +6,6 @@ $(document).ready(function(){
             $("#login-link").addClass("hidden");
             $("#signup-link").addClass("hidden");
             $("#logout-link").removeClass("hidden");
-            $("#search-link").removeClass("hidden");
             $("#user-welcome").removeClass("hidden").html((data) + `'s - Home`);
         }
     )
@@ -85,6 +84,8 @@ $(document).ready(function(){
         $(".result-count").html(cards);
     });
     
-    
+    if ($(".result-count").html() === "0") {
+        $(".accordion").addClass("hidden");
+    }
 });
     
