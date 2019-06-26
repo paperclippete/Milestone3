@@ -3,7 +3,7 @@
 <div class="search-results-layout">
     <div class="message-box">
         <div class="user_msg">
-            <p>Please find <span class="result-count">{{matching_recipes|length}}</span> matching results <span>
+            <p>Please find <span class="result-count">{{matching_recipes|length}}</span>{% if matching_recipes|length == 1 %} matching result. {% else %} matching results. {% endif %}  <span>
             {% if matching_recipes|length == 0 %}
                 <a href="{{ url_for('home') }}" class="btn btn-primary cake-btn" id="search-again-btn">Search Again</a>
             {% endif %}
@@ -14,7 +14,7 @@
         <div class="card filter-card">
             <div class="card-header" id="filter-header" data-toggle="collapse" data-target="#filter-collapse">
                 <h2 class="mb-0 filter-heading">
-                    <i class="fas fa-filter"></i>Filter
+                    <i class="fas fa-filter"></i> Filter
                 </h2>
             </div>
         
