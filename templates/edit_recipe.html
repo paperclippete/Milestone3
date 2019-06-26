@@ -43,7 +43,8 @@
                 <textarea class="form-control" id="recipe_description" name="recipe_description" rows="4">{{ recipe.recipe_description }}</textarea>
             </div>
             <p>Please enter each ingredient and quantity (don't forget the measurement) and press 'Add' to add to the database.</p><br>
-            <div class="form-group ing-group">    
+            <div class="form-group ing-group"> 
+            <!-- Displays K + V pairs  from ingredients -->
             {% for key, val in recipe.ingredients.items() %}
                 <div class="form-inline">
                     <label class="sr-only" for="ingredient">Ingredient</label>
@@ -54,7 +55,6 @@
             {% endfor %}
             </div>
             <button class="btn cake-btn add-btn" type="add" id="ing-btn" value="add">Add</button>
-            
             <div class="form-group">
                 <label for="img_url">Image URL</label>
                 <input type="text" class="form-control" id="img_url" name="img_url" placeholder="{{ recipe.image }}">
@@ -63,6 +63,7 @@
                 <label for="method">Method</label>
                 <textarea class="form-control" id="method" name="method" rows="10">{{ recipe.method }}</textarea>
             </div>
+            <!-- Checks checkboxes based on existing recipe -->
             {% if recipe.vegan %}
             <div class="custom-control custom-checkbox">
                 <input type="checkbox" class="custom-control-input" id="vegan" name="vegan" checked>
@@ -100,5 +101,6 @@
             <button class="btn btn-primary cancel-btn cake-btn add-btn" type="reset" value="cancel">Cancel</button>
         </form>
     </div>
+</div>
 
 {% endblock %}

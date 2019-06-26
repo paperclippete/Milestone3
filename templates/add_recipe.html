@@ -9,6 +9,7 @@
                 <label for="title">Recipe Title</label>
                 <input type="text" class="form-control" id="title" name="title">
             </div>
+            <!-- Username disabled so user can't change author -->
             <div class="form-group">
                 <label for="author">Author</label>
                 <input type="text" class="form-control" id="author" name="author" placeholder="{{ the_user.username.capitalize() }}" value="{{ the_user.username.capitalize() }}" disabled>
@@ -60,7 +61,6 @@
                 <label for="method">Method</label>
                 <textarea class="form-control" id="method" name="method" rows="10"></textarea>
             </div>
-            
             <div class="custom-control custom-checkbox">
                 <input type="checkbox" class="custom-control-input" id="vegan" name="vegan">
                 <label class="custom-control-label" for="vegan">Vegan?</label>
