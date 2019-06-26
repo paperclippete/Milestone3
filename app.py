@@ -345,9 +345,7 @@ def my_recipes(user_id):
     """ User can view all of the recipes they have created """
     users = mongo.db.users
     loggeduser = current_user.username["username"]
-    print(loggeduser)
     the_user = users.find_one({"username": loggeduser})
-    print(the_user)
     cursor = mongo.db.recipes.find({"author": the_user['username']}).sort([("like_count", -1)])
     matching_recipes = [matching_recipe for matching_recipe in cursor]
     return render_template("search_results.html", matching_recipes=matching_recipes, user=the_user)
