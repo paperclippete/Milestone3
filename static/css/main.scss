@@ -1,7 +1,6 @@
 /* site colors defined in SCSS*/
  
 $caramel: #883d07;
-$pistachio: #b9ff66;
 $ppink: #fff6f3;
 $choc: #673f33;
 $dchoc: #3b241f;
@@ -114,7 +113,7 @@ body {
     p {
         margin: 0px;
         padding: 15px;
-        border: solid 1px $pistachio;
+        border: solid 1px $dpink;
     }
     @media (min-width: 992px) {
     }
@@ -172,6 +171,12 @@ footer {
         text-decoration: none;
         border: none;
     }
+    &:not([href]):not([tabindex]):hover {
+            color: $dpink;
+    
+    }
+        
+    
 }
 /* scrollbar styles */
 ::-webkit-scrollbar {
@@ -233,7 +238,7 @@ footer {
   height: 25px;
   width: 25px;
   background-color: #eee;
-}
+ }
 
 /* On mouse-over, add a grey background color */
 .form-check-label:hover input ~ .checkmark {
@@ -250,7 +255,7 @@ footer {
   content: "";
   position: absolute;
   display: none;
-}
+ }
 
 /* Show the checkmark when checked */
 .form-check-label input:checked ~ .checkmark:after {
@@ -262,7 +267,7 @@ footer {
   left: 9px;
   top: 5px;
   width: 5px;
-  height: 10px;
+  height: 12px;
   border: solid $dpink;
   border-width: 0 3px 3px 0;
   -webkit-transform: rotate(45deg);
@@ -280,6 +285,9 @@ footer {
         visibility: visible;
         height: 100%;
         overflow: hidden; 
+    }
+    @media (min-width: 2559px) {
+        display: none;
     }
 }
 
@@ -340,6 +348,26 @@ footer {
     width: 80%;
     font-size: 1.4rem;
     text-shadow: 2px 2px 4px #eac0a2;
+}
+
+#index-search {
+    width: 80%;
+    @media (min-width: 425.1px) {
+        width: 56%;
+    }
+    @media (min-width: 1024.1px) {
+        width: 34%;
+    }
+}
+
+.checkboxes {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    flex-wrap: wrap;
+    @media (min-width: 767.9px) {
+        justify-content: space-between;
+    }
 }
 
 #myVideo {
@@ -452,7 +480,12 @@ footer {
     padding-right: 10px;
     font-size: 0.8rem;
     margin-bottom: 0.4rem;
-    
+}
+
+.filter-heading {
+    font-family: $fancy-font;
+    font-size: 1.5rem;
+    cursor: pointer;
 }
 
 /* add recipe.html */
@@ -567,9 +600,9 @@ footer {
         margin-top: 180px;
     }
     @media (min-width: 992px) {
-        height: 45vh;
+        height: 48vh;
         width: 50%;
-        margin-top: 250px;
+        margin-top: 215px;
     }
 }
 
@@ -585,6 +618,21 @@ footer {
     input {
         margin-left: 30px;
     }
+}
+
+.edit-details {
+    height: 80vh;
+    margin-top: 62px;
+    @media (min-width: 426px) {
+        height: 57vh;
+        margin-top: 125px;
+    }
+}
+
+.edit-input {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 /* add recipe */
