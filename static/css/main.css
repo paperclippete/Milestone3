@@ -62,7 +62,7 @@ body {
   .user_msg p {
     margin: 0px;
     padding: 15px;
-    border: solid 1px #b9ff66; }
+    border: solid 1px #ffc1c1; }
 
 .message-box {
   height: 65px; }
@@ -110,6 +110,8 @@ footer {
     color: #ffc1c1;
     text-decoration: none;
     border: none; }
+  .cake-btn:not([href]):not([tabindex]):hover {
+    color: #ffc1c1; }
 
 /* scrollbar styles */
 ::-webkit-scrollbar {
@@ -181,7 +183,7 @@ footer {
   left: 9px;
   top: 5px;
   width: 5px;
-  height: 10px;
+  height: 12px;
   border: solid #ffc1c1;
   border-width: 0 3px 3px 0;
   -webkit-transform: rotate(45deg);
@@ -197,6 +199,9 @@ footer {
     visibility: visible;
     height: 100%;
     overflow: hidden; } }
+@media (min-width: 2559px) {
+  .desktop {
+    display: none; } }
 
 .index-layout {
   position: relative;
@@ -250,6 +255,24 @@ footer {
   width: 80%;
   font-size: 1.4rem;
   text-shadow: 2px 2px 4px #eac0a2; }
+
+#index-search {
+  width: 80%; }
+  @media (min-width: 425.1px) {
+    #index-search {
+      width: 56%; } }
+  @media (min-width: 1024.1px) {
+    #index-search {
+      width: 34%; } }
+
+.checkboxes {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  flex-wrap: wrap; }
+  @media (min-width: 767.9px) {
+    .checkboxes {
+      justify-content: space-between; } }
 
 #myVideo {
   position: absolute;
@@ -342,6 +365,11 @@ footer {
   padding-right: 10px;
   font-size: 0.8rem;
   margin-bottom: 0.4rem; }
+
+.filter-heading {
+  font-family: "Sofia", cursive;
+  font-size: 1.5rem;
+  cursor: pointer; }
 
 /* add recipe.html */
 .layout {
@@ -436,9 +464,9 @@ footer {
       margin-top: 180px; } }
   @media (min-width: 992px) {
     .view-user-login {
-      height: 45vh;
+      height: 48vh;
       width: 50%;
-      margin-top: 250px; } }
+      margin-top: 215px; } }
 
 .login-layout {
   display: flex;
@@ -449,6 +477,19 @@ footer {
 /* edit account */
 .edit-account input {
   margin-left: 30px; }
+
+.edit-details {
+  height: 80vh;
+  margin-top: 62px; }
+  @media (min-width: 426px) {
+    .edit-details {
+      height: 57vh;
+      margin-top: 125px; } }
+
+.edit-input {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; }
 
 /* add recipe */
 .add-btn {
