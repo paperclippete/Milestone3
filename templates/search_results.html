@@ -2,8 +2,10 @@
 {% block content %}
 <div class="search-results-layout">
     <div class="message-box">
+        <!-- Feedback on recipes found, if statement will keep grammar correct for 1 and 0 results -->
         <div class="user_msg">
             <p>Please find <span class="result-count">{{matching_recipes|length}}</span>{% if matching_recipes|length == 1 %} matching result. {% else %} matching results. {% endif %}  <span>
+            <!-- If no recipes are found a new search button will be rendered -->
             {% if matching_recipes|length == 0 %}
                 <a href="{{ url_for('home') }}" class="btn btn-primary cake-btn" id="search-again-btn">Search Again</a>
             {% endif %}
@@ -17,7 +19,6 @@
                     <i class="fas fa-filter"></i> Filter
                 </h2>
             </div>
-        
             <div id="filter-collapse" class="collapse" aria-labelledby="filter-header" data-parent="#filter-accordion">
                 <div class="card-body">
                     <div class="form-group">
@@ -55,9 +56,11 @@
     </div>
     <div class="recipe-cards">
         <div class="row card-row">
+            <!-- Each matching recipe will be rendered on a bootstrap card -->
             {% for matching_recipe in matching_recipes %}
             <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 r-card-col">
                 <div class="card r-card">
+                <!-- If there is no image URL saved a standard site image will render -->
                 {% if matching_recipe.image %}
                     <img src="{{ matching_recipe.image }}" class="card-img-top"></img>
                 {% else %}
@@ -67,6 +70,7 @@
                         <h5 class="card-title r-card-title"><strong>{{matching_recipe.title.title()}}</strong></h5>
                         <div class="card-text r-card-text">
                             <p class="likes-info">
+                            <!-- Ensures correct grammar and handles likes value of null -->
                             {% if matching_recipe.like_count %} Likes: {{matching_recipe.like_count}}  {% endif %}
                             {% if matching_recipe.like_count == null %} Likes: 0  {% endif %}
                             </p>
@@ -86,6 +90,7 @@
                         </div>
                         <div class="card-btn">
                             <a href="{{ url_for('view_recipe', recipe_id=matching_recipe._id) }}" class="btn btn-primary cake-btn" id="view-btn">View</a>
+                            <!-- If a user is logged in, they can edit and delete their recipes from the search results -->
                             {% if user %}    
                                 {% if matching_recipe.author == user.username %}
                                 <a href="{{ url_for('edit_recipe', recipe_id=matching_recipe._id) }}" class="btn btn-primary cake-btn">Edit</a>
