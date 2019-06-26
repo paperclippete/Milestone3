@@ -224,8 +224,7 @@ ___
 
 > Within my Database I had two collections, recipes and users
 
-
-    ``` 
+``` 
     recipes
     {
     _id: ObjectId("5cfd48d8b93f0ccb1dcbe754")
@@ -246,6 +245,7 @@ ___
     likes: Array
         0: ObjectId("5cfd48d8b93f0ccb1dcbe754")
     }
+    
     users
     { 
     id: ObjectId("5cfd4210b93f0ccb1dcbe74f")
@@ -254,7 +254,7 @@ ___
     password: "string" (hashed)
     username: "string"
     }
-    ```
+```    
 
 #### How to Deploy your Site
 
