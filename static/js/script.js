@@ -11,12 +11,10 @@ $(document).ready(function(){
         }
     )
     .catch(function() {
-   
-    });
-    
+   });
     
     // Add ingredient form will add extra inputs on add-recipe
-    $('#ing-btn').click(function(event) {
+    $("#ing-btn").click(function(event) {
         event.preventDefault();
         let inginput = `<div class="form-inline">
                 <label class="sr-only" for="ingredient">Ingredient</label>
@@ -28,12 +26,12 @@ $(document).ready(function(){
     });
     
     // Any button labelled cancel will take the user back
-    $('.cancel-btn').click(function() {
+    $(".cancel-btn").click(function() {
         history.back(-1);
     });
     
     // User can click on checkbox text to select checkbox
-    $('.form-check').click(function() {
+    $(".form-check").click(function() {
         $(this).prop('checked');
     });
     
@@ -43,23 +41,23 @@ $(document).ready(function(){
             $(".r-card-text:not(:contains('Gluten-free'))").parents(".r-card-col:visible").addClass("hidden");
         }
         else {
-            $(".r-card-text:not(:contains('Gluten-free'))").parents(".r-card-col").removeClass("hidden")
+            $(".r-card-text:not(:contains('Gluten-free'))").parents(".r-card-col").removeClass("hidden");
         }
     });
     $("#checkvegan").on("click", function() {
         if ($(this).prop("checked")) {
-            $(".r-card-text:not(:contains('Vegan'))").parents(".r-card-col:visible").addClass("hidden")
+            $(".r-card-text:not(:contains('Vegan'))").parents(".r-card-col:visible").addClass("hidden");
         }
         else {
-            $(".r-card-text:not(:contains('Vegan'))").parents(".r-card-col").removeClass("hidden")
+            $(".r-card-text:not(:contains('Vegan'))").parents(".r-card-col").removeClass("hidden");
         }
     });
     $("#checkdairy").on("click", function() {
         if ($(this).prop("checked")) {
-            $(".r-card-text:not(:contains('Dairy-free'))").parents(".r-card-col:visible").addClass("hidden")
+            $(".r-card-text:not(:contains('Dairy-free'))").parents(".r-card-col:visible").addClass("hidden");
         }
         else {
-            $(".r-card-text:not(:contains('Dairy-free'))").parents(".r-card-col").removeClass("hidden")
+            $(".r-card-text:not(:contains('Dairy-free'))").parents(".r-card-col").removeClass("hidden");
         }
     });
     $("#checkquick").on("click", function() {
@@ -79,12 +77,12 @@ $(document).ready(function(){
     
     // Change results display on filter
     $("input:checkbox").change(function() {
-        var cards = $('.r-card:visible').length;
-        $('.result-count').html(cards);
+        let cards = $(".r-card:visible").length;
+        $(".result-count").html(cards);
     });
     $("#reset-btn").click(function() {
-        var cards = $('.r-card:visible').length;
-        $('.result-count').html(cards);
+        let cards = $(".r-card:visible").length;
+        $(".result-count").html(cards);
     });
     
     
