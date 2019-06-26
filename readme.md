@@ -194,7 +194,7 @@ There was a 500 error displaying in the console when Fetch was trying to retriev
 There was a 400 error in the console for the favicon. I created a favicon.
 
 There is a known issue with the 'back' button on the view recipe pages, as they return to the main search page in this instance they require form resubmission. I have looked into this in various developer support resources but have yet to find a fix. Essentially I want to go back and refresh the page automatically for the user, just like using the browser back button. When a user liked a recipe and then clicked the back button it took them back to view recipe with an active like recipe button again. I fixed this by searching the current url for 'like_recipe', if it was located the back button would go back by 2 pages.
-*I have decided to send the user back to Search Results temporarily, as I feel the user's experience would be blighted by an ERR_CACHE_MISS page and the alternative of having to reset the filters or pressing the browser's back button would provide a less negative experience for the user*
+*I have decided to send the user back to Search Results temporarily, as I feel the user's experience would be blighted by an ERR_CACHE_MISS page and the alternative of having to reset the filters or pressing the browser's back button would provide a less negative experience for the user. I then had to create a back to user home button*
 
 There is an issue with the recipe description and method not rendering correctly, they render as input in the terminal when printed but do not when rendered in the HTML template, I have attempted to fix this but there are sometimes two full stops at the end of the text. I am continuing to look for a fix.
 
