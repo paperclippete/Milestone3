@@ -139,7 +139,7 @@ It could be possible to integrate social media feeds (i.e. Instagram) to provide
 ##### Frameworks
 
 * [Flask](http://flask.pocoo.org/) - A Python micro framework that includes [Jinja Templating](http://jinja.pocoo.org/) and [Werzkeug](https://werkzeug.palletsprojects.com/en/0.15.x/) debugger. Werzkeug also provided password hashing which would ensure users' passwords are encrypted before being stored in the database.
-* [Bootstrap 4](https://getbootstrap.com/) - used for responsive layout, basic styling, dropdown Navbar (JavaScript for these features was used - linked to Bootstrap 4 and, through BS4, popper.js in <script> tags)
+* [Bootstrap](https://getbootstrap.com/) - used for responsive layout, basic styling, dropdown Navbar (JavaScript for these features was used - linked to Bootstrap and, through BS, popper.js in <script> tags)
 
 ##### Tools
 
@@ -161,7 +161,7 @@ It could be possible to integrate social media feeds (i.e. Instagram) to provide
 
 * [jQuery](https://jquery.com/) - JavaScript library used to connect with APIs and custom-code for the site which allows for DOM manipulation
 * [Google Fonts](https://fonts.google.com/) - used for customised fonts
-* [Font Awesome 5](https://fontawesome.com/) - used for links and icons to make the site more appealing
+* [Font Awesome](https://fontawesome.com/) - used for links and icons to make the site more appealing
 
 
 ### Testing
@@ -193,9 +193,12 @@ There was a 500 error displaying in the console when Fetch was trying to retriev
 
 There was a 400 error in the console for the favicon. I created a favicon.
 
-There is a known issue with the 'back' button on the view recipe pages, as they return to the main search page in this instance they require form resubmission. I have looked into this in various developer support resources but have yet to find a fix. Essentially I want to go back and refresh the page automatically for the user, just like using the browser back button. 
+There is a known issue with the 'back' button on the view recipe pages, as they return to the main search page in this instance they require form resubmission. I have looked into this in various developer support resources but have yet to find a fix. Essentially I want to go back and refresh the page automatically for the user, just like using the browser back button. When a user liked a recipe and then clicked the back button it took them back to view recipe with an active like recipe button again. I fixed this by searching the current url for 'like_recipe', if it was located the back button would go back by 2 pages.
+*I have decided to send the user back to Search Results temporarily, as I feel the user's experience would be blighted by an ERR_CACHE_MISS page and the alternative of having to reset the filters or pressing the browser's back button would provide a less negative experience for the user*
 
-When a user liked a recipe and then clicked the back button it took them back to view recipe with an active like recipe button again. I fixed this by searching the current url for 'like_recipe', if it was located the back button would go back by 2 pages.
+There is an issue with the recipe description and method not rendering correctly, they render as input in the terminal when printed but do not when rendered in the HTML template, I have attempted to fix this but there are sometimes two full stops at the end of the text. I am continuing to look for a fix.
+
+There is also an issue with duplicate ingredients not showing up, this is because I currently have each ingredient set as a key in the database and therefore can't have duplicates. I will continue to look into this.
 
 There have been several issues throughout development with my JS code breaking, I worked hard using console.logs and debuggers to pinpoint errors and fix them. There shouldn't be any errors displaying in the console except for the above 500 error, intermittently.
 
@@ -221,31 +224,37 @@ ___
 
 > Within my Database I had two collections, recipes and users
 
-* recipes
-    * ObjectId(set by MongoDB on insertion of a new document)
-    * title
-    * author (username of a user)
-    * recipe_description
-    * main_ingredient
-    * ingredients (an object containing key, value pairs)
-    * method
-    * image (a URL)
-    * prep_time
-    * serves
-    * likes (an array containing ObjectIds of users)
-    * like_count (incremented by 1 everytime someone presses the like button)
-    * vegan (boolean)
-    * dairy_free (boolean)
-    * gluten_free (boolean)
 
-* users
-    * ObjectId(set by MongoDB on insertion of a new document)
-    * username (must be unique)
-    * first_name (used for greetings)
-    * last_name
-    * password (encrypted on insertion to the database)
-
-
+    ``` 
+    recipes
+    {
+    _id: ObjectId("5cfd48d8b93f0ccb1dcbe754")
+    ingredients: Object
+        key: "value"
+    dairy_free: bool
+    gluten_free: bool
+    main_ingredient: "string"
+    recipe_description: "string"
+    title: "string"
+    image: "string"
+    method: "string"
+    author: "string"
+    vegan: bool
+    prep_time: "string"
+    serves: "string"
+    like_count: Int
+    likes: Array
+        0: ObjectId("5cfd48d8b93f0ccb1dcbe754")
+    }
+    users
+    { 
+    id: ObjectId("5cfd4210b93f0ccb1dcbe74f")
+    last_name: "string"
+    first_name: "string"
+    password: "string" (hashed)
+    username: "string"
+    }
+    ```
 
 #### How to Deploy your Site
 
@@ -306,7 +315,4 @@ I used Ian Lunn's [Hover](https://ianlunn.github.io/Hover/) for my navbar link h
 I used [W3Schools](https://www.w3schools.com/) code as a basis for my custom checkboxes.
 
 Throughout this project I have sought support and guidance from [Stack-Overflow](https://stackoverflow.com/), Code-Institue [Slack](https://slack.com/intl/en-gb/) Community, [W3Schools](https://www.w3schools.com/), [CSS Tricks](https://css-tricks.com/), [Pretty Printed](https://prettyprinted.com/) YouTube videos.
-
-
-
 
