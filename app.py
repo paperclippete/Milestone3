@@ -221,17 +221,26 @@ def view_recipe(recipe_id):
     method_format = ""
     sentences = list(method_string.split(".")) 
     for i in range(len(sentences)): 
-        sentences[i] = sentences[i].strip() 
+        sentences[i] = sentences[i].strip()
+        sentences[i] = sentences[i].rstrip(".") 
         sentences[i] = sentences[i][:1].upper() + sentences[i][1:] 
         method_format += sentences[i] + ". " 
+    description_string = the_recipe['recipe_description']
+    description_format = ""
+    sentences = list(description_string.split(".")) 
+    for i in range(len(sentences)): 
+        sentences[i] = sentences[i].strip()
+        sentences[i] = sentences[i].rstrip(".") 
+        sentences[i] = sentences[i][:1].upper() + sentences[i][1:] 
+        description_format += sentences[i] + ". "
     users = mongo.db.users
     if current_user.is_authenticated:
         loggeduser = current_user.username["username"]
         the_user = users.find_one({"username": loggeduser})
         if the_user['_id'] in the_recipe["likes"]:
             user_liked = True
-            return render_template("view_recipe.html", recipe=the_recipe, user=the_user, users=users, method_format=method_format, user_liked=user_liked)
-        return render_template("view_recipe.html", recipe=the_recipe, user=the_user, users=users, method_format=method_format)
+            return render_template("view_recipe.html", recipe=the_recipe, user=the_user, users=users, method_format=method_format, description_format=description_format, user_liked=user_liked)
+        return render_template("view_recipe.html", recipe=the_recipe, user=the_user, users=users, method_format=method_format, description_format=description_format,)
     return render_template("view_recipe.html", recipe=the_recipe, method_format=method_format)
     
 
@@ -249,6 +258,9 @@ def add_recipe():
 @login_required
 def insert_recipe():
     """ Insert recipe route will insert a new recipe document into the db """
+    users = mongo.db.users
+    loggeduser = current_user.username["username"]
+    the_user = users.find_one({"username": loggeduser})
     ingredient_list = request.form.getlist("ingredient")
     amount_list = request.form.getlist("amount")
     ingam_dict = dict(zip(ingredient_list, amount_list))
@@ -257,7 +269,7 @@ def insert_recipe():
     glutenfree = request.form.get("glutenfree")
     new_doc = {
             'title': request.form.get('title').lower(),
-            'author': request.form.get('author').lower(),
+            'author': the_user["username"],
             'image': request.form.get('img_url'),
             'main_ingredient': request.form.get('main_ingredient'),
             'recipe_description': request.form.get('recipe_description'),
@@ -290,6 +302,9 @@ def edit_recipe(recipe_id):
 @login_required
 def update_recipe(recipe_id):
     """ Update recipe route will post updated document to the db """
+    users = mongo.db.users
+    loggeduser = current_user.username["username"]
+    the_user = users.find_one({"username": loggeduser})
     ingredient_list = request.form.getlist("ingredient")
     amount_list = request.form.getlist("amount")
     ingam_dict = dict(zip(ingredient_list, amount_list))
@@ -298,8 +313,8 @@ def update_recipe(recipe_id):
     glutenfree = request.form.get("glutenfree")
     recipes.update({'_id': ObjectId(recipe_id)},
         {
-            'title': request.form.get('title').lower(), 
-            'author': request.form.get('author').lower(),
+            'title': request.form.get('title').lower(),
+            'author': the_user["username"],
             'image': request.form.get('img_url'),
             'main_ingredient': request.form.get('main_ingredient'),
             'recipe_description': request.form.get('recipe_description'),
@@ -364,11 +379,20 @@ def like_recipe(recipe_id, user_id):
     method_format = ""
     sentences = list(method_string.split(".")) 
     for i in range(len(sentences)): 
-        sentences[i] = sentences[i].strip() 
+        sentences[i] = sentences[i].strip()
+        sentences[i] = sentences[i].strip(".")
         sentences[i] = sentences[i][:1].upper() + sentences[i][1:] 
         method_format += sentences[i] + ". "
-    #user_liked = True
-    return render_template("view_recipe.html", recipe=the_recipe, user=the_user, method_format=method_format, user_liked=user_liked)
+    description_string = the_recipe['recipe_description']
+    description_format = ""
+    sentences = list(description_string.split(".")) 
+    for i in range(len(sentences)): 
+        sentences[i] = sentences[i].strip()
+        sentences[i] = sentences[i].strip(".") 
+        sentences[i] = sentences[i][:1].upper() + sentences[i][1:] 
+        description_format += sentences[i] + ". "
+    user_liked = True
+    return render_template("view_recipe.html", recipe=the_recipe, user=the_user, method_format=method_format, description_format=description_format, user_liked=user_liked)
    
 
 if __name__ == '__main__':

@@ -4,8 +4,13 @@
     <div class="view-recipe">
         <div class="recipe-title">
             <h2>{{recipe.title.title()}}</h2>
-            <p class ="recipe-author">by {{recipe.author.capitalize()}}</p>
+            <p class ="recipe-author"><i>by {{recipe.author.capitalize()}}</i></p>
             <hr>
+            <div class="recipe-description">
+                {% if description_format %}
+                <p>{{ description_format }}</p>
+                {% endif %}
+            </div>
         </div>
         <div class="recipe-body">
             <div class="row">
