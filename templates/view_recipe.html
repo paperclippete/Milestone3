@@ -6,6 +6,7 @@
             <h2>{{recipe.title.title()}}</h2>
             <p class ="recipe-author"><i>by {{recipe.author.capitalize()}}</i></p>
             <hr>
+            <!-- Returns formatted string from Python -->
             <div class="recipe-description">
                 {% if description_format %}
                 <p>{{ description_format }}</p>
@@ -15,6 +16,7 @@
         <div class="recipe-body">
             <div class="row">
                 <div class="col-sm-12 col-md-5 recipe-img">
+                    <!-- Handles images with no Urls in Db -->
                     {% if recipe.image %}
                         <img src="{{ recipe.image }}" class="card-img-top"></img>
                     {% else %}
@@ -23,13 +25,16 @@
                 </div>
                 <div class="col-sm-12 col-md-3 tag-details">
                     <div class="recipe-likes">
+                    <!-- Handles grammar for likes -->
                     {% if recipe.like_count %}
                         <p>This recipe has {{ recipe.like_count }} {% if recipe.like_count == 1 %} like. {% else %} likes. {% endif %}</p>
                     {% endif %}
                     {% if recipe.like_count == null %}
                         <p>This recipe has no likes... yet!</p>
                     {% endif %}
+                    <!-- Only renders a like button for authenticated users -->
                     {% if user %}
+                    <!-- Renders a disabled button if the user has already like the recipe -->
                         {% if user_liked %}
                             <button class="btn btn-primary like-btn cake-btn" id="liked-btn" disabled><i class="far fa-thumbs-up">You like this Recipe</i></button>
                             {% else %}
@@ -53,22 +58,25 @@
                 </div>
                 <div class="col-sm-12 col-md-4">
                     <div class="recipe-ingredients">
-                <h4>Ingredients</h4>
-                <ul>
-                    {% for key, val in recipe.ingredients.items() %}
-                        <li>{{ key.title() }} - {{ val }}</li>
-                    {% endfor %}
-                </ul>    
+                        <h4>Ingredients</h4>
+                        <ul>
+                        <!-- Renders the KV Pairs for ingredients -->
+                            {% for key, val in recipe.ingredients.items() %}
+                                <li>{{ key.title() }} - {{ val }}</li>
+                            {% endfor %}
+                        </ul>    
+                    </div>
                 </div>
+                <!-- Shows the correctly formatted method -->
+                <div class="recipe-method">
+                    <h4>Method</h4>
+                    {% if method_format %}
+                    <p>{{ method_format }}</p>
+                    {% endif %}
+                </div>
+                <a href="{{ url_for('search_results') }}" class="btn btn-primary cake-btn cancel-btn" value="cancel" style="margin-right: 15px">Back to Search</a>
+                <a href="{{ url_for('user_home') }}" class="btn btn-primary cake-btn" value="cancel">Back to Home</a>
             </div>
-            <div class="recipe-method">
-                <h4>Method</h4>
-                {% if method_format %}
-                <p>{{ method_format }}</p>
-                {% endif %}
-            </div>
-            <a href="{{ url_for('search_results') }}" class="btn btn-primary cake-btn cancel-btn" value="cancel" style="margin-right: 15px">Back to Search</a>
-            <a href="{{ url_for('user_home') }}" class="btn btn-primary cake-btn" value="cancel">Back to Home</a>
         </div>
     </div>
 </div>
