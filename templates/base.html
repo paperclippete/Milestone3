@@ -16,13 +16,12 @@
     <header>
         <nav class="navbar navbar-expand-lg fixed-top">
             <a class="navbar-brand" href="{{ url_for('home') }}">Dessert Search</a>
-                
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
                 <span><i class="fas fa-bars"></i></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarToggler">
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                    <li class="nav-item hidden" id="search-link">
+                    <li class="nav-item" id="search-link">
                         <a class="nav-link" href="{{ url_for('home') }}">Search</a>
                     </li>
                     <li class="nav-item" id="signup-link">
