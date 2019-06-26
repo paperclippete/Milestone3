@@ -12,6 +12,7 @@
     <title>Dessert Search</title>
 </head>
 <body>
+    <!-- Responsive Navbar -->
     <header>
         <nav class="navbar navbar-expand-lg fixed-top">
             <a class="navbar-brand" href="{{ url_for('home') }}">Dessert Search</a>
@@ -30,26 +31,23 @@
                 <a href="{{ url_for('user_home') }}" class="navbar-text nav-link hidden" id="user-welcome"></a>
                 <a class="nav-link" id="login-link" href="{{ url_for('user_login') }}">Login</a>    
                 <a class="nav-link hidden" id="logout-link" href="{{ url_for('logout') }}">Logout</a>
-                
             </div>
         </nav>
     </header>
-    
+    <!-- Template Block -->
     <main>
         {% block content %}
     
         {% endblock %}
     </main>
+    <!-- Site Footer -->
     <footer>
         <p class="footer-info">Dessert Search ©2019 Alexa Gibson</p>
-        <p class="icon-credits">Icons made by <a href="https://www.freepik.com/" title="Freepik" targer="_blank">Freepik</a> from <a href="https://www.flaticon.com/" 			    title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></p></div>
+        <p class="icon-credits">Icons made by <a href="https://www.freepik.com/" title="Freepik" target="_blank">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></p>
     </footer>
-
 </body>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </html>
-
-
