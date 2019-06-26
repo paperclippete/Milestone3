@@ -7,7 +7,7 @@ $(document).ready(function(){
             $("#signup-link").addClass("hidden");
             $("#logout-link").removeClass("hidden");
             $("#search-link").removeClass("hidden");
-            $("#user-welcome").html(`Welcome `+ (data) + ` - Home`);
+            $("#user-welcome").removeClass("hidden").html((data) + `'s - Home`);
         }
     )
     .catch(function() {
@@ -31,12 +31,6 @@ $(document).ready(function(){
     $('.cancel-btn').click(function() {
         history.back(-1);
     });
-    if (window.location.href.indexOf("/like_recipe") > -1) {
-        $(".cancel-btn").attr("id", "cancel-cancel");
-    }
-    $('#cancel-cancel').click(function() {
-        history.back(-2);
-    });
     
     // User can click on checkbox text to select checkbox
     $('.form-check').click(function() {
@@ -59,7 +53,6 @@ $(document).ready(function(){
         else {
             $(".r-card-text:not(:contains('Vegan'))").parents(".r-card-col").removeClass("hidden")
         }
-            
     });
     $("#checkdairy").on("click", function() {
         if ($(this).prop("checked")) {
@@ -93,8 +86,6 @@ $(document).ready(function(){
         var cards = $('.r-card:visible').length;
         $('.result-count').html(cards);
     });
-    
-    // Provide quick link to search again if there are 0 results
     
     
 });

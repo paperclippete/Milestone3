@@ -24,10 +24,12 @@
                     {% if recipe.like_count == null %}
                         <p>This recipe has no likes... yet!</p>
                     {% endif %}
-                    {% if user_liked %}
-                        <button class="btn btn-primary like-btn cake-btn" id="liked-btn" disabled><i class="far fa-thumbs-up">You like this Recipe</i></button>
-                        {% else %}
-                        <a href="{{ url_for('like_recipe', recipe_id=recipe._id, user_id=user._id) }}" class="btn btn-primary like-btn cake-btn" id="like-btn"><i class="far fa-thumbs-up">Like Recipe</i></a>
+                    {% if user %}
+                        {% if user_liked %}
+                            <button class="btn btn-primary like-btn cake-btn" id="liked-btn" disabled><i class="far fa-thumbs-up">You like this Recipe</i></button>
+                            {% else %}
+                            <a href="{{ url_for('like_recipe', recipe_id=recipe._id, user_id=user._id) }}" class="btn btn-primary like-btn cake-btn" id="like-btn"><i class="far fa-thumbs-up">Like Recipe</i></a>
+                        {% endif %}
                     {% endif %}
                     </div>
                     <br>
@@ -60,7 +62,7 @@
                 <p>{{ method_format }}</p>
                 {% endif %}
             </div>
-            <a class="btn btn-primary cake-btn cancel-btn" value="cancel">Back</a>
+            <a href="{{ url_for('search_results') }}" class="btn btn-primary cake-btn cancel-btn" value="cancel">Back</a>
         </div>
     </div>
 </div>
