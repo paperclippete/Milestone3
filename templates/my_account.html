@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
-
 <div class="view-recipe-layout">
     <div class="view-recipe view-user-login edit-details">
         <div class="recipe-title">
             <h2>Edit your Details</h2>
         </div>
+        <!-- Edit details with WTForm using CSRF Token and form-control -->
         <div class="recipe-body edit-account">
             <form action="{{ url_for('update_user', user_id=user._id) }}" method="POST">
                 <div class="form-group edit-input">
