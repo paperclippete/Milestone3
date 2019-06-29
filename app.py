@@ -133,7 +133,6 @@ def find_recipes():
     if request.method == 'POST':
         search_text = request.form.get("search_text")
         checkboxes = request.form.getlist("check")
-        print(checkboxes)
         # Search textbox (if empty, else text) with no checkboxes checked
         if len(checkboxes) == 0:
             if search_text == "":
@@ -217,22 +216,22 @@ def view_recipe(recipe_id):
     """ View a recipe from the db """
     the_recipe = recipes.find_one({"_id": ObjectId(recipe_id)})
     # Ensure method prints in html with capital letters
-    method_string = the_recipe['method']
+    method_string = the_recipe['method'].strip(".")
     method_format = ""
-    sentences = list(method_string.split(".")) 
-    for i in range(len(sentences)): 
+    sentences = list(method_string.split("."))
+    for i in range(len(sentences)):
+        sentences[i] = sentences[i].rstrip(".")
         sentences[i] = sentences[i].strip()
-        sentences[i] = sentences[i].strip(".") 
         sentences[i] = sentences[i][:1].upper() + sentences[i][1:] 
-        method_format += sentences[i] + ". " 
+        method_format += sentences[i] + ". "
     description_string = the_recipe['recipe_description']
     description_format = ""
-    sentences = list(description_string.split(".")) 
+    sentences = list(description_string.split("."))
     for i in range(len(sentences)): 
-        sentences[i] = sentences[i].strip()
-        sentences[i] = sentences[i].strip(".") 
-        sentences[i] = sentences[i][:1].upper() + sentences[i][1:] 
-        description_format += sentences[i] + ". "
+            sentences[i] = sentences[i].rstrip(".")
+            sentences[i] = sentences[i].strip()
+            sentences[i] = sentences[i][:1].upper() + sentences[i][1:] 
+            description_format += sentences[i] + ". "
     users = mongo.db.users
     if current_user.is_authenticated:
         loggeduser = current_user.username["username"]
@@ -376,17 +375,17 @@ def like_recipe(recipe_id, user_id):
     method_string = the_recipe['method']
     method_format = ""
     sentences = list(method_string.split(".")) 
-    for i in range(len(sentences)): 
+    for i in range(len(sentences)):
+        sentences[i] = sentences[i].rstrip(".")
         sentences[i] = sentences[i].strip()
-        sentences[i] = sentences[i].strip(".")
         sentences[i] = sentences[i][:1].upper() + sentences[i][1:] 
         method_format += sentences[i] + ". "
     description_string = the_recipe['recipe_description']
     description_format = ""
     sentences = list(description_string.split(".")) 
     for i in range(len(sentences)): 
+        sentences[i] = sentences[i].rstrip(".")
         sentences[i] = sentences[i].strip()
-        sentences[i] = sentences[i].strip(".") 
         sentences[i] = sentences[i][:1].upper() + sentences[i][1:] 
         description_format += sentences[i] + ". "
     user_liked = True
