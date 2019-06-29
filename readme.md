@@ -69,7 +69,7 @@ In order to create a good UX Dessert Search...
 * will have a simple search interface with filters
 * will be functional to any user, whether logged in or not, but provide extra functionality and personalisation to registered users
 
-Please find my initial wireframe and database schema, created using Balsamiq, [here](development/DessertSearch.pdf)
+Please find my initial wireframe and database schema, created using Balsamiq, [here](development/wireframes/DessertSearch.pdf)
 
 <img src="static/img/cake2.png" height="40" width="40">
 
