@@ -2,6 +2,14 @@
 
 Welcome to Dessert Finder. 
 
+###Grading
+
+The breakdown of your marks for each assessment criterion (graded from 0 to 5) are as follows:
+Project Purpose: 5, UX design: 5, Suitability for purpose: 5, Navigation: 5, Ease of Use: 5, Information Architecture: 5, Defensive Design: 3, Responsive Design: 5, Image Presentation: 5, Colour scheme and typography: 5, Appropriate use of HTML: 5, Appropriate use of the template language: 5, Appropriate use of CSS: 5, Appropriate use of JavaScript: 4, Appropriate use of Python: 3, Directory Structure and File Naming: 5, Version Control: 5, Testing implementation: 4, Testing write-up: 5, Readme file: 5, Comments: 5, Data store integration: 5, Deployment implementation: 5, Deployment write-up: 5,
+
+Your percentage grade for this project is 95.0%.
+
+
 This is a web application that allows users to store and access dessert recipes. There is a robust non-relational database schema hosted on MongoDB. A backend code that groups and summarises the recipes on the site, based on their attributes and a frontend page to show this summary, and make the categories clickable to drill down into a filtered view based on that category. Using Python and Flask the backend code will retrieve a list of recipes, filtered based on various criteria (e.g. allergens, cuisine, etc…) and order them based on some reasonable aspect (e.g. number of views or upvotes). The frontend page will display these and show some summary statistics for the data.
 There is a detailed view for each recipe, that would just show all attributes for that recipe, and the full preparation instructions. Users can edit and delete their own recipe records as well as their user details.
 There is a secure user registration and authentication to the site. This allows for a more personalised experience and ensures data is secure.
@@ -315,4 +323,3 @@ I used Ian Lunn's [Hover](https://ianlunn.github.io/Hover/) for my navbar link h
 I used [W3Schools](https://www.w3schools.com/) code as a basis for my custom checkboxes.
 
 Throughout this project I have sought support and guidance from [Stack-Overflow](https://stackoverflow.com/), Code-Institue [Slack](https://slack.com/intl/en-gb/) Community, [W3Schools](https://www.w3schools.com/), [CSS Tricks](https://css-tricks.com/), [Pretty Printed](https://prettyprinted.com/) YouTube videos.
-
