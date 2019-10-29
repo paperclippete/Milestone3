@@ -7,7 +7,7 @@ Flask-WTF==0.14.2
 Jinja2==2.10.1
 MarkupSafe==1.1.1
 WTForms==2.2.1
-Werkzeug==0.15.2
+Werkzeug==0.15.3
 bcrypt==3.1.6
 cffi==1.12.3
 dnspython==1.16.0
